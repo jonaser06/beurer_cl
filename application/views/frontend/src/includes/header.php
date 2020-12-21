@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HOLA JOSE - BEURER - <?php if(isset($product['titulo'])){ echo ucfirst(mb_strtolower($product['titulo'])); }if ($varify_product == 1) { echo $product['pagetitle']; }elseif($varify_product == 0){ echo $pagina['pagetitle']; }else{ echo $category[0]['titulo']; } ?></title>
+    <title>BEURER - <?php if(isset($product['titulo'])){ echo ucfirst(mb_strtolower($product['titulo'])); }if ($varify_product == 1) { echo $product['pagetitle']; }elseif($varify_product == 0){ echo $pagina['pagetitle']; }else{ echo $category[0]['titulo']; } ?></title>
     <meta name="description" content="<?php if ($varify_product == 1) { echo $product['meta_description']; }elseif($varify_product == 0){ echo $pagina['meta_description']; } ?>"/>
     <meta name="keywords" content="<?php if ($varify_product == 1) { echo $product['meta_keyword']; }elseif($varify_product == 0){ echo $pagina['meta_keyword']; } ?>"/>
     <meta property="og:title" content="<?php if ($varify_product == 1) { echo $product['og_title']; }elseif($varify_product == 0){ echo $pagina['og_title']; } ?>" />
