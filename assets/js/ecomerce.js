@@ -71,17 +71,17 @@ const signature = (payu_total, code) => {
 const ADD_QUERY_PARAMS = () => {
     let URI_RESP = '';
     if (dest) {
-        URI_RESP += `flag_dest=true&dest_nombres=${dest.nombres}&dest_apellidos=${dest.apellidos}&dest_telefono=${dest.telefono}&dest_tipo_doc=${dest.number_doc}`;
+        URI_RESP += `&dest_nombres=${dest.nombres}&dest_telefono=${dest.telefono}&dest_tipo_doc=${dest.tipo_doc}&dest_number_doc=${dest.number_doc}`;
     }
     if (facturacion) {
-        URI_RESP += `flag_facturacion=true&ruc=${facturacion.ruc}&r_social=${facturacion.r_social}&r_fiscal=${facturacion.r_fiscal}`;
+        URI_RESP += `&ruc=${facturacion.ruc}&r_social=${facturacion.r_social}&r_fiscal=${facturacion.r_fiscal}`;
     }
     return URI_RESP
 }
 const ADD_PARAMS = () => {
-    return `nombres=${user.nombres}&apellidos=${user.apellidos}&tipo_documento=${user.tipo_doc}&numero_documento=${user.number_doc}&provincia=Quito&distrito=${user.distrito}&telefono=${user.telefono}&d_envio=${user.d_envio}&referencia=${user.referencia}&entrega_precio=${parseFloat(envio)}&tipo_cupon=${tipo_cupon == null ? 0 : tipo_cupon }&cupon_codigo=${cupon_codigo}&cupon_descuento=${cupon_descuento}&cantidades=${converter().cant_products}&subtotales=${converter().subtotal_products}&id_productos=${converter().id_products}&skus=${converter().skus_prods}&xratioColors=${converter().colores_prods}`;
-}
-
+        return `nombres=${user.nombres}&apellidos=${user.apellidos}&tipo_documento=${user.tipo_doc}&numero_documento=${user.number_doc}&provincia=Quito&distrito=${user.distrito}&telefono=${user.telefono}&d_envio=${user.d_envio}&referencia=${user.referencia}&entrega_precio=${parseFloat(envio)}&tipo_cupon=${tipo_cupon == null ? 0 : tipo_cupon }&cupon_codigo=${cupon_codigo}&cupon_descuento=${cupon_descuento}&cantidades=${converter().cant_products}&subtotales=${converter().subtotal_products}&skus=${converter().skus_prods}&xratioColors=${converter().colores_prods}`;
+    }
+    // id_productos=${converter().id_products}
 export const initPayu = () => {
     document.querySelector('.formPayu').addEventListener('submit', async e => {
         e.preventDefault();
@@ -121,8 +121,8 @@ export const initPayu = () => {
                     <input name="declineResponseUrl"    type="hidden"  value="${DOMAIN}">
                     <input name="displayShippingInformation"    type="hidden"  value="${parseInt(envio)? 'YES':'NO'}">
                      ${$inputRecojo}
-                    <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_QUERY_PARAMS()}&${ADD_PARAMS()}">
-                    <input name="confirmationUrl" type="hidden"  value="" >`;
+                    <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">
+                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}ajax/confirmPagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}" >`;
 
         e.target.submit()
     });
