@@ -2026,8 +2026,6 @@ class Ajax extends MY_Controller
                     return;
                 }
                 
-            
-            
           }else {
             $this->output
             ->set_content_type('application/json')
