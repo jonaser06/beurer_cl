@@ -1910,7 +1910,7 @@ class Ajax extends MY_Controller
     #CONFIRM PAGE PAYU
      public function confirmPagePayu () {
 
-        if (isset($_POST['response_code_pol'])) {
+        if (true) {
           
                 $id_productos = explode('-',$this->input->post('extra1'));
                 $cantidades   = explode('-',$this->input->get('cantidades'));
