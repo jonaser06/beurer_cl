@@ -65,7 +65,7 @@
                                 <span style="font-weight:bold;display: block; "><?php echo $value['nombre']; ?></span>
                                 <span style="display: block; ">sku: </span>
                                 <span style="display: block; ">cantidad: <?php echo $value['cantidad']; ?></span>
-                                <span style="display: block; ">precio : S/. <?php echo $value['precio_online']; ?></span>
+                                <span style="display: block; ">precio : $/. <?php echo $value['precio_online']; ?></span>
 
                             </td>
                         </tr>
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td align="right" style="padding-right:20px">Total:</td>
-                        <td align="left">S/. <?php echo $orders['total']; ?></td>
+                        <td align="left">$/. <?php echo $orders['total']; ?></td>
                     </tr>
                 </table>
                 <hr style="height:.1px; background-color: #333333;" width="100%" align="center">
