@@ -19,7 +19,7 @@
                             </h2>
                             <!--button type="button" onclick="javascript:history.back(1)" class="btn btn-primary btn-enviar bold blanco verdeb button" style="width: 78px; margin: 0px auto; display: block;">VOLVER</button-->
                             <div class="col-xs-12 col-sm-2 text-center" style="margin: 0 auto;float: none;">
-                                <button type="submit" onclick="javascript:window.location.href='../contactanos'" class="font-nexaheavy btn-send" id="btn-send-form">VOLVER</button>
+                                <button type="submit" onclick="javascript:window.location.href='https://beurer.pe/contactanos'" class="font-nexaheavy btn-send" id="btn-send-form">VOLVER</button>
                                 <!--<a href="https://beurer.pe/contactanos" class="font-nexaheavy btn-send" id="btn-send-form" >VOLVER</a>-->
                             </div>
                             

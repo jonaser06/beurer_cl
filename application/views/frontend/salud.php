@@ -30,16 +30,18 @@
                     <div class="container-fluid px-0">
                         <div class="animatedParent animateOnce" data-sequence='900'>
                             <?php foreach($category as $row){ ?>
-                            <a href="<?= base_url($pagina['url']).'/'.$row['url'] ?>">
-                                <div class="wrapper-card-info col-xs-12 col-sm-6 col-lg-4 px-0 animated fadeInLeftShort" data-id="1"
-                                    style="background-image: url(<?= base_url().$row['imagen'] ?>)">
-                                    <div class="info-card-p">
-                                        <h2><?= $row['titulo']; ?></h2>
-                                        <p><?= $row['contenido']; ?></p>
-                                    </div>
-                                    <div class="hover-card-product bg-salud"></div>
-                                </div>
-                            </a>    
+                                <?php if($row['cantidad'] > 0){ ?>
+                                    <a href="<?= base_url($pagina['url']).'/'.$row['url'] ?>">
+                                        <div class="wrapper-card-info col-xs-12 col-sm-6 col-lg-4 px-0 animated fadeInLeftShort" data-id="1"
+                                            style="background-image: url(<?= base_url().$row['imagen'] ?>)">
+                                            <div class="info-card-p">
+                                                <h2><?= $row['titulo']; ?></h2>
+                                                <p><?= $row['contenido']; ?></p>
+                                            </div>
+                                            <div class="hover-card-product bg-salud"></div>
+                                        </div>
+                                    </a>
+                                 <?php } ?>
                             <?php } ?>
                         </div>
                     </div>

@@ -105,9 +105,6 @@ class Productos extends CI_Controller {
 					->set_content_type('application/json')
 					->set_output(json_encode(['data'=> $data]));
 	}
-
-
-
 	public function string_sanitize($string, $force_lowercase = true, $anal = false) {
 
 	    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
@@ -175,12 +172,17 @@ class Productos extends CI_Controller {
 	public function save()
 
 	{
-		
-
-
 		$input = $this->input->post('productos');
 
 		//var_dump($input);
+		$stock = $input['stock'];
+		
+		$detalles = json_decode($input["colores"],true);
+		if(count($detalles)) {
+			foreach ($detalles as $key => $value) {
+				$stock += $value['stock'];
+			}
+		}		
 		
 		$data_in = array(
 			'categoria_id' => (empty($input['subcategoria']))? '3': $input['subcategoria'],
@@ -190,6 +192,10 @@ class Productos extends CI_Controller {
 			'accesorios' => $input['accesorio'],
 			'descripcion' => $input['descripcion'],
 			'ficha_tecnica' => $input['ficha_tecnica'],
+			'producto_sku' => $input['producto_sku'],
+			'precio' => $input['precio'],
+			'precio_anterior' => $input['precio_anterior'],
+			'detalles-multimedia' => $input['colores'],
 			'marcas' => $input['marcas'],
 			'tipo' => '',
 			'pdf' => $input['pdf'],
@@ -202,6 +208,11 @@ class Productos extends CI_Controller {
 			'og_image' => $input['og_image'],
 			'video' => $input['video'],
 			'active' => $input['active'],
+			'alto' => $input['alto'],
+			'ancho' => $input['ancho'],
+			'largo' => $input['largo'],
+			'peso' => $input['peso'],
+			'stock' => $stock,
 			'relacionados' => $input['relacionados'],
             'orden' => $input['orden']
 		);

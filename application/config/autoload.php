@@ -147,3 +147,6 @@ define('MAIL_USER', getenv('MAIL_USER') );
 define('MAIL_PASS', getenv('MAIL_PASS') );
 define('PUBLIC_KEY', getenv('PUBLIC_KEY') );
 define('PRIVATE_KEY', getenv('PRIVATE_KEY') );
+define('MERCHANT_ID', getenv('MERCHANT_ID') );
+define('ACCOUNT_ID', getenv('ACCOUNT_ID') );
+define('API_KEY', getenv('API_KEY') );

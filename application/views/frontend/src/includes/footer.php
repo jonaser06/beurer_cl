@@ -1,4 +1,4 @@
-<div class="wrapper-footer">
+<div class="wrapper-footer" <?php echo (isset($carrito) && $carrito )?'id="piedepag" style="display:none;"':''; ?>>
     <footer class="container-fluid">
         <div class="container">
             <div class="row">
@@ -17,6 +17,7 @@
                     <ul>
                         <li><a href="<?= base_url('preguntas-frecuentes'); ?>" class="link-footer">FAQ</a></li>
                         <!-- <li><a href="<?= base_url('instrucciones-de-uso'); ?>" class="link-footer">Instrucciones de uso</a></li> -->
+                        <li><a href="<?= base_url('reclamos'); ?>" class="link-footer">Libro de Reclamaciones</a></li>
                         <li><a href="<?= base_url('centro-de-descargas'); ?>" class="link-footer">Centro de descargas</a></li>
                         <li><a href="<?= base_url('terminos-y-condiciones'); ?>" class="link-footer">Términos y condiciones</a></li>
                         <li><a href="<?= base_url('politicas-de-privacidad'); ?>" class="link-footer">Políticas y privacidad</a></li>
@@ -28,6 +29,7 @@
                     
                 </div>
                 <div class="col-sm-5 col-md-6 col-1-5 phons-f">
+
                     <!-- <h2 class="phones-footer"><a href="#"><i class="icon-f icon-phone"></i> <?php echo $confif['numero_t']; ?></a></h2 class="phones-footer"> -->
 
                     <?php if (!empty($confif['numero_t2'])): ?>
@@ -46,7 +48,7 @@
                     <!-- DIRECCIÓN -->
                     <?php if (!empty($confif['direccion'])): ?>
                         <?php foreach ($confif['direccion'] as $row): ?>
-                            <a href="#" class="link-footer d-block"><i class="icon-f icon-ubc"></i>  <?= $row['ubicacion']; ?></a>
+                            <a href="#" class="link-footer d-block direction-footer"><i class="icon-f icon-ubc"></i>  <?= $row['ubicacion']; ?></a>
                         <?php endforeach ?>
                     <?php endif ?>
 
@@ -81,141 +83,77 @@
         <div class="crd">
             <div class="container">
                 <div class="crd1">
-                    <p class="text-credits"><a href="index.php" target="_blank">BEURER TODOS LOS DERECHOS RESERVADOS <?= date("Y");?></a></p>
-                    <!-- <p class="text-credits">TODOS LOS DERECHOS RESERVADOS 2020</p> -->
+                    <p class="text-credits"><a href="index.php" target="_blank">BEURER</a></p>
+                    <p class="text-credits">TODOS LOS DERECHOS RESERVADOS 2020</p>
                 </div>
                 <div class="crd2">
-                    <p class="text-credits">
-                        <!-- POWERED BY  -->
-                        <!-- <a href="http://exe.digital/" target="_blank">EXE</a> -->
+                    <p class="text-credits">POWERED BY 
+                        <a href="http://exe.digital/" target="_blank">EXE</a>
                     </p>
-                    <br>
                     <p class="oculMob hidden-xs">
-                       <!--  <a href="https://validator.w3.org/check?uri=referer"
+                        <a href="https://validator.w3.org/check?uri=referer"
                             class="text-f text-credits" target="_blank">HTML </a> • 
                         <a href="https://jigsaw.w3.org/css-validator/check/referer"
-                            class="text-f text-credits" target="_blank">CSS</a> -->
+                            class="text-f text-credits" target="_blank">CSS</a>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-</div>
-<script src="<?= base_url(); ?>assets/js/app.js"></script>
-<script src="<?= base_url(); ?>assets/js/libraries/animate-it.js"></script>
-<!--script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script-->
-<script src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
-<script>
-    $('.search_get').keyup(function(event) {
-        $('show_result').html('<img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" width="30">')
-        $.ajax({
-            url: '<?php echo base_url('productos/search/') ?>'+$(this).val(),
-        })
-        .done(function(data) {
-            $('#show_result').html(data)
-        })
-            .always(function() {
-            console.log("complete");
-        });
-        
-        
-    });
- 
-    
-    $('.box-search').hover(function(event) {
-        $('#show_result').html('')
-    });
-    
-    if (screen && screen.width > 992) {
-        $(".div-search").mouseover(function(event){
-            $(".input-search").css({
-                'width':'18em',
-                'border-color': '#c51152',
-                'border-radius': '15px',
-
-            })
-        });
-        $(".div-search").mouseout(function(event){
-            $(".input-search").css({
-                'width':'0',
-                'border-color': 'transparent',
-                'border-radius': '0',
-                //'padding': '0'
-            })
-        });
-    }else{
-        $(".div-search").click(function(){
-            $(".input-search").css({
-                "top" : "0" //modificamos el bottom a 0
-            });
-            $(".bsc-btn").css({
-                "opacity": "1",
-                "z-index": "10000"
-            })
-        });
-        $(".div-search").mouseout(function(){
-            $(".input-search").css({
-                "top" : "-100%" //modificamos el bottom a 0
-            });
-            $(".bsc-btn").css({
-                "opacity": "0",
-                "z-index": "-2"
-            })
-        });
+    <style>
+         @media (max-width: 480px){
+        body {
+            font-size: 72.5%!important;
+        }
     }
+    </style>
+</div>
+<!-- <div class="popup-ini" id="login" style="display: none;">
+    <div class="popup-inner">
+        <img id="img-popup" src="https://beurer.pe/assets/sources/popup/CANALES%20DE%20ATENCION-02.jpg" class="img-responsive" alt="">
+        <button type="button" class="close"><span aria-hidden="true">×</span></button>
+    </div>
+</div> -->		
 
-    $(document).ready(function(){
+
+<script src="<?= base_url(); ?>assets/js/app.js"></script>
+<script src="<?= base_url(); ?>assets/js/app2.js"></script>
+
+<script src="<?= base_url(); ?>assets/js/libraries/animate-it.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
+<script src="<?= base_url(); ?>assets/js/libraries/fancybox.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/libraries/fullpage.js"></script>
+<script src="<?= base_url(); ?>assets/js/main.js?v2"></script>
+
+<script>
+    /* menu */
+    $(document).ready(function () {
         if (screen && screen.width > 992) {
-            console.log('hola');
-            $(".d-menu").hover(function(event){
-                
+            $(".d-menu").hover(function (event) {
+
                 $(".content-nav").toggleClass("caida");
-                
+
             });
-            $('.link-nav').click(function(e){
+            $('.link-nav').click(function (e) {
                 e.preventDefault();
             })
 
             var menuClasess = [1, 2, 3, 4, 5]
 
             menuClasess.forEach(item => {
-                $('.d-menu' + item).mouseover(function(event){
+                $('.d-menu' + item).mouseover(function (event) {
                     menuClasess.forEach(el => {
                         $(".content-nav").removeClass("caida" + el);
                     })
                     $(".content-nav").addClass("caida" + item);
                 });
             });
-
-            console.log($('.menu-one'));
-            $('.menu-one').on('mouseover', function() {
+            $('.menu-one').on('mouseover', function () {
                 $(".content-nav").removeClass("caida");
-            });  
+            });
         }
     });
-
-    $('#subscribe').submit(function(event){
-        event.preventDefault();
-
-        $.ajax({
-            url: ''+ $(this).attr('action') +'',
-            type: 'POST',
-            data: $(this).serialize(),
-        })
-        .done(function(data) {
-            if(data.resp == true){
-                $('#subscribe').attr('title', ''+data.msj+'');
-                $('#subscribe').attr('data-original-title', ''+data.msj+'');
-
-                $('#subscribe').tooltip('show');
-                $('#subscribe')[0].reset();
-            }else{
-                $('#subscribe').attr('title', ''+data.msj+'');
-                $('#subscribe').attr('data-original-title', ''+data.msj+'');
-                $('#subscribe').tooltip('show');
-            }
-        });
-        
-    });
-
 </script>
+
+

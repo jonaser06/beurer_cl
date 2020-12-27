@@ -5,7 +5,6 @@
     <head>
 
         <?= $this->load->view('backend/chunks/head', array(), TRUE) ?>
-
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -153,7 +152,7 @@
 
                                         </div>
                                         <br>
-                                        <!--<a href="#" data-toggle="modal" data-target="#edit_producto" class="btn btn-sm btn-info btn-flat"><i class="glyphicon glyphicon-plus"></i> Agregar producto</a>-->
+                                        <!-- <a href="#" data-toggle="modal" data-target="#edit_producto" class="btn btn-sm btn-info btn-flat"><i class="glyphicon glyphicon-plus"></i> Agregar producto</a> -->
 
                                         <a href="javascript: Exeperu.addProducto()" class="btn btn-sm btn-info btn-flat"><i class="glyphicon glyphicon-plus"></i> Agregar Producto</a>
 
@@ -274,124 +273,153 @@
 
         <script>
 
-
-
         $(document).ready(function(){      
-
-
             liscategorias();
-            
-
-
-
             function liscategorias(){                
-
-                var html='<option value="0">Seleccione una categoría...</option>';
-
+                let html='<option value="0">Seleccione una categoría...</option>';
                 $("#liscategorias").html(html);
-
                 $.ajax({
-
                    url:'<?= base_url('categorias/list/'); ?>',
                    success:function(response){
-                        //console.log(response)
-                        
-                       //var obj=JSON.parse(response);
-
                        $.each(response ,function(i,item){
-
-                          var html = '<option  value="'+item.idpagina+'">'+item.pagina+'</option>'; 
-
+                          let html = `<option  value="${ item.idpagina }">${ item.pagina }</option>`; 
                           $("#liscategorias").append(html);
-
                        });
-                        
-                   }
+                   },complete: function(data) {
 
+                        if($(localStorage.getItem('categoria'))) {
+                            const list=  document.querySelectorAll('#liscategorias > option')
+                            list.forEach(option => {
+                                if(option.value == localStorage.getItem('categoria')) {
+                                    option.setAttribute('selected','selected');
+                                    $.ajax({
+                                        url:'<?= base_url('categorias/lissubcategorias'); ?>',
+                                        type:'post',
+                                        data:{'idcat': option.value},
+                                        success:function(response){
+
+                                            $.each(response, function(i , item){
+
+                                            let html=`<option  value="${ item.titulo }">${ item.titulo }</option>`; 
+                                            $("#lissubcategorias").append(html);
+                                            });
+
+                                            if( localStorage.getItem('subcategoria') ){
+                                                const $subCats =  document.querySelectorAll('#lissubcategorias > option');
+                                                $subCats.forEach( sub => {
+                                                    if( sub.textContent == localStorage.getItem('subcategoria')){
+                                                        sub.setAttribute('selected','selected')
+                                                        table.columns( 2 )
+                                                        .search( sub.textContent )
+                                                        .draw();
+                                                    }
+                                                })
+                                                
+                                                
+                                            }
+                                        }
+                                    });
+                                }
+                            })
+                         }
+                    }
                 });
-
             }
-
             $("#lissubcategorias").change(function() {
-                //alert('hola mundo');
-                table.columns( 2 )
+                    table.columns( 2 )
                     .search( this.value )
                     .draw();
+                localStorage.setItem('subcategoria',this.value)
             });
 
             $("#liscategorias").change(function(e){
-
+                table.columns(2).search( "" ).draw();
                 e.preventDefault();
-
-                var idcat=$(this).val();
-
-                var xd='<option value="">Seleccione una subcategoría...</option>';
-
-                $("#lissubcategorias").html(xd);
-
-                 $.ajax({
-
-                    url:'<?= base_url('categorias/lissubcategorias'); ?>',
-
-                    type:'post',
-
-                    data:{'idcat':idcat},
-
-                    success:function(response){
-                        //console.log(response)
-                        //var obj=JSON.parse(response);
-
-                        $.each(response, function(i,item){
-
-                           var html='<option  value="'+item.titulo+'">'+item.titulo+'</option>'; 
-
-                           $("#lissubcategorias").append(html);
-
-                        });
-
+                let idcat = $(this).val();
+                
+                let categorias = document.querySelectorAll('#liscategorias > option');
+                categorias.forEach( cat => {
+                    if( cat.value == idcat && cat.value !== '0'){
+                        let search = cat.textContent;     
+                        table.search( search ).draw();
                     }
-
+                })
+                
+                localStorage.setItem( 'categoria',idcat )
+                let content ='<option value="">Seleccione una subcategoría...</option>';
+                $("#lissubcategorias").html(content);
+                 $.ajax({
+                    url:'<?= base_url('categorias/lissubcategorias'); ?>',
+                    type:'post',
+                    data:{'idcat':idcat},
+                    success:function(response){
+                        $.each(response, function(i,item){
+                           let html='<option  value="'+item.titulo+'">'+item.titulo+'</option>'; 
+                           $("#lissubcategorias").append(html);
+                        });
+                    }
                  });
-
-
-
                  $("#lissubcategorias").val(0);
-
+               
              });
 
-            var table = $('#table_productos').DataTable({
-            "ajax": "manager/productos/read",
-                "columns": [
-                    { "data": "titulo" },
-                    { "data": "active", "render" : function(data){
-                        var i = "";
-                        if (data == 1) {
-                            i = "<span class='label label-success'>Activo</span>";
-                        } else {
-                            i = "<span class='label label-danger'>Desactivado</span>";
-                        }
+                let table = $('#table_productos').DataTable({
+                "ajax": "manager/productos/read",
+                    "columns": [
+                        { "data": "titulo" },
+                        { "data": "active", "render" : function(data){
+                            var i = "";
+                            if (data == 1) {
+                                i = "<span class='label label-success'>Activo</span>";
+                            } else {
+                                i = "<span class='label label-danger'>Desactivado</span>";
+                            }
 
-                        return i;
-                        
-                    } },
-                    { "data": "subcategoria" },
-                    { "data": "pagina" },
-                    { "data": "imagen", "render" : function(data){
+                            return i;
+                            
+                        } },
+                        { "data": "subcategoria" },
+                        { "data": "pagina" },
+                        { "data": "imagen", "render" : function(data){
+                            var salida;
+                            salida = "<img src=\"<?= base_url();  ?>"+data+"\" width=\"80\">";
+                            return  salida;
+                        } },
+                        { "data": "id", 'render': function(data, type, row){
                         var salida;
-                        salida = "<img src=\"<?= base_url();  ?>"+data+"\" width=\"80\">";
-                        return  salida;
-                    } },
-                    { "data": "id", 'render': function(data, type, row){
-                       var salida;
-                        salida = "<a href=\"javascript:Exeperu.editProducto("+data+");\" class=\"btn btn-primary btn-sm btn-flat\"><i class=\"fa fa-pencil\"></i></a>";
-                        salida += " | ";
-                        salida += "<a href=\"javascript:Exeperu.eliminarProducto("+data+");\" id=\"categoria_"+data+"\" class=\"btn btn-danger btn-sm btn-flat\"><i class=\"fa fa-trash-o\"></i></a>";
-                        
-                        return  salida;
-                    } },
-                ]
-            });
+                            salida = "<a href=\"javascript:Exeperu.editProducto("+data+");\" class=\"btn editarBtn data-id ="+data+" btn-primary btn-sm btn-flat\"><i class=\"fa fa-pencil\"></i></a>";
+                            salida += " | ";
+                            salida += "<a href=\"javascript:Exeperu.eliminarProducto("+data+");\" id=\"categoria_"+data+"\" class=\"btn btn-danger btn-sm btn-flat\"><i class=\"fa fa-trash-o\"></i></a>";
+                            
+                            return  salida;
+                        } },
+                    ]
+                });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         });
+
 
         var t = $('#tabla_descripcion').DataTable();
 

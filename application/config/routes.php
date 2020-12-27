@@ -44,38 +44,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | controller and method names that contain dashes. '-' isn't a valid
 | class or method name character, so it requires translation.
 | When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
+| controller and method URI segments.salud
 |
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
 
 $route['default_controller'] = 'request';
+
 $route['noticias/(:num)-(:any)'] = 'request/detallenoticia/$1';
 $route['form/enviar'] = 'request/enviarform';
-/*$route['vivero-arona']='request/viveroarona';
-$route['packing']='request/packing';
-$route['produccion-exportacion']='request/produccionexportacion';
-$route['nosotros']='request/nosotros';*/
-/*$route['politicas']='request/politicas';
-$route['detalleespeciales']='request/detalleespecial';
-$route['libro/(:any)']='request/libro/$1';
-$route['(:any)-tag-(:num)']='request/resultados/$2';
-$route['resultadosextra']='request/resultadosextra';
-$route['articulosextra']='request/articulosextra';
-$route['resultadosextrabus']='request/resultadosextrabus';
-$route['buscar']='request/buscar';
-$route['contacto-enviar']='frontend/enviar/contacto';
-$route['suscrito-enviar']='frontend/enviar/suscrito';
-$route['cotizacion-enviar']='frontend/enviar/cotizacion';
-$route['amigo-enviar']='frontend/enviar/amigo';
-$route['gracias-(:any)-(:num)']='frontend/enviar/gracias/$2';
-$route['columnista-(:num)']='request/detallecolumnista/$1';
-$route['columnistasdetalle']='request/detallecolumnistas';
-$route['elcolumnista']='request/perfilcolumnista';*/
+
 $route['categorias/lissubcategorias'] = 'frontend/categorias/lissubcategorias/';
 $route['categorias/getProducto'] = 'frontend/categorias/getProducto/';
 $route['categorias/list'] = 'frontend/categorias/liscategorias';
+
+#factura cliente
+$route['pdf/(:any)/(:any)'] = function ($codigo, $condition ) {
+   return 'frontend/pdf/toPDF/'.$codigo.'/'.$condition;
+};
+#rotulado Admin
+$route['rotulado/(:any)/(:any)'] = function ($codigo, $condition ) {
+   return 'frontend/pdf/rotulado/'.$codigo.'/'.$condition;
+};
+
+#payu response page
+
 
 $route['categoria/(:num)'] = 'backend/productos/read/$1';
 $route['categoria/save/(:num)'] = 'backend/productos/save/$1';
@@ -94,6 +88,8 @@ $route['manager/login'] = 'backend/login/login';
 $route['manager/paginas/(:num)/(:num)/(:num)'] = 'backend/Paginas/edit/$1/$2/$3';
 $route['manager'] = 'backend/login';
 $route['manager/(.*)'] = 'backend/$1';
+$route['gatoslocos'] = 'html';
+
 //$route['(:any)/(:any)']='request/detallearticulo/$2';
 //$route['(.*)'] = 'welcome';
 
@@ -111,6 +107,36 @@ $route['actividad/(:any)/(:any)'] = 'frontend/productos/show/$2';
 
 $route['linea-bebe/(:any)'] = 'frontend/productos/index/$1';
 $route['linea-bebe/(:any)/(:any)'] = 'frontend/productos/show/$2';
+
+
+#categorias
+
+// $route['(:any)'] = 'categorias/seccion/$1';
+
+// $route['(:any)/(:any)'] = 'categorias/proveedor/$1/$2';
+
+// $route['(:any)/(:any)/(:any)'] = 'categorias/innerproducto/$3';
+
+
+$route['carrito'] = 'frontend/carrito/index/';
+$route['enviopago'] = 'frontend/enviopago/index/';
+$route['reclamos'] = 'frontend/reclamos/index/';
+$route['registro'] = 'frontend/auth/index';
+$route['facturacion'] = 'frontend/carrito/register';
+$route['send-payment'] = 'frontend/carrito/envio';
+$route['order-summary'] = 'frontend/ResumenPedido/index/';
+
+$route['estado-pedido'] = 'frontend/RastreaPedido/index';
+$route['updatePass/(:num)'] = 'ajax/updatePass/$1';
+
+$route['myaccount'] = 'frontend/perfil';
+$route['myaccount/update/(:num)'] = 'frontend/perfil/updateCuenta/$1';
+
+$route['recovery'] = 'frontend/recovery/index';
+$route['activate'] = 'frontend/activate/index';
+$route['recovery/(:any)'] = 'frontend/recovery/restore/$1';
+$route['ajax/(:any)']        = 'ajax/$1';
+
 
 
 $route['(.*)'] = 'request';

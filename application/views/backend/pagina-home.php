@@ -81,11 +81,10 @@
                     <div class="nav-tabs-custom" style="box-shadow: none;">
                         
                         <ul class="nav nav-tabs">
-                            <?php 
-                            if(isset($categoria)){?>
-                                <li><a href="#tab_categoria" data-toggle="tab">Categoría</a></li>
-                            <?php }
-                            ?>
+                            
+                            
+                                <!-- <li><a href="#tab_categoria" data-toggle="tab">Categoría</a></li> -->
+                            
                             <?php if (!empty($variables)) { ?>
                                 <li class="active"><a href="#tab_variables" data-toggle="tab">Variables</a></li>
                             <?php } ?>
@@ -102,7 +101,7 @@
                             ?>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane" id="tab_categoria">
+                            <!-- <div class="tab-pane" id="tab_categoria">
                                 <form id="inputs_categoria" action="manager/paginas/savecategoria" method="post">
                                     <div class="row">
                                         <div class="col-xs-6">
@@ -138,17 +137,17 @@
                                         </div>
                                     </div>
 
-<!--                                    <input type="hidden" class="form-control" name="sitemap-idsitemap" value="<!?= isset($recurso['sitemap-idsitemap']) ? $recurso['sitemap-idsitemap'] : ''; ?>">
+                              <input type="hidden" class="form-control" name="sitemap-idsitemap" value="<!?= isset($recurso['sitemap-idsitemap']) ? $recurso['sitemap-idsitemap'] : ''; ?>">
                                     <input type="hidden" class="form-control" name="sitemap-idrecurso" value="<!?= isset($recurso['sitemap-idrecurso']) ? $recurso['sitemap-idrecurso'] : ''; ?>">
-                                    <input type="hidden" class="form-control" name="recursos-idrecurso" value="<!?= isset($recurso['recursos-idrecurso']) ? $recurso['recursos-idrecurso'] : ''; ?>">-->
+                                    <input type="hidden" class="form-control" name="recursos-idrecurso" value="<!?= isset($recurso['recursos-idrecurso']) ? $recurso['recursos-idrecurso'] : ''; ?>">
                                 </form>
-                            </div>
+                            </div> -->
                             <div class="tab-pane <?= (empty($variables))?'active':'' ?>" id="tab_pagina">
                                 <form id="inputs_pagina" action="manager/paginas/saveedit/" method="post">
                                     <div class="row">
                                         
                                         <input type="hidden" name="sitemap[idsitemap]" value="<?= isset($datapagina['idsitemap']) ? $datapagina['idsitemap'] :'' ?>">
-                                        <!--<input type="hidden" name="sitemap[idpagina]" value="<?/*= isset($datapagina['idpagina']) ? $datapagina['idpagina'] :'' */?>">-->
+                                        
 										<div class="col-xs-12">
 											<h4 style="text-align:center"><b>Texto en Español</b></h4>
                                             <div class="col-xs-12">
