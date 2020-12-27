@@ -1909,8 +1909,13 @@ class Ajax extends MY_Controller
 
     #CONFIRM PAGE PAYU
      public function confirmPagePayu () {
-
-        if(isset($_POST["response_code_pol"]) && $_POST["response_code_pol"] == 1 && isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
+        $resp = [
+            'status'  => false,
+            'code'    => 404,
+            'message' => 'Metodo POST requerido',
+        ];
+        // if(isset($_POST["response_code_pol"]) && $_POST["response_code_pol"] == 1 && isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
+        if(isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
 
                 $id_productos = explode('-',$this->input->post('extra1'));
                 $cantidades   = explode('-',$this->input->get('cantidades'));
@@ -2030,7 +2035,7 @@ class Ajax extends MY_Controller
             $this->output
             ->set_content_type('application/json')
             ->set_status_header(404)
-            ->set_output();
+            ->set_output(json_encode($resp));
           }
         # INSERT ORDER IN BD
 
