@@ -1,7 +1,7 @@
 const MERCHANT_ID = '508029';
 const ACCOUNT_ID = '512321';
 const API_KEY = '4Vj8eK4rloUd272L48hsrarnUA'
-let DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
+let DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'http://cl.blogingenieria.site/';
 
 const session = parseInt(document.querySelector('.dataUser').dataset.id);
 const productos = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : []
