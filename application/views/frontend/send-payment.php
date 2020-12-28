@@ -213,6 +213,6 @@
 
 <script src="<?php echo base_url('assets/js/libraries/md5-min.js')?>"></script>
 <script type="module">
-    import PAYU from "<?= base_url('assets/js/ecomerce.js') ?>"
-    PAYU();
+    import PAYULATAM from "<?= base_url('assets/js/ecomerce.js') ?>"
+    PAYULATAM();
 </script>
