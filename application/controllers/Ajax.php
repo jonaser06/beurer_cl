@@ -12,6 +12,7 @@ class Ajax extends MY_Controller
         $this->load->model('backend/msuscriptores');
         $this->load->helper('general');
 
+        
     }
 
     public function setoferta(){
@@ -1867,6 +1868,7 @@ class Ajax extends MY_Controller
                         };                        
                         echo '<script>
                             localStorage.setItem("id_pedido",'.$id_pedido.');
+                            window.location : "'.base_url('order-summary').'"
                            </script>';
                            
                     }else {
@@ -1909,6 +1911,18 @@ class Ajax extends MY_Controller
 
     #CONFIRM PAGE PAYU
      public function confirmPagePayu () {
+        $mensajeLog = '';
+        $mensajeLog .= print_r($_POST,true) . "\r\n";
+        if(strlen($mensajeLog)>0){
+                $filename = "pruebconf.txt";
+                $fp = fopen($filename, "a");
+            if($fp) {
+                fwrite($fp, $mensajeLog, strlen($mensajeLog));
+                fclose($fp);
+            
+            }
+        }
+        
         $resp = [
             'status'  => false,
             'code'    => 404,
