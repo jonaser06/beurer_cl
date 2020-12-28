@@ -11,12 +11,23 @@ class Payu extends MY_Controller
     }
     function index(){
 
+          
+        $mensajeLog = '';
+        $mensajeLog .= print_r($_POST,true) . "\r\n";
+        if(strlen($mensajeLog)>0){
+            $filename = "payu_log.txt";
+            $fp = fopen($filename, "a");
+            if($fp) {
+                fwrite($fp, $mensajeLog, strlen($mensajeLog));
+                fclose($fp);
+            }
+            return ;
+        }
         $resp = [
             'status'  => false,
             'code'    => 404,
             'message' => 'Metodo POST requerido',
         ];
-        // if(isset($_POST["response_code_pol"]) && $_POST["response_code_pol"] == 1 && isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
         if(isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
 
                 $id_productos = explode('-',$this->input->post('extra1'));

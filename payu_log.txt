@@ -1,5 +1,12 @@
 Array
 (
     [test5] => value test
+    [test6] => payutest2
+)
+
+Array
+(
+    [test5] => value test
+    [test6] => payutest2
 )
 
