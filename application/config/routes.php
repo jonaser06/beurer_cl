@@ -68,8 +68,8 @@ $route['rotulado/(:any)/(:any)'] = function ($codigo, $condition ) {
    return 'frontend/pdf/rotulado/'.$codigo.'/'.$condition;
 };
 
-#payu response page
-
+#payu confirmation page
+$route['confirmation']['POST'] = 'frontend/payu.php';
 
 $route['categoria/(:num)'] = 'backend/productos/read/$1';
 $route['categoria/save/(:num)'] = 'backend/productos/save/$1';
