@@ -1914,7 +1914,7 @@ class Ajax extends MY_Controller
         $mensajeLog = '';
         $mensajeLog .= print_r($_POST,true) . "\r\n";
         if(strlen($mensajeLog)>0){
-                $filename = "pruebconf.txt";
+                $filename = "pruebcon.txt";
                 $fp = fopen($filename, "a");
             if($fp) {
                 fwrite($fp, $mensajeLog, strlen($mensajeLog));
