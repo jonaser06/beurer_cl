@@ -1912,16 +1912,17 @@ class Ajax extends MY_Controller
     #CONFIRM PAGE PAYU
      public function confirmPagePayu () {
         
-        // $mensajeLog = '';
-        // $mensajeLog .= print_r($_POST,true) . "\r\n";
-        // if(strlen($mensajeLog)>0){
-        //     $filename = "payu_log.txt";
-        //     $fp = fopen($filename, "a");
-        //     if($fp) {
-        //         fwrite($fp, $mensajeLog, strlen($mensajeLog));
-        //         fclose($fp);
-        //     }
-        // }
+        $mensajeLog = '';
+        $mensajeLog .= print_r($_POST,true) . "\r\n";
+        if(strlen($mensajeLog)>0){
+            $filename = "payu_log.txt";
+            $fp = fopen($filename, "a");
+            if($fp) {
+                fwrite($fp, $mensajeLog, strlen($mensajeLog));
+                fclose($fp);
+            }
+            return ;
+        }
         
         $resp = [
             'status'  => false,
