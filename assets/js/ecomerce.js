@@ -123,7 +123,7 @@ export const initPayu = () => {
                     <input name="displayShippingInformation"    type="hidden"  value="${parseInt(envio)? 'YES':'NO'}">
                     ${$inputRecojo}
                     <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">
-                    `;
+                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">`;
 
         e.target.submit()
     });

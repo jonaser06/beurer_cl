@@ -161,8 +161,7 @@
                                     </div>
                                     
                                     <form  class="formPayu">
-                                    <!-- <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}"> -->
-                                    <input name="confirmationUrl" type="hidden"  value="<?php echo base_url('confirmation?payu=true')?>">
+                                    <!-- <input name="confirmationUrl" type="hidden"  value="<?php echo base_url('confirmation?payu=true')?>"> -->
                                     <input name="Submit" class="btn btn-cmn buy"  style="height:fit-content!important" type="submit"  value="PAGAR" >
                                     </form>
 
