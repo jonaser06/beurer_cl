@@ -102,7 +102,7 @@ select {
 .cost_shipped::before,
 .descont_cost::before,
 .total_cost::before {
-    content: 'S/ ';
+    content: '$ ';
 }
 
 .head-cupon {
