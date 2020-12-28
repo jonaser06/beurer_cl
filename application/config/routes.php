@@ -69,7 +69,7 @@ $route['rotulado/(:any)/(:any)'] = function ($codigo, $condition ) {
 };
 
 #payu confirmation page
-$route['confirmation']['POST'] = 'frontend/payu.php';
+$route['confirmation']['POST'] = 'frontend/payu';
 
 $route['categoria/(:num)'] = 'backend/productos/read/$1';
 $route['categoria/save/(:num)'] = 'backend/productos/save/$1';
