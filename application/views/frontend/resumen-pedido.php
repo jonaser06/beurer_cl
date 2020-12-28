@@ -103,7 +103,7 @@ include 'src/includes/header.php'
             <button class="pdfDown codigo-cip">
             </button>
             <span style="margin:auto">
-               Monto: S/.<b class="order-amount"></b>
+               Monto: $.<b class="order-amount"></b>
             </span>
             <img style="align-self:center;width:190px"
                 src="https://ci5.googleusercontent.com/proxy/dNpAuaG7l9N3YmrbOfdiUFrC8xVDGuTpyubPKGkPMHAS1CnK9wn32ZaoreBKs0rJmcc=s0-d-e1-ft#https://i.imgur.com/VwtuoES.png"
@@ -166,7 +166,7 @@ include 'src/includes/header.php'
                             <span style="display:flex;align-items:center"><img
                                     style="width:25px;cursor:pointer;margin-right:5px"
                                     src="<?= base_url('assets/images/icons/telefono.svg')?>" alt="logo-phone">WhatsApp
-                                978440034.</span>
+                                    315 2861605.</span>
 
                             <span style="display:flex;align-items:center"><img
                                     style="width:20px;cursor:pointer;margin-right:7px"
