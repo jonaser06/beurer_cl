@@ -1868,7 +1868,7 @@ class Ajax extends MY_Controller
                         };                        
                         echo '<script>
                             localStorage.setItem("id_pedido",'.$id_pedido.');
-                            window.location : "'.base_url('order-summary').'"
+                            window.location = "'.base_url('order-summary').'"
                            </script>';
                            
                     }else {
@@ -2057,7 +2057,6 @@ class Ajax extends MY_Controller
         # GUARDAR ID_ORDEN IN LOCAL STORAGE
 
     }
-
 
      #TESTING ORDENES
      public function testOrder ($id) {

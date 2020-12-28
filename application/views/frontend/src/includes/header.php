@@ -117,7 +117,8 @@
             <div class="icon_nav">Tracking</div>
         </li>
     </ol>
-    <div class="modal fade" id="login-modal" tabindex="1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    <!-- <div class="modal fade" id="login-modal" tabindex="1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <?php  $sesion = ( isset($_SESSION['status']) && $_SESSION['status'])?true:false; ?>
         <?php if ( !$sesion ): ?>
         <div class="login-mdl">
@@ -150,7 +151,8 @@
             <div class="option-menu"><a href="<?= base_url('ajax/logout'); ?>">Cerrar Sesión</a></div>
         </div>
         <?php endif; ?>
-    </div>
+    </div> -->
+
     <?php  $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));     ?>
     <div class="wrapper-header" id="cabecera" <?php echo (isset($carrito) && $carrito )?'style="display:none;"':''; ?> >
         <header class="header">

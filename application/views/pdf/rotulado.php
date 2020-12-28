@@ -97,12 +97,12 @@
                     </tr>
                     <tr>
                         <td>
-                        Av. Caminos del Inca Nº 257 2da etapa Tienda Nº 149 
+                        Carrera 11A # 93A-46 Oficina 402, Bogota
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            SANTIAGO DE SURCO - LIMA - LIMA
+                            COLOMBIA - BOGOTA - BOGOTA
                         </td>
                     </tr>
                 </table>
@@ -158,7 +158,7 @@
                             <table width="100% " align="left " cellpadding="1" cellspacing="0 ">
                                 <tr>
                                     <td style="width:10% "><b>Dirección</b></td>
-                                    <td style="width:80% ">: <?php echo intval($pedido['recojo']) ? 'Av. Caminos del Inca Nº 257 - Tienda Nº 149': $pedido['dir_envio'] ?></td>
+                                    <td style="width:80% ">: <?php echo intval($pedido['recojo']) ? 'Carrera 11A # 93A-46 Oficina 402 ': $pedido['dir_envio'] ?></td>
                                 </tr>
                                 <tr>
                                     <td style="width:10% "><b>Nro. /Lote</b></td>
@@ -171,16 +171,16 @@
                                 </tr>
                                 <tr>
                                     <td style="width:10% "><b>Distrito</b></td>
-                                    <td style="width:80% ">: <?php echo intval($pedido['recojo'])? 'SANTIAGO DE SURCO': $pedido['distrito']?></td>
+                                    <td style="width:80% ">: <?php echo intval($pedido['recojo'])? 'BOGOTA': $pedido['distrito']?></td>
                                 </tr>
                                 <tr>
                                     <td style="width:10% "><b>Provincia</b></td>
-                                    <td style="width:80% ">: LIMA - LIMA</td>
+                                    <td style="width:80% ">: BOGOTA - BOGOTA</td>
                                 </tr>
                                 <tr>
                                     <td style="width:20% "><b>Referencia</b></td>
                                     <?php if(intval($pedido['recojo'])) { ?>
-                                        <td style="width:80% ">: Av. Caminos del Inca 2da etapa </td>
+                                        <td style="width:80% ">: Carrera 11A # 93A-46 Oficina 402, Bogota </td>
                                     <?php } else {?>
                                     <td style="width:80% ">: <?php echo ($pedido['referencia']&&$pedido['referencia'] !== 'undefined' ) ?$pedido['referencia'] : ''  ?></td>
                                     <?php }?>

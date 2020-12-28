@@ -2008,10 +2008,10 @@ ObjMain = {
                     <span class="detalle">${parseInt(pedido.recojo) ? '': 'Dirección de Envío:'} ${pedido.dir_envio}</span>
                     ${nodeEnvioDistrito}
                     <br>
-                    <span class="item-price">Precio: S/. ${pedido.productos_precio}</span>
+                    <span class="item-price">Precio: $. ${pedido.productos_precio}</span>
                     ${nodeDescuento}
-                    <span class="item-price">Envio : S/. ${pedido.entrega_precio}</span>
-                    <span class="detalle" style="margin-top:7px;">Total : S/.  ${(parseFloat(pedido.productos_precio) - parseFloat(descuento) + parseFloat(pedido.entrega_precio)).toFixed(2)}</span>
+                    <span class="item-price">Envio : $. ${pedido.entrega_precio}</span>
+                    <span class="detalle" style="margin-top:7px;">Total : $.  ${(parseFloat(pedido.productos_precio) - parseFloat(descuento) + parseFloat(pedido.entrega_precio)).toFixed(2)}</span>
 
                 </div>
                 <div class="item-fecha">

@@ -130,12 +130,12 @@ class Pdf extends MY_Controller
                         </tr>
                         <tr>
                             <td>
-                                Av Los Forestales MZ F LT 5-Sectores C -10A - Villa el Salvador
+                            Carrera 11A # 93A-46 Oficina 402, Bogota DC
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                CHORRILLOS - LIMA - LIMA
+                                COLOMBIA - BOGOTA - BOGOTA
                             </td>
                         </tr>
                     </table>
@@ -194,7 +194,7 @@ class Pdf extends MY_Controller
                                     </tr>
                                     <tr>
                                         <td style="width:20%;font-weight: bold; ">Provincia</td>
-                                        <td style="width:80% ">: LIMA - LIMA</td>
+                                        <td style="width:80% ">: BOGOTA - BOGOTA</td>
                                     </tr>
                                     <tr>
                                         <table width="100% " align="center " cellpadding="0 " cellspacing="0 ">
