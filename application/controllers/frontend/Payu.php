@@ -10,19 +10,6 @@ class Payu extends MY_Controller
        
     }
     function index(){
-
-          
-        // $mensajeLog = '';
-        // $mensajeLog .= print_r($_POST,true) . "\r\n";
-        // if(strlen($mensajeLog)>0){
-        //     $filename = "payu_log.txt";
-        //     $fp = @fopen($filename, "a");
-        //     if($fp) {
-        //         fwrite($fp, $mensajeLog, strlen($mensajeLog));
-        //         fclose($fp);
-        //     }
-        //     return ;
-        // }
         $resp = [
             'status'  => false,
             'code'    => 404,
@@ -127,7 +114,7 @@ class Payu extends MY_Controller
                             localStorage.setItem("id_pedido",'.$id_pedido.');
                            </script>';
                            
-                    }else {
+                }else {
                     $resp = [
                         'status'  => false,
                         'code'    => 500 ,
@@ -144,7 +131,7 @@ class Payu extends MY_Controller
                     return;
                 }
                 
-          }else {
+        }else {
             $this->output
             ->set_content_type('application/json')
             ->set_status_header(404)

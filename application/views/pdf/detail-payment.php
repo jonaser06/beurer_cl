@@ -59,7 +59,7 @@
                              <td style="text-align:left;display: block;width:25% "><?php echo $value['nombre']; ?></td>
                              <td style="text-align:center;display: block;width:15%  "><?php echo $value['producto_sku']?> </td>
                              <td style="text-align:center;display: block;width:15%  "> <?php echo $value['cantidad']; ?></td>
-                             <td style="text-align:center;display: block;width:15%  "> S/. <?php echo $value['precio_online']; ?></td>   
+                             <td style="text-align:center;display: block;width:15%  "> $. <?php echo $value['precio_online']; ?></td>   
                          </tr>
                      <?php } ?>
                 </tbody>
@@ -73,19 +73,19 @@
                 <table align="right">
                     <tr>
                         <td align="right" style="padding-right:20px">Subtotal:</td>
-                        <td align="left">S/.<?php echo $pedido['productos_precio']; ?></td>
+                        <td align="left">$.<?php echo $pedido['productos_precio']; ?></td>
                     </tr>
                     <tr>
                         <td align="right" style="padding-right:20px">Envío:</td>
-                        <td align="left">S/.<?php echo $pedido['entrega_precio']; ?></td>
+                        <td align="left">$.<?php echo $pedido['entrega_precio']; ?></td>
                     </tr>
                     <tr>
                         <td align="right" style="padding-right:20px">Descuento:</td>
-                        <td align="left">S/.<?php echo $pedido['cupon_descuento']; ?></td>
+                        <td align="left">$.<?php echo $pedido['cupon_descuento']; ?></td>
                     </tr>
                     <tr>
                         <td align="right" style="padding-right:20px">Total:</td>
-                        <td align="left">S/. <?php echo $pedido['total']; ?></td>
+                        <td align="left">$. <?php echo $pedido['total']; ?></td>
                     </tr>
                 </table>
                 <hr style="height:.1px; background-color: #333333;" width="100%" align="center">

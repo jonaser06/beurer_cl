@@ -1607,10 +1607,6 @@ class Ajax extends MY_Controller
      
      public function changueState () 
      {
-         // $input_json = file_get_contents("php://input");
- 
-             // $myfile = fopen('log/log-webhooks.json', "w") or die("Imposible abrir el archivo.");
-             // fwrite($myfile, $input_json);
         $input = json_decode(file_get_contents('php://input'), true);
           
         if($input['type'] == 'order.status.changed') {
@@ -2163,24 +2159,5 @@ class Ajax extends MY_Controller
 
 
      }
-     public function createSuccess () 
-     {
-         $resp = [
-             'status'  => false,
-             'code'    => 200,
-             'message' => 'create oreder',
-         ];
-        $input = json_decode(file_get_contents('php://input'), true);
-        $input_json = file_get_contents("php://input");
-
-
-           
-
-            
-            
-            $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(200)
-            ->set_output(json_encode($resp));
-          }
+    
  } 
