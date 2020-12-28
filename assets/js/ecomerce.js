@@ -117,13 +117,13 @@ export const initPayu = () => {
                     <input name="movilePhone"   type="hidden"  value="${user.telefono}">
                     <input name="extra2"       type="hidden"  value="">
                     <input name="extra3"       type="hidden"  value="">
-    
+                    
                     <input name="extra1"       type="hidden"  value="${converter().id_products}">
                     <input name="declineResponseUrl"    type="hidden"  value="${DOMAIN}">
                     <input name="displayShippingInformation"    type="hidden"  value="${parseInt(envio)? 'YES':'NO'}">
-                     ${$inputRecojo}
+                    ${$inputRecojo}
                     <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">
-                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}`;
+                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">`;
 
         e.target.submit()
     });

@@ -1736,12 +1736,13 @@ class Ajax extends MY_Controller
             'message' => 'Metodo POST requerido',
         ];
         if ($this->input->server('REQUEST_METHOD') == 'GET') {
-            $ApiKey = API_KEY;
-            $merchant_id = $_REQUEST['merchantId'];
-            $referenceCode = $_REQUEST['referenceCode'];
-            $TX_VALUE = $_REQUEST['TX_VALUE'];
-            $New_value = number_format($TX_VALUE, 1, '.', '');
-            $currency = $_REQUEST['currency'];
+
+            $ApiKey         = API_KEY;
+            $merchant_id    = $_REQUEST['merchantId'];
+            $referenceCode  = $_REQUEST['referenceCode'];
+            $TX_VALUE       = $_REQUEST['TX_VALUE'];
+            $New_value      = number_format($TX_VALUE, 1, '.', '');
+            $currency       = $_REQUEST['currency'];
             $transactionState = $_REQUEST['transactionState'];
             $firma_cadena = "$ApiKey~$merchant_id~$referenceCode~$New_value~$currency~$transactionState";
             $firmacreada = md5($firma_cadena);
