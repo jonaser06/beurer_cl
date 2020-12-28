@@ -1,4 +1,4 @@
 <?php 
 
-    echo 'this is a file for PAYU DB'
+    var_dump($_GET);
 ?>
