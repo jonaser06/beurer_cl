@@ -125,7 +125,7 @@ export const initPayu = () => {
                     <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">
                     <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmacion.php`;
 
-        e.target.submit()
+        // e.target.submit()
     });
 
 }
