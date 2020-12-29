@@ -1614,6 +1614,7 @@ class Ajax extends MY_Controller
             $objectOrder = json_decode($input['data'], true);    
             $state = trim($objectOrder['state']);         
             if($state == 'paid') { 
+                
                 // obtenemos la data de ordenes resquest con el id_order
                 $orden = $this->get('ordenes',['order_id' => $objectOrder['id']]);
                 $details = json_decode($orden['detalles'],TRUE);
@@ -1626,7 +1627,7 @@ class Ajax extends MY_Controller
                 $skus        = explode('-', $details['skus']);
 
                 date_default_timezone_set("America/Lima");          
-                $data =[ 
+                  $data =[ 
                              'id_cliente' => (int)$details['id_session'],
                              'codigo'   => 'P'.$orden['cip'],
                              'nombres'   => $details['nombres'],
@@ -1650,6 +1651,7 @@ class Ajax extends MY_Controller
                 ];
                 if(isset($details['destinatario'])) {
                     $destinatario = json_decode( $details['destinatario'],TRUE);
+
                     $data["dest_nombres"]    = $destinatario['dest_nombres'];
                     $data["dest_telefono"]   = $destinatario['dest_telefono'];
                     $data["dest_tipo_doc"]   = $destinatario['dest_tipo_doc'];
@@ -1706,8 +1708,14 @@ class Ajax extends MY_Controller
                             $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
                             
                         }
-                    };     
+                    };
+                    
+                        
+                    }else {
+                   
                 }
+
+
 
             }
                
@@ -1790,6 +1798,7 @@ class Ajax extends MY_Controller
                              'recojo'=> $this->input->get('d_envio') == 'recoger en tienda' ? 1 : 0
                         
                 ];
+    
                 if($this->input->get('dest_nombres')) {
                     $data["dest_nombres"]    = $this->input->get('dest_nombres');
                     $data["dest_telefono"]   = $this->input->get('dest_telefono');
@@ -1824,6 +1833,7 @@ class Ajax extends MY_Controller
                         
                         if($response){
                             // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
+                            
                             $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
                             $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
                             #start colrs update
@@ -1838,6 +1848,7 @@ class Ajax extends MY_Controller
                             endforeach;
                             $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
                             }
+    
                             #end colors update
                             $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
                             

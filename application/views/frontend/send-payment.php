@@ -161,6 +161,7 @@
                                     </div>
                                     
                                     <form  class="formPayu">
+                                   
                                     <input name="Submit" class="btn btn-cmn buy"  style="height:fit-content!important" type="submit"  value="PAGAR" >
                                     </form>
 
