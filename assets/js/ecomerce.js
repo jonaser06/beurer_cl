@@ -100,8 +100,8 @@ export const initPayu = () => {
                 <input name="shippingCountry"    type="hidden"  value="Colombia">
                 ` : '';
         e.target.innerHTML += `
-                    <input name="merchantId"    type="hidden"  value="${MERCHANT_ID }">
-                    <input name="accountId"     type="hidden"  value="${ACCOUNT_ID }">
+                    <input name="merchantId"    type="hidden"  value="${MERCHANT_ID}">
+                    <input name="accountId"     type="hidden"  value="${ACCOUNT_ID}">
                     <input name="description"   type="hidden"  value="${converter().title_products}">
                     <input name="referenceCode" type="hidden"  value="${codePayment}">
                     <input name="amount"        type="hidden"  value="${amount}">
