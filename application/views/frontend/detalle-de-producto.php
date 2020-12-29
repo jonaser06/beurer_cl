@@ -460,7 +460,7 @@ $(function() {
                                 src="<?= base_url(); ?>assets/images/precio-online.png">
                             <div class="font-nexaheav"
                                 style="text-align:left;display:inline-block;color:#c51152;font-weight:bold; font-size: 1.2rem;font-family:'nexaregularuploaded_file';">
-                                S/ <?=$product['precio'] ?></div>
+                                $ <?=$product['precio'] ?></div>
                         </div>
                         <div class="font-nexaheav"
                             style="font-weight:100;text-align:left;font-size:1.1em;font-family:'nexaregularuploaded_file';">

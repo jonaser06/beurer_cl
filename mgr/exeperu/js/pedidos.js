@@ -645,7 +645,7 @@ Helpers.prototype.reporteventas = function(dataVentasactual) {
                         return data['labels'][tooltipItem[0]['index']];
                     },
                     label: function(tooltipItem, data) {
-                        return 'Ventas : S/  ' + data['datasets'][0]['data'][tooltipItem['index']];
+                        return 'Ventas : $  ' + data['datasets'][0]['data'][tooltipItem['index']];
                     },
                     //                              afterLabel: function(tooltipItem, data) {
                     //                                var dataset = data['datasets'][0];

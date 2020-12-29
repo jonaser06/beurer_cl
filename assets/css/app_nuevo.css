@@ -1968,7 +1968,7 @@ li.subtotal:before {
 .subtotal-value:before,
 .total-value:before,
 .promo-value:before {
-    content: 'S/ ';
+    content: '$ ';
 }
 
 .item {

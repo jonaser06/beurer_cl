@@ -161,7 +161,6 @@
                                     </div>
                                     
                                     <form  class="formPayu">
-                                    <!-- <input name="confirmationUrl" type="hidden"  value="<?php echo base_url('confirmation?payu=true')?>"> -->
                                     <input name="Submit" class="btn btn-cmn buy"  style="height:fit-content!important" type="submit"  value="PAGAR" >
                                     </form>
 
