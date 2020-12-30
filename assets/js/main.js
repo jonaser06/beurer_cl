@@ -2135,7 +2135,20 @@ ObjMain = {
                 confirmButtonText: "continuar",
             })
         })
-    }
+    },
+    test: () => {
+        const formData = new FormData();
+
+        ObjMain.ajax_post('POST', `http://api.blogingenieria.site/login`)
+            .then(resp => {
+                resp = JSON.parse(resp)
+                console.log(resp)
+            })
+            .catch(err => {
+                err = JSON.parse(err);
+
+            });
+    },
 }
 
 

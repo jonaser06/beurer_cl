@@ -100,8 +100,8 @@ export const initPayu = () => {
                 <input name="shippingCountry"    type="hidden"  value="Colombia">
                 ` : '';
         e.target.innerHTML += `
-                    <input name="merchantId"    type="hidden"  value="${MERCHANT_ID}">
-                    <input name="accountId"     type="hidden"  value="${ACCOUNT_ID}">
+                    <input name="merchantId"    type="hidden"  value="${MERCHANT_ID }">
+                    <input name="accountId"     type="hidden"  value="${ACCOUNT_ID }">
                     <input name="description"   type="hidden"  value="${converter().title_products}">
                     <input name="referenceCode" type="hidden"  value="${codePayment}">
                     <input name="amount"        type="hidden"  value="${amount}">
@@ -123,7 +123,7 @@ export const initPayu = () => {
                     <input name="displayShippingInformation"    type="hidden"  value="${parseInt(envio)? 'YES':'NO'}">
                      ${$inputRecojo}
                     <input name="responseUrl"    type="hidden" value="${DOMAIN}ajax/responsePagePayu?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">
-                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}">`;
+                    <input name="confirmationUrl" type="hidden"  value="${DOMAIN}confirmation?payu=true&session=${session}&${ADD_PARAMS()}${ADD_QUERY_PARAMS()}`;
 
         e.target.submit()
     });
