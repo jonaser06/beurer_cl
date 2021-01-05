@@ -69,7 +69,7 @@ $route['rotulado/(:any)/(:any)'] = function ($codigo, $condition ) {
 };
 
 #payu confirmation page
-$route['confirmation']['POST'] = 'frontend/payu';
+$route['confirmation']['POST'] = 'frontend/Payu';
 
 $route['categoria/(:num)'] = 'backend/productos/read/$1';
 $route['categoria/save/(:num)'] = 'backend/productos/save/$1';
@@ -88,6 +88,8 @@ $route['manager/login'] = 'backend/login/login';
 $route['manager/paginas/(:num)/(:num)/(:num)'] = 'backend/Paginas/edit/$1/$2/$3';
 $route['manager'] = 'backend/login';
 $route['manager/(.*)'] = 'backend/$1';
+
+
 //$route['(:any)/(:any)']='request/detallearticulo/$2';
 //$route['(.*)'] = 'welcome';
 

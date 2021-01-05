@@ -282,7 +282,6 @@
             <div class="container">
                 <div class="row">
                     
-                        
                     <div class="carousel-home-general">
                         <?php foreach ($dstcd as $row): ?>
                         <?php if ($row['active'] == 1): ?>

@@ -13,7 +13,7 @@ class Payu extends MY_Controller
         $resp = [
             'status'  => false,
             'code'    => 404,
-            'message' => 'Metodo POST requerido',
+            'message' => 'no se envían los parametros adecuados',
         ];
         if(isset( $_GET['payu']) && $_GET['payu'] === 'true'){ 
 
@@ -136,7 +136,7 @@ class Payu extends MY_Controller
             ->set_content_type('application/json')
             ->set_status_header(404)
             ->set_output(json_encode($resp));
-          }
+        }
         
     }
 }
