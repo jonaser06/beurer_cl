@@ -97,16 +97,19 @@
 
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Departamento: <div class="d_ob">*</div></div>
-                                            <select id="s_depa" onchange="ObjMain.showProvincesList(this);">
+                                            <!-- <select id="s_depa" onchange="ObjMain.showProvincesList(this);">
                                                 <option disabled selected>Seleccione departamento</option>
+                                            </select> -->
+                                            <select id="s_depa">
+                                                <option disabled selected>Lima</option>
                                             </select>
                                         </div>
 
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Provincia: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="sprov" onchange="ObjMain.showDistrictsList(this);">
-                                                <option disabled selected>Seleccione provincia</option>
+                                            <select id="sprov" >
+                                                <option disabled selected>Lima</option>
                                             </select>
                                         </div>
 
@@ -118,6 +121,9 @@
                                             <div class="etiquetaFormulario">Distrito: <div class="d_ob">*</div></div>
                                             <select id="sdist">
                                                 <option disabled selected>Seleccione distrito</option>
+                                                <option  > distrito</option>
+                                                <option  > distrito</option>
+                                                <option  > distrito</option>
                                             </select>
                                         </div>
                                         <div class="divTableCell">

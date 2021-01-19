@@ -26,10 +26,9 @@ ObjMain = {
         ObjMain.changueQuanty('#aum', '#dism', '#cantidad_prod', '.btnAddCarrito');
         ObjMain.modalCarrito('.btnAddCarrito', '.cantidadModal');
         if (window.location.href == (DOMAIN + 'registro')) {
-            console.log('****************** registtro++++++++++')
             console.log('Pagina de registro');
-            ObjMain.load_ubigeo()
-                // ObjMain.defaultUbigeo();
+            // ObjMain.load_ubigeo()
+            // ObjMain.defaultUbigeo();
         }
         if (window.location.href == (`${DOMAIN}facturacion`)) {
             localStorage.removeItem('Destinatario')
@@ -707,24 +706,25 @@ ObjMain = {
     load_ubigeo: () => {
         ObjMain.ajax_post('GET', DOMAIN + 'ajax/getprovincia', '')
             .then((resp) => {
-                ubigeoPeru.ubigeos = JSON.parse(resp)
-                ObjMain.showRegionsList()
-
-            }).then(() => ObjMain.defaultUbigeo())
+                ubigeoPeru.ubigeos = JSON.parse(resp);
+                return ObjMain.showRegionsList()
+            })
+            .then(() => ObjMain.defaultUbigeo())
             .catch((err) => {
                 console.log(err);
             });
     },
-    showRegionsList: () => {
+    showRegionsList: async() => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
-            let option = document.createElement('option');
-            option.id = 'dpto-' + ubigeo.departamento;
-            option.name = 'departamento';
-            option.value = ubigeo.departamento;
-            option.setAttribute('data-name', ubigeo.nombre);
-            option.textContent = ubigeo.nombre;
-            document.querySelector('#s_depa').appendChild(option);
-
+            if (ubigeo.provincia === '00' && ubigeo.distrito === '00') {
+                let option = document.createElement('option');
+                option.id = 'dpto-' + ubigeo.departamento;
+                option.name = 'departamento';
+                option.value = ubigeo.departamento;
+                option.setAttribute('data-name', ubigeo.nombre);
+                option.textContent = ubigeo.nombre;
+                document.querySelector('#s_depa').appendChild(option);
+            }
         });
     },
     showProvincesList: (departamento) => {
