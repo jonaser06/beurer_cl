@@ -707,15 +707,17 @@ ObjMain = {
     load_ubigeo: () => {
         ObjMain.ajax_post('GET', DOMAIN + 'ajax/getprovincia', '')
             .then((resp) => {
-                ubigeoPeru.ubigeos = JSON.parse(resp);
-                return ObjMain.showRegionsList()
+                ubigeoPeru.ubigeos = JSON.parse(resp)
+                ObjMain.showRegionsList()
             })
-            .then(() => ObjMain.defaultUbigeo())
+            .then(() => ObjMain.defaultUbigeo().then(() => ObjMain.defaultUbigeo())
+
+            )
             .catch((err) => {
                 console.log(err);
             });
     },
-    showRegionsList: () => {
+    showRegionsList: async() => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
             console.log(ubigeo)
             if (ubigeo.provincia === '00' && ubigeo.distrito === '00') {
