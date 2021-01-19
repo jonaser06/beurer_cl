@@ -707,9 +707,10 @@ ObjMain = {
         ObjMain.ajax_post('GET', DOMAIN + 'ajax/getprovincia', '')
             .then((resp) => {
                 ubigeoPeru.ubigeos = JSON.parse(resp);
-                ObjMain.showRegionsList().then(() => {
-                    ObjMain.defaultUbigeo();
-                })
+                return ObjMain.showRegionsList()
+            })
+            .then(() => {
+                // ObjMain.defaultUbigeo()
             })
             .catch((err) => {
                 console.log(err);
@@ -1100,36 +1101,35 @@ ObjMain = {
         }
     },
     defaultUbigeo: () => {
-        setTimeout(function() {
 
-            document.querySelectorAll('#s_depa > option').forEach(depa => {
-                if (depa.textContent == 'Colombia') {
-                    depa.setAttribute('selected', 'selected');
-                    document.querySelector('#s_depa').disabled = true;
-                }
-            });
-            $('#s_depa').trigger('change')
 
-            document.querySelectorAll('#sprov > option').forEach(prov => {
-                if (prov.textContent == 'Colombia') {
-                    prov.setAttribute('selected', 'selected');
-                    document.querySelector('#sprov').disabled = true;
-                }
-            });
-
-            $('#sprov').trigger('change')
-
-            const nodeParent = document.querySelectorAll('#sdist > option')[0].parentNode;
-            const childNode = document.createElement('option')
-            childNode.textContent = 'SELECCIONE DISTRITO';
-            childNode.setAttribute('selected', 'selected')
-            nodeParent.insertBefore(childNode, document.querySelectorAll('#sdist > option')[0]);
-            if (window.location.href == (`${DOMAIN}myaccount`) || window.location.href == (`${DOMAIN}facturacion`)) {
-                if (userData.distrito) {
-                    ObjMain.selectedDistrict(userData.distrito);
-                }
+        document.querySelectorAll('#s_depa > option').forEach(depa => {
+            if (depa.textContent == 'Colombia') {
+                depa.setAttribute('selected', 'selected');
+                document.querySelector('#s_depa').disabled = true;
             }
-        }, 0)
+        });
+        $('#s_depa').trigger('change')
+
+        document.querySelectorAll('#sprov > option').forEach(prov => {
+            if (prov.textContent == 'Colombia') {
+                prov.setAttribute('selected', 'selected');
+                document.querySelector('#sprov').disabled = true;
+            }
+        });
+
+        $('#sprov').trigger('change')
+
+        const nodeParent = document.querySelectorAll('#sdist > option')[0].parentNode;
+        const childNode = document.createElement('option')
+        childNode.textContent = 'SELECCIONE DISTRITO';
+        childNode.setAttribute('selected', 'selected')
+        nodeParent.insertBefore(childNode, document.querySelectorAll('#sdist > option')[0]);
+        if (window.location.href == (`${DOMAIN}myaccount`) || window.location.href == (`${DOMAIN}facturacion`)) {
+            if (userData.distrito) {
+                ObjMain.selectedDistrict(userData.distrito);
+            }
+        }
 
     },
     selectedDistrict: district => {
