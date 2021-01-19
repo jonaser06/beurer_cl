@@ -710,7 +710,7 @@ ObjMain = {
                 return ObjMain.showRegionsList()
             })
             .then(() => {
-                // ObjMain.defaultUbigeo()
+                ObjMain.defaultUbigeo()
             })
             .catch((err) => {
                 console.log(err);
