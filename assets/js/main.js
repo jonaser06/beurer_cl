@@ -714,7 +714,7 @@ ObjMain = {
                 console.log(err);
             });
     },
-    showRegionsList: async() => {
+    showRegionsList: () => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
             if (ubigeo.provincia === '00' && ubigeo.distrito === '00') {
                 let option = document.createElement('option');
