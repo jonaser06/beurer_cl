@@ -709,24 +709,23 @@ ObjMain = {
                 ubigeoPeru.ubigeos = JSON.parse(resp);
                 return ObjMain.showRegionsList()
             })
-            .then(() => {
-                ObjMain.defaultUbigeo()
-            })
+            .then(() => ObjMain.defaultUbigeo())
             .catch((err) => {
                 console.log(err);
             });
     },
-    showRegionsList: async() => {
+    showRegionsList: () => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
-
-            let option = document.createElement('option');
-            option.id = 'dpto-' + ubigeo.departamento;
-            option.name = 'departamento';
-            option.value = ubigeo.departamento;
-            option.setAttribute('data-name', ubigeo.nombre);
-            option.textContent = ubigeo.nombre;
-            document.querySelector('#s_depa').appendChild(option);
-
+            console.log(ubigeo)
+            if (ubigeo.provincia === '00' && ubigeo.distrito === '00') {
+                let option = document.createElement('option');
+                option.id = 'dpto-' + ubigeo.departamento;
+                option.name = 'departamento';
+                option.value = ubigeo.departamento;
+                option.setAttribute('data-name', ubigeo.nombre);
+                option.textContent = ubigeo.nombre;
+                document.querySelector('#s_depa').appendChild(option);
+            }
         });
     },
     showProvincesList: (departamento) => {
@@ -1101,35 +1100,36 @@ ObjMain = {
         }
     },
     defaultUbigeo: () => {
+        setTimeout(function() {
 
+            document.querySelectorAll('#s_depa > option').forEach(depa => {
+                if (depa.textContent == 'Colombia') {
+                    depa.setAttribute('selected', 'selected');
+                    document.querySelector('#s_depa').disabled = true;
+                }
+            });
+            $('#s_depa').trigger('change')
 
-        document.querySelectorAll('#s_depa > option').forEach(depa => {
-            if (depa.textContent == 'Colombia') {
-                depa.setAttribute('selected', 'selected');
-                document.querySelector('#s_depa').disabled = true;
+            document.querySelectorAll('#sprov > option').forEach(prov => {
+                if (prov.textContent == 'Colombia') {
+                    prov.setAttribute('selected', 'selected');
+                    document.querySelector('#sprov').disabled = true;
+                }
+            });
+
+            $('#sprov').trigger('change')
+
+            const nodeParent = document.querySelectorAll('#sdist > option')[0].parentNode;
+            const childNode = document.createElement('option')
+            childNode.textContent = 'SELECCIONE DISTRITO';
+            childNode.setAttribute('selected', 'selected')
+            nodeParent.insertBefore(childNode, document.querySelectorAll('#sdist > option')[0]);
+            if (window.location.href == (`${DOMAIN}myaccount`) || window.location.href == (`${DOMAIN}facturacion`)) {
+                if (userData.distrito) {
+                    ObjMain.selectedDistrict(userData.distrito);
+                }
             }
-        });
-        $('#s_depa').trigger('change')
-
-        document.querySelectorAll('#sprov > option').forEach(prov => {
-            if (prov.textContent == 'Colombia') {
-                prov.setAttribute('selected', 'selected');
-                document.querySelector('#sprov').disabled = true;
-            }
-        });
-
-        $('#sprov').trigger('change')
-
-        const nodeParent = document.querySelectorAll('#sdist > option')[0].parentNode;
-        const childNode = document.createElement('option')
-        childNode.textContent = 'SELECCIONE DISTRITO';
-        childNode.setAttribute('selected', 'selected')
-        nodeParent.insertBefore(childNode, document.querySelectorAll('#sdist > option')[0]);
-        if (window.location.href == (`${DOMAIN}myaccount`) || window.location.href == (`${DOMAIN}facturacion`)) {
-            if (userData.distrito) {
-                ObjMain.selectedDistrict(userData.distrito);
-            }
-        }
+        }, 0)
 
     },
     selectedDistrict: district => {
