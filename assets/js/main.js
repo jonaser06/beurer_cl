@@ -719,16 +719,14 @@ ObjMain = {
     },
     showRegionsList: async() => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
-            console.log(ubigeo)
-            if (ubigeo.provincia === '00' && ubigeo.distrito === '00') {
-                let option = document.createElement('option');
-                option.id = 'dpto-' + ubigeo.departamento;
-                option.name = 'departamento';
-                option.value = ubigeo.departamento;
-                option.setAttribute('data-name', ubigeo.nombre);
-                option.textContent = ubigeo.nombre;
-                document.querySelector('#s_depa').appendChild(option);
-            }
+            let option = document.createElement('option');
+            option.id = 'dpto-' + ubigeo.departamento;
+            option.name = 'departamento';
+            option.value = ubigeo.departamento;
+            option.setAttribute('data-name', ubigeo.nombre);
+            option.textContent = ubigeo.nombre;
+            document.querySelector('#s_depa').appendChild(option);
+
         });
     },
     showProvincesList: (departamento) => {
