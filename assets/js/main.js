@@ -26,6 +26,7 @@ ObjMain = {
         ObjMain.changueQuanty('#aum', '#dism', '#cantidad_prod', '.btnAddCarrito');
         ObjMain.modalCarrito('.btnAddCarrito', '.cantidadModal');
         if (window.location.href == (DOMAIN + 'registro')) {
+            console.log('****************** registtro++++++++++')
             console.log('Pagina de registro');
             ObjMain.load_ubigeo()
                 // ObjMain.defaultUbigeo();
