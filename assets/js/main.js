@@ -708,13 +708,14 @@ ObjMain = {
         ObjMain.ajax_post('GET', DOMAIN + 'ajax/getprovincia', '')
             .then((resp) => {
                 ubigeoPeru.ubigeos = JSON.parse(resp)
-                ObjMain.showRegionsList().then(() => ObjMain.defaultUbigeo())
-            })
+                ObjMain.showRegionsList()
+
+            }).then(() => ObjMain.defaultUbigeo())
             .catch((err) => {
                 console.log(err);
             });
     },
-    showRegionsList: async() => {
+    showRegionsList: () => {
         ubigeoPeru.ubigeos.forEach((ubigeo) => {
             let option = document.createElement('option');
             option.id = 'dpto-' + ubigeo.departamento;
