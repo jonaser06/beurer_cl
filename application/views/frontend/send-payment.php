@@ -511,7 +511,7 @@ function culqi() {
                 resp = JSON.parse(resp);
                 if (resp.status) {
                     localStorage.setItem('id_order', resp.data.orden_id);
-                    // setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
+                    setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
                 }
             })
             .catch(err => {
