@@ -101,7 +101,7 @@
                                                 <option disabled selected>Seleccione departamento</option>
                                             </select> -->
                                             <select id="s_depa">
-                                                <option disabled selected>Lima</option>
+                                                <option disabled selected data-name="Lima">Lima</option>
                                             </select>
                                         </div>
 
@@ -109,7 +109,7 @@
                                             <div class="etiquetaFormulario">Provincia: <div class="d_ob">*</div>
                                             </div>
                                             <select id="sprov" >
-                                                <option disabled selected>Lima</option>
+                                                <option disabled selected data-name="Lima">Lima</option>
                                             </select>
                                         </div>
 
@@ -121,9 +121,9 @@
                                             <div class="etiquetaFormulario">Distrito: <div class="d_ob">*</div></div>
                                             <select id="sdist">
                                                 <option disabled selected>Seleccione distrito</option>
-                                                <option  > distrito</option>
-                                                <option  > distrito</option>
-                                                <option  > distrito</option>
+                                                <option  data-name="chorrillos"> chorrillos</option>
+                                                <option  data-name="miraflores"> miraflores</option>
+                                                <option  data-name="barranco"> barranco</option>
                                             </select>
                                         </div>
                                         <div class="divTableCell">
