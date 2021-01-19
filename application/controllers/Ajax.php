@@ -1271,9 +1271,9 @@ class Ajax extends MY_Controller
                     ->set_status_header(200)
                     ->set_output(json_encode($resp));
 
-                $enviar = $this->sendmail($pedido['correo'], $newdata, 'PEDIDO CONFIRMADO', 'order_confirm.php');
-                #copia a beurer
-                $enviar = $this->sendmail('ventas1@beurer.pe', $newdata, 'TIENES UN NUEVO PEDIDO', 'new_order.php');
+                // $enviar = $this->sendmail($pedido['correo'], $newdata, 'PEDIDO CONFIRMADO', 'order_confirm.php');
+                // #copia a beurer
+                // $enviar = $this->sendmail('ventas1@beurer.pe', $newdata, 'TIENES UN NUEVO PEDIDO', 'new_order.php');
 
                 return;
                 

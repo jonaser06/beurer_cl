@@ -19,12 +19,6 @@
     data-telefono    ="<?= $session? $userData['telefono'] :'' ?>"
     >
 
-
-
-
-
-
-
 <main class="main-detail-products">
     <!--Inicio de cuerpo-->
 
@@ -168,8 +162,8 @@
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Departamento: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="s_depa" >
-                                                <option  data-name="Lima" selected> Lima </option>
+                                            <select id="s_depa" disabled>
+                                                <option data-name ="Lima" selected>Lima</option>
                                             </select>
                                         </div>
                                     </div>
@@ -178,15 +172,19 @@
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Provincia: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="sprov" disabled >
-                                                <option data-name="Lima" selected>Lima </option>
+                                            <select id="sprov" disabled>
+                                                <option  data-name ="Lima" selected>Lima</option>
                                             </select>
                                         </div>
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Distrito: <div class="d_ob">*</div>
                                             </div>
                                             <select id="sdist">
-                                                <option data-name="Lima" selected>Lima</option>
+                                                <option disabled selected>SELECCIONE DISTRITO</option>
+                                                <option data-name="chorrillos" > Chorrillos</option>
+                                                <option data-name="CALDAS">Caldas</option>
+                                                <option data-name="Lima" >Lima</option>
+                                                <option data-name="ATE" >ATE</option>
                                             </select>
                                         </div>
                                     </div>
@@ -498,41 +496,24 @@
 	font-family:'nexa-lightuploaded_file'!important;
     }
 </style>
+
 <script src=<?= base_url('beurer_plantilla/assets/js/registro.js')?>></script>    
 
 <script>
-
-    // window.addEventListener('load', () => {
-
-        const $destinatarioForm  = document.querySelector('#d_formularios1');
-        let factura = localStorage.getItem('factura');
-
-        let domicilio = localStorage.getItem('domicilio');
-        let session = document.querySelector('.dataUser').dataset.id;
-
-        
-        // if(session && domicilio && !factura ) {
-        //     $destinatarioForm.style.display = 'none'
-
-        // }
-        // if(session && domicilio && factura) {
-        //     $destinatarioForm.style.display = 'none'
-        //     document.querySelector('#d_fact').style.display = 'none'
-        //     document.querySelector('#factura').style.display = 'inline-block'
-        // }
-        
-        let {...userData } = document.querySelector('.dataUser').dataset;
-          let index   = userData.tipo_doc == 'DNI' ? '1' 
-                                    :userData.tipo_doc == 'PASAPORTE' ? '2'
-                                    : userData.tipo_doc == 'CE' ? '3'
-                                    :''
-            const nodeSelect = document.querySelectorAll('#s_tipodoc > option')[parseInt(index)-1];
-            if(nodeSelect){
+    const $destinatarioForm  = document.querySelector('#d_formularios1');
+    let factura = localStorage.getItem('factura');
+    let domicilio = localStorage.getItem('domicilio');
+    let session = document.querySelector('.dataUser').dataset.id;
+    let {...userData } = document.querySelector('.dataUser').dataset;
+    let index = userData.tipo_doc == 'DNI' ? '1' 
+                :userData.tipo_doc == 'PASAPORTE' ? '2'
+                : userData.tipo_doc == 'CE' ? '3'
+                :''
+    const nodeSelect = document.querySelectorAll('#s_tipodoc > option')[parseInt(index)-1];
+    if(nodeSelect){
                nodeSelect.setAttribute('selected','selected')
-            }
+    }
          
-
-    
            class Facturacion {
                constructor() {
                    this.$destinatario = document.querySelector('#otra-persona');
@@ -557,17 +538,13 @@
                         tipo_doc :  document.getElementById('s_tipodoc').value ,
                         number_doc :  document.getElementById('campo1').value ,
                         nombres :  document.getElementById('c_nombres1').value ,
-                        // apellido_paterno :  document.getElementById('c_apellido_paterno').value ,
-                        // apellido_materno :  document.getElementById('c_apellido_materno').value ,
                         apellidos :  document.getElementById('c_apellidos').value ,
-
                         correo :  document.getElementById('c_correo1').value ,
                         departamento :  document.getElementById('s_depa').value ,
                         provincia :  document.getElementById('sprov').value ,
                         distrito :  distrito ,
                         d_envio :   this.estadoRecojo? 'recoger en tienda' :document.getElementById('c_dir').value,
                         referencia : this.estadoRecojo? '....compra de recojo' :document.getElementById('c_ref').value ,
-                        // fijo :  document.getElementById('c_telfij').value ,
                         telefono :  document.getElementById('c_telcel').value ,
                     }
                 }
@@ -582,7 +559,6 @@
                         nombres :  document.getElementById('c_nombres_dest').value ,
                         telefono :  document.getElementById('c_telcel_dest').value ,
                     }
-                    // apellidos :  document.getElementById('c_ape_dest').value ,
                 }             
                 getFactura () {
                     
@@ -601,7 +577,6 @@
                 
                 filter (obj){
                     for (const property in obj) {
-                        // if((property== "fijo") ||(property =="referencia") ){
                         if((property =="referencia") ){
                         }else {
                             if(obj[property] == ''||obj[property] == 'SELECCIONE DISTRITO'){
@@ -719,10 +694,6 @@
                 })}
             }
            new Facturacion();
-// } );
-
-         
-
 </script>
 
 <?php include 'src/includes/footer.php'?>

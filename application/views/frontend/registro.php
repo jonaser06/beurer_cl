@@ -97,19 +97,16 @@
 
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Departamento: <div class="d_ob">*</div></div>
-                                            <!-- <select id="s_depa" onchange="ObjMain.showProvincesList(this);">
+                                            <select id="s_depa" onchange="ObjMain.showProvincesList(this);">
                                                 <option disabled selected>Seleccione departamento</option>
-                                            </select> -->
-                                            <select id="s_depa">
-                                                <option disabled selected data-name="Lima">Lima</option>
                                             </select>
                                         </div>
 
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Provincia: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="sprov" >
-                                                <option disabled selected data-name="Lima">Lima</option>
+                                            <select id="sprov" onchange="ObjMain.showDistrictsList(this);">
+                                                <option disabled selected>Seleccione provincia</option>
                                             </select>
                                         </div>
 
@@ -121,9 +118,6 @@
                                             <div class="etiquetaFormulario">Distrito: <div class="d_ob">*</div></div>
                                             <select id="sdist">
                                                 <option disabled selected>Seleccione distrito</option>
-                                                <option  data-name="chorrillos"> chorrillos</option>
-                                                <option  data-name="miraflores"> miraflores</option>
-                                                <option  data-name="barranco"> barranco</option>
                                             </select>
                                         </div>
                                         <div class="divTableCell">

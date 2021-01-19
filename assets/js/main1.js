@@ -33,8 +33,7 @@ ObjMain = {
         if (window.location.href == (`${DOMAIN}facturacion`)) {
             localStorage.removeItem('Destinatario')
             localStorage.removeItem('facturacion')
-                // ObjMain.load_ubigeo();
-            ObjMain.selectedDistrict(userData.distrito);
+            ObjMain.load_ubigeo();
             ObjMain.recibir_ofertas();
             // ObjMain.defaultUbigeo();
         }
@@ -48,7 +47,7 @@ ObjMain = {
             }
             ObjMain.showDataSales();
             // ObjMain.createOrder();
-            ObjMain.culqiInit();
+            // ObjMain.culqiInit();
         }
         if (document.querySelector('.login') != null) {
             ObjMain.sign_in();
@@ -333,7 +332,7 @@ ObjMain = {
         item += '<div class="font-nexaheav text-left price rprice"> ' + precio_online + '</div>';
         item += '<input type="hidden" class="precio-' + id + '" value="' + precio_online + '">';
         item += '</div>';
-        item += '<div class="font-nexaheav">Normal: S/ ' + precio + '</div>';
+        item += '<div class="font-nexaheav">Normal: $ ' + precio + '</div>';
         item += '</div>';
         item += '<div class="quantity">';
         item += '<button class="count-cant" onclick="ObjMain.menos(' + id + ');">-</button>';
@@ -396,12 +395,8 @@ ObjMain = {
     },
     delete: (event) => {
         event.preventDefault();
-        // let id = event.path[3].getAttribute('data-id');
-        // event.path[3].remove();
-        $nodeParent = event.target.parentElement.parentElement.parentElement;
-        let id = $nodeParent.getAttribute('data-id');
-        $nodeParent.remove();
-
+        let id = event.path[3].getAttribute('data-id');
+        event.path[3].remove();
         document.querySelector('.ibr-' + id).remove();
         document.querySelectorAll('.ind-resumen').forEach((indice, index) => indice.textContent = index + 1);
         /* eliminar de localstorage */
@@ -446,21 +441,18 @@ ObjMain = {
             document.querySelector('.cant-' + id).value = ncantidad;
             document.querySelector('.sub-' + id).innerHTML = subtotal;
             document.querySelector('#res-' + id).innerHTML = subtotal;
-
             /* update productos */
             let productos = localStorage.getItem('productos');
             if (productos) {
                 productos = JSON.parse(productos);
                 for (let i = 0; i < productos.length; i++) {
-                    if (productos[i].id == id) {
+                    if (productos[i].cantidad == cantidad) {
                         productos[i].cantidad = ncantidad;
                         break;
                     }
                 }
             }
             localStorage.setItem('productos', JSON.stringify(productos));
-
-
             /* recalcular */
             let item = localStorage.getItem('productos');
             item = JSON.parse(item);
@@ -899,7 +891,7 @@ ObjMain = {
     changueColor: (visor, btnColorChangue, btnCarrito) => {
         document.addEventListener('click', event => {
             if (event.target.matches(btnColorChangue)) {
-                DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://cl.blogingenieria.site/';
+                DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
 
                 const $visor = document.querySelector(visor),
                     $addCarrito = document.querySelector(btnCarrito)
@@ -1110,7 +1102,7 @@ ObjMain = {
         setTimeout(function() {
 
             document.querySelectorAll('#s_depa > option').forEach(depa => {
-                if (depa.textContent == 'Lima') {
+                if (depa.textContent == 'Colombia') {
                     depa.setAttribute('selected', 'selected');
                     document.querySelector('#s_depa').disabled = true;
                 }
@@ -1118,7 +1110,7 @@ ObjMain = {
             $('#s_depa').trigger('change')
 
             document.querySelectorAll('#sprov > option').forEach(prov => {
-                if (prov.textContent == 'Lima') {
+                if (prov.textContent == 'Colombia') {
                     prov.setAttribute('selected', 'selected');
                     document.querySelector('#sprov').disabled = true;
                 }
@@ -1313,13 +1305,13 @@ ObjMain = {
         }
         let dataUser = objSales.comprador;
 
-        const innerEnvio = !recojo ? `<div>LIMA LIMA </div>
+        const innerEnvio = !recojo ? `<div>BOGOTA BOGOTA </div>
                                         <div>${dataUser.distrito} </div>
-                                        <div> ${dataUser.d_envio} ${dataUser.referencia} - Lima </div>
+                                        <div> ${dataUser.d_envio} ${dataUser.referencia} - BOGOTA </div>
                                         <div>Volumen total de la carga: ${volumen_total} m3 </div>
                                         <div>Peso total de la carga: ${peso_total} kg </div>
                                         <br><br>` :
-            `<div>Av.Caminos del Inca N.257 Tienda N° 149 Santiago de Surco - Lima</div>
+            `<div>Carrera 11A #93A-46 Oficina 402, Bogota DC</div>
                                                                 <br>`;
         document.querySelector('.title-envio').textContent = !recojo ? 'INFORMACIÓN DE ENVÍO' : 'RECOJO EN TIENDA';
         const messageEnvio = !recojo ? `Su pedido llegará en un plazo de máximo de 4 días hábiles.` :
@@ -1340,7 +1332,7 @@ ObjMain = {
 
                         <li class="font-nexaheavy" style="list-style:none;font-size:1.2em;">RESUMEN DEL PEDIDO</li>
                         <div>Cantidad de productos: ${cantidad} </div>
-                        <div>Importe Sub Total: S/ ${parseFloat(subtotal).toFixed(2)} 
+                        <div>Importe Sub Total: $ ${parseFloat(subtotal).toFixed(2)} 
                         </div>
                         <p style="font-weight:600;font-size:1.2em;margin-top:15px">${messageEnvio} </p>
 
@@ -1354,7 +1346,7 @@ ObjMain = {
             }
             if (tipo_cupon == 2) {
                 $cupon.textContent = `- ${parseFloat(descuento).toFixed(2)}`
-                total_payment = `${(parseFloat(envio) + parseFloat(subtotal)- descuento).toFixed(2)}`
+                total_payment = `${(parseFloat(envio) + parseFloat(subtotal) - descuento).toFixed(2)}`
             }
         } else {
             total_payment = `${(parseFloat(envio) + parseFloat(subtotal)).toFixed(2)} `;
@@ -1386,11 +1378,11 @@ ObjMain = {
                 desctext: '#4A4A4A'
             }
         });
-        document.getElementById('buy').addEventListener('click', event => {
-            Culqi.open()
-            event.preventDefault();
+        // document.getElementById('buy').addEventListener('click', event => {
+        //     Culqi.open()
+        //     event.preventDefault();
 
-        })
+        // })
     },
     paymentSelected: () => {
 
@@ -1445,8 +1437,8 @@ ObjMain = {
         const recojo = parseFloat(data.recojo);
         if (recojo == 0) {
             document.querySelector('.title-envio').textContent = `Dirección de Recojo`
-            document.querySelector('.dir_envio').textContent = `Av.Caminos del Inca N.257 Tienda N° 149`
-            document.querySelector('.distrito').textContent = `Santiago de Surco.`
+            document.querySelector('.dir_envio').textContent = `Carrera 11A #93A-46 Oficina 402`
+            document.querySelector('.distrito').textContent = `Bogota DC.`
             document.querySelector('.title_referencia').style.display = `none`
             document.querySelector('.espaciado').style.display = `none`
             document.querySelector('.title_recojo').textContent = 'Fecha de Recojo'
@@ -1470,7 +1462,7 @@ ObjMain = {
         document.querySelector('.order-amount').textContent = (parseFloat(data.amount) / 100).toFixed(2);
 
         document.querySelector('.titular').textContent = `${data.metadata.nombres} ${data.metadata.apellidos}`
-        document.querySelector('.provincia').textContent = `LIMA LIMA`
+        document.querySelector('.provincia').textContent = `BOGOTA BOGOTA`
         document.querySelector('.numero_documento').textContent = `${data.metadata.numero_documento}`
         document.querySelector('.correo').textContent = data.metadata.correo
 
@@ -1505,7 +1497,7 @@ ObjMain = {
                     </div>
                     <div class="font-nexaheav"
                         style="font-size:1.1em;text-align:center;font-weight:bold;font-family:'nexa-lightuploaded_file';">
-                        Normal: S/ ${parseFloat(prod.precio).toFixed(2)}</div>
+                        Normal: $ ${parseFloat(prod.precio).toFixed(2)}</div>
                 </div>
 
                 <div class="quantity">
@@ -1539,8 +1531,8 @@ ObjMain = {
         const recojo = parseInt(data.recojo);
         if (recojo) {
             document.querySelector('.title-envio').textContent = `Dirección de Recojo`
-            document.querySelector('.dir_envio').textContent = `Av.Caminos del Inca N.257 Tienda N° 149`
-            document.querySelector('.distrito').textContent = `Santiago de Surco.`
+            document.querySelector('.dir_envio').textContent = `Carrera 11A #93A-46 Oficina 402`
+            document.querySelector('.distrito').textContent = `Bogota DC.`
             document.querySelector('.title_referencia').style.display = `none`
             document.querySelector('.espaciado').style.display = `none`
             document.querySelector('.title_recojo').textContent = 'Fecha de Recojo'
@@ -1557,7 +1549,7 @@ ObjMain = {
             document.querySelector('.fecha_entrega').textContent = `Su pedido llegara en un plazo información máximo de 4 días hábiles,apartir del ${ObjMain.formatFecha(data.pedido_fecha)}`
         }
         document.querySelector('.titular').textContent = `${data.nombres} ${data.apellidos}`
-        document.querySelector('.provincia').textContent = `${data.provincia.toUpperCase()} LIMA`
+        document.querySelector('.provincia').textContent = `${data.provincia.toUpperCase()} BOGOTA`
         document.querySelector('.numero_documento').textContent = `${data.numero_documento}`
         document.querySelector('.correo').textContent = data.correo
         document.querySelector('.codigo-venta').textContent = data.codigo
@@ -1589,7 +1581,7 @@ ObjMain = {
                     </div>
                     <div class="font-nexaheav"
                         style="font-size:1.1em;text-align:center;font-weight:bold;font-family:'nexa-lightuploaded_file';">
-                        Normal: S/ ${parseFloat(prod.precio).toFixed(2)}</div>
+                        Normal: $ ${parseFloat(prod.precio).toFixed(2)}</div>
                 </div>
 
                 <div class="quantity">
@@ -2016,10 +2008,10 @@ ObjMain = {
                     <span class="detalle">${parseInt(pedido.recojo) ? '': 'Dirección de Envío:'} ${pedido.dir_envio}</span>
                     ${nodeEnvioDistrito}
                     <br>
-                    <span class="item-price">Precio: S/. ${pedido.productos_precio}</span>
+                    <span class="item-price">Precio: $. ${pedido.productos_precio}</span>
                     ${nodeDescuento}
-                    <span class="item-price">Envio : S/. ${pedido.entrega_precio}</span>
-                    <span class="detalle" style="margin-top:7px;">Total : S/.  ${(parseFloat(pedido.productos_precio) - parseFloat(descuento) + parseFloat(pedido.entrega_precio)).toFixed(2)}</span>
+                    <span class="item-price">Envio : $. ${pedido.entrega_precio}</span>
+                    <span class="detalle" style="margin-top:7px;">Total : $.  ${(parseFloat(pedido.productos_precio) - parseFloat(descuento) + parseFloat(pedido.entrega_precio)).toFixed(2)}</span>
 
                 </div>
                 <div class="item-fecha">
@@ -2143,7 +2135,20 @@ ObjMain = {
                 confirmButtonText: "continuar",
             })
         })
-    }
+    },
+    test: () => {
+        const formData = new FormData();
+
+        ObjMain.ajax_post('POST', `http://api.blogingenieria.site/login`)
+            .then(resp => {
+                resp = JSON.parse(resp)
+                console.log(resp)
+            })
+            .catch(err => {
+                err = JSON.parse(err);
+
+            });
+    },
 }
 
 
