@@ -708,11 +708,8 @@ ObjMain = {
         ObjMain.ajax_post('GET', DOMAIN + 'ajax/getprovincia', '')
             .then((resp) => {
                 ubigeoPeru.ubigeos = JSON.parse(resp)
-                ObjMain.showRegionsList()
+                ObjMain.showRegionsList().then(() => ObjMain.defaultUbigeo())
             })
-            .then(() => ObjMain.defaultUbigeo().then(() => ObjMain.defaultUbigeo())
-
-            )
             .catch((err) => {
                 console.log(err);
             });
