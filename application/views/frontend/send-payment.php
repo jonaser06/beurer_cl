@@ -485,7 +485,7 @@ function culqi() {
                                 localStorage.setItem('id_pedido', resp.data.codigo_pedido);
                                 modalCheckout('Gracias por su compra', 'success',
                                     `${result.outcome.user_message}`, '#C5115')
-                                // setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
+                                setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
                                 }
                             }
                         })
