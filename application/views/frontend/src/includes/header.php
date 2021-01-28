@@ -95,6 +95,12 @@
 #primary-nav{
     display: none;
 }
+.login-close {
+    color:#c51152 !important;
+    font-weight:bold !important;
+    font-size:1.5em!important;
+}
+
 @media only screen and (max-width: 767px) {
     #primary-nav{
         display: flex;
@@ -209,8 +215,11 @@
                                     <?php  $sesion = ( isset($_SESSION['status']) && $_SESSION['status'])?true:false; ?>
                                     <?php if ( !$sesion ): ?>
                                     <!-- inicio de sesion -->
-                                    <div class="login" style="display:none;">
+                                    <div class="login" style="display:none;transition:all .5s ease-in-out">
                                         <h2 class="login-header">INICIA SESIÓN</h2>
+                                        <button type="button" class="close" onclick="ObjMain.closeLogin()">
+                                            <span class="login-close">&times;</span>
+                                        </button>
                                         <form class="login-container" >
                                             <p><input type="text" id="username_" style="text-align:center;" placeholder="Email"></p>
                                             <p><input type="password" id="pasword_" style="text-align:center;" placeholder="Contraseña"></p>

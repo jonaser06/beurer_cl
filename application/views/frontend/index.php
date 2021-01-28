@@ -155,7 +155,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-    <main class="main-home" id="fullpage">
+    <main class="main-home" id="fullpage" style="background-color: #fff;">
         <div class="popup-ini" id="login">
           <div class="popup-inner">
            <img id="img-popup" src="<?php echo base_url($confif['popup']); ?>" class="img-responsive" alt="">
@@ -277,7 +277,7 @@
             </div>
         </section>
         <!-- CARROSUEL PRODUCTOS DESTACADOS -->
-        <section class="section sct-two-home">
+        <section class="section sct-two-home" >
             <h2 class="ttl-prd-dst text-center font-nexaheavy">PRODUCTOS DESTACADOS</h2>
             <div class="container">
                 <div class="row">
@@ -605,6 +605,7 @@ if (screen && screen.width > 992) {
 @media (max-width: 480px){
 body {
        font-size: 72.5%!important;
+       
    }
 }
      

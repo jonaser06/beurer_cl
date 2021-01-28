@@ -162,8 +162,8 @@
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Departamento: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="s_depa" disabled>
-                                                <option data-name ="Lima" selected>Lima</option>
+                                            <select id="s_depa" onchange="ObjMain.showProvincesList(this);">
+                                                <option disabled selected>  </option>
                                             </select>
                                         </div>
                                     </div>
@@ -172,19 +172,15 @@
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Provincia: <div class="d_ob">*</div>
                                             </div>
-                                            <select id="sprov" disabled>
-                                                <option  data-name ="Lima" selected>Lima</option>
+                                            <select id="sprov" onchange="ObjMain.showDistrictsList(this);">
+                                                <option disabled selected> </option>
                                             </select>
                                         </div>
                                         <div class="divTableCell">
                                             <div class="etiquetaFormulario">Distrito: <div class="d_ob">*</div>
                                             </div>
                                             <select id="sdist">
-                                                <option disabled selected>SELECCIONE DISTRITO</option>
-                                                <option data-name="chorrillos" > Chorrillos</option>
-                                                <option data-name="CALDAS">Caldas</option>
-                                                <option data-name="Lima" >Lima</option>
-                                                <option data-name="ATE" >ATE</option>
+                                                <option disabled selected></option>
                                             </select>
                                         </div>
                                     </div>

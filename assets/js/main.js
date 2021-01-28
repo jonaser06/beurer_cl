@@ -47,7 +47,7 @@ ObjMain = {
             }
             ObjMain.showDataSales();
             // ObjMain.createOrder();
-            // ObjMain.culqiInit();
+            ObjMain.culqiInit();
         }
         if (document.querySelector('.login') != null) {
             ObjMain.sign_in();
@@ -699,6 +699,7 @@ ObjMain = {
         let ventanalogin = document.getElementsByClassName("login")[0];
         if (ventanalogin.style.display == "none" && screen.width > 767) {
             ventanalogin.style.display = "block";
+            ventanalogin.style.opacity = '1'
         } else {
             ventanalogin.style.display = "none";
         }
@@ -1378,11 +1379,11 @@ ObjMain = {
                 desctext: '#4A4A4A'
             }
         });
-        // document.getElementById('buy').addEventListener('click', event => {
-        //     Culqi.open()
-        //     event.preventDefault();
+        document.getElementById('buy').addEventListener('click', event => {
+            Culqi.open()
+            event.preventDefault();
 
-        // })
+        })
     },
     paymentSelected: () => {
 
@@ -2149,6 +2150,9 @@ ObjMain = {
 
             });
     },
+    closeLogin: () => {
+        document.querySelector('.login').style.display = 'none'
+    }
 }
 
 
@@ -2226,7 +2230,7 @@ class Carrito {
     }
     addState(producto) {
         this.stateCarrito.productos.push(producto);
-        console.log(this.stateCarrito.productos)
+        // console.log(this.stateCarrito.productos)
         this.stateCarrito.productos.forEach(prod => {
             this.stateCarrito.cantidad += parseInt(prod.cantidad)
             this.stateCarrito.total += parseFloat(prod.precio) * parseInt(prod.cantidad);
@@ -2243,6 +2247,148 @@ class Carrito {
             this.add();
         })
     }
+}
+
+class Shop {
+    constructor(event) {
+        this.state = {
+            productos: [],
+            DOMAIN: (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://cl.blogingenieria.site/'
+        }
+
+        console.log('*********** init shop *************')
+        this.TRIGGUER();
+        this.$title = document.querySelector('#addModalCarrito #title-principal')
+
+    }
+
+    add(producto) {
+        this.state.productos = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
+        if (this.state.productos.length == 0) {
+            this.state.productos.push(producto);
+
+            this.addCarrModal(producto)
+            this.addStorage();
+
+
+        } else {
+            const prodList = this.state.productos.filter(prod => prod.id == producto.id);
+            if (prodList.length !== 0) return this.isAddModal('CARRITO', 'warnning', 'Ya se añadio a su carrito', '#C51152')
+            this.state.productos.push(producto);
+            this.addCarrModal(producto)
+            this.addStorage();
+
+        }
+    }
+    addStorage() {
+        localStorage.setItem('productos', JSON.stringify(this.state.productos));
+        $('#addCarr').modal('show')
+    }
+    isAddModal(title, icon, message, color) {
+        Swal.fire({
+            icon: icon,
+            title: title,
+            text: message,
+            showCancelButton: false,
+            confirmButtonColor: '#C51152',
+            confirmButtonText: "continuar comprado",
+        })
+    }
+    addCarrModal(prod) {
+        document.querySelector('#titleAdd').textContent = prod.title;
+        document.querySelector('.priceOfertAdd').textContent = `S/. ${prod.precio_online}`;
+        document.querySelector('.priceAdd').textContent = prod.precio_online !== prod.precio ? `S/. ${prod.precio}` : '';
+        document.querySelector('.imgAdd').src = `${this.state.DOMAIN}${prod.img}`;
+        document.querySelector('.imgAdd').alt = prod.title;
+        // list to products relations
+        this.addProductsRLT(prod.id);
+
+    }
+    ajax_post(method, url, data) {
+        const promise = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.onload = () => {
+                if (xhr.status >= 400) {
+                    reject(xhr.response);
+                }
+                resolve(xhr.response);
+            };
+            xhr.onerror = () => {
+                reject('Oh! ocurrio algo mal!');
+            }
+            xhr.send(data);
+        });
+        return promise;
+    }
+    async addProductsRLT(id) {
+        const form = new FormData();
+        form.append('id', id);
+        let stream = await this.ajax_post('POST', `${DOMAIN}/ajax/relations`, form);
+        stream = JSON.parse(stream);
+        if (stream.status) {
+            console.log(stream.data);
+            let $relacionados = document.querySelector('.relacionados-products');
+            document.querySelector('.title-sugeridos').textContent = 'PRODUCTOS SUGERIDOS';
+
+            $relacionados.innerHTML = '';
+
+            stream.data.forEach((prod, index) => {
+                if (prod.titulo && index < 3) {
+                    let price_descuento = prod.tipo_descuento == 1 ?
+                        `<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b><b  style="color: red" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
+                        ((prod.tipo_descuento == 2) ? `<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b><b  style="color: red" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
+                            ` <b style="margin-top:6px" class="d-block font-nexheavy">S/. ${prod.precio}</b>`);
+                    $relacionados.innerHTML += `
+                    <div class="col-md-4 col-xs-4" style="padding:0;">
+                        <div class="carrosuel-two-home slick-initialized slick-slider">
+                            <div class="slick-list draggable">
+                                <div class="slick-track"
+                                    style="opacity: 1;width: 100%;transform: translate3d(0px, 0px, 0px);">
+                                    <div class="slick-slide slick-current slick-active" data-slick-index="0"
+                                        aria-hidden="false" style="width: 100%;">
+                                        <div>
+                                            <div class="wrapper-cards-products pro-suger"
+                                                style="background-color:transparent !important;width: 100%; height:100%; display: inline-block;">
+                                                <a class="linkabsolute" href="${DOMAIN}/${prod.cat_url}/${prod.subcat_url}/${prod.prod_url}" tabindex="0"></a>
+                                                <div class="content-img-card"
+                                                    style="width:100% !important; margin-top:8%; height:auto;">
+                                                    <img src="${DOMAIN}${prod.img}" alt=""
+                                                        class="img-cnt">
+                                                </div>
+                                                <div class="content-title-card">
+                                                    <h2 class="h2-title font-bold title-sugerido"
+                                                        style="font-size:1.2em;color:black;">${prod.titulo}</h2>
+                                                    <br>
+                                                       ${price_descuento}
+                                                    <br>
+                                                    <div class="btn-vp" style="width:75%;">
+                                                        <a href="${DOMAIN}/${prod.cat_url}/${prod.subcat_url}/${prod.prod_url}" class="a-btn font-nexaheavy ver-prod"
+                                                            style="font-size:1.2vh;padding-top:0.6em;padding-bottom:0.6em;"
+                                                            tabindex="0">ver producto</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>`;
+                }
+            })
+        }
+    }
+    TRIGGUER() {
+        document.addEventListener('click', e => {
+            if (e.target.matches('.addShop')) {
+                e.preventDefault()
+                this.add(e.target.dataset);
+            }
+
+        })
+    }
+
 }
 
 
@@ -2503,4 +2649,5 @@ window.addEventListener('load', () => {
     if ($btncarrito) {
         new Carrito('.btnAddCarrito');
     }
+    new Shop();
 });

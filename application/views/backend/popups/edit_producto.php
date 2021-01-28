@@ -84,6 +84,9 @@
                     <li>
                         <a href="#detalles" aria-controls="descripcion" role="tab" data-toggle="tab">Dimensiones , peso y stock</a>
                     </li>
+                    <li>
+                        <a href="#tags" aria-controls="descripcion" role="tab" data-toggle="tab">TAGS</a>
+                    </li>
 
             </ul>
 
@@ -655,7 +658,58 @@
                             </div>
 
                         </div>
+                        <!-- tags -->
+                         <div role="tabpanel" class="tab-pane" id="tags">
+                                            
+                            <div class="container-fluid">
+                                <div class="row">
+                                   <div class="col-xs-12">
+                                   <small>SELECCIONE EL TIPO DE TAG A MOSTRAR EN LA WEB.</small>
+                                   </div>
+                                   <BR></BR>
+                                   <div class="col-xs-12 col-md-6" >
+                                         <div class="form-group">
+                                            <label>Tipo de Descuento</label>
+                                            <select class="form-control" name="productos[tipo_descuento]">
+                                                <?php if ($producto['tipo_descuento'] == 1 ): ?>
+                                                    <option value="1" selected>precio</option>
+                                                    <option value="2">porcentaje</option>
+                                                <?php else: ?>
+                                                    <option value="1">precio</option>
+                                                    <option value="2" selected>porcentaje</option>
+                                                <?php endif ?>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                   <div class="col-xs-12 col-md-6">
+                                         <div class="form-group">
+                                            <label>Delivery gratis</label>
+                                            <div style="display:flex;justify-content:center;align-items:center">
+                                            <img style="width:60px; margin-right:10px;"
+                                               class ="img-delivery" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-delivery">
+                                                <select class="form-control col-xs-4" name="productos[delivery_free]">
+                                              
+                                                <?php if ($producto['delivery_free'] == 0 ): ?>
+                                                    <option value="0" selected>NO</option>
+                                                    <option value="1">SI</option>
+                                                <?php else: ?>
+                                                    <option value="0">NO</option>
+                                                    <option value="1" selected>SI</option>
+                                                <?php endif ?>
+                                                
+                                            </select>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                   
+                                    
+                                  
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
 
                  </div>

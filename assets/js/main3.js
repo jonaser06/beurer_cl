@@ -2151,11 +2151,11 @@ ObjMain = {
 class Carrito {
     constructor(btnAddCarrito) {
         this.stateCarrito = {
-            cantidad: 0,
-            total: 0,
-            productos: []
-        }
-        this.$btnAddCarrito = document.querySelector(btnAddCarrito);
+                cantidad: 0,
+                total: 0,
+                productos: []
+            }
+            // this.$btnAddCarrito = document.querySelector(btnAddCarrito);
         this.$btnAddCarritoError = document.querySelector('.addCarritoError');
         this.TRIGGUER();
     }
@@ -2234,9 +2234,15 @@ class Carrito {
     }
 
     TRIGGUER() {
-        this.$btnAddCarrito.addEventListener('click', e => {
-            this.add();
-        })
+        document.addEventListener('click', event => {
+                if (event.target.matches('.btnAddCarrito')) {
+                    this.btnCarrito = event.target;
+                    this.add();
+                }
+            })
+            // this.$btnAddCarrito.addEventListener('click', e => {
+            //     this.add();
+            // })
     }
 }
 

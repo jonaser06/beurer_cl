@@ -306,7 +306,7 @@ select {
 #trash img {
     width: 30px;
     height: 30px;
-    align: left;
+    text-align: left;
 }
 
 .cantidad_prod {
@@ -1246,6 +1246,8 @@ section2 {
     font-weight: bold;
     font-size: 1.1rem;
     width: fit-content;
+    width: -moz-fit-content;
+    height: -moz-fit-content;
     border: 1px solid #C51152;
     transition: .5s all ease-in-out;
 }
@@ -1519,5 +1521,37 @@ section2 {
 @media only screen and(max-width:480px) {
     .wrapper-slide {
         padding: 4rem !important;
+    }
+}
+
+.login {
+    position: relative;
+}
+
+.login .close {
+    position: absolute;
+    right: 10px;
+    z-index: 200000;
+    top: 10px
+}
+
+.login a {
+    transition: all .3s ease-in-out !important;
+}
+
+.price-card {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.price-throw {
+    text-decoration: line-through;
+    font-size: .8rem!important;
+}
+
+@media (max-width: 480px) {
+    .wrapper-cards-products .content-title-card .btn-vp .a-btn {
+        font-size: .7rem !important;
     }
 }

@@ -415,6 +415,14 @@ class Contenido extends CI_Model {
             $data[$i]['descripcion'] = $rows['descripcion'];
             $data[$i]['ficha_tecnica'] = $rows['ficha_tecnica'];
             $data[$i]['prod_url'] = $rows['prod_url'];
+            $data[$i]['precio'] = $rows['precio'];
+            $data[$i]['precio_anterior'] = $rows['precio_anterior'];
+            $data[$i]['stock'] = $rows['stock'];
+            $data[$i]['producto_sku'] = $rows['producto_sku'];
+            $data [$i]['volumen']= $rows['alto']*$rows['ancho']*$rows['largo'];
+            $data[$i]['peso']= $rows['peso'];
+            $data[$i]['delivery_free']= $rows['delivery_free'];
+            $data[$i]['tipo_descuento']= $rows['tipo_descuento'];
             $data[$i]['active'] = $rows['active'];
             
             $images = $this->db->where('producto_id', $rows['id'])->get('imagenes');
@@ -474,7 +482,7 @@ class Contenido extends CI_Model {
             // DETAILS FOR PRODUCTO 
             $data['detalles-multimedia'] = $rows['detalles-multimedia'] ? json_decode($rows['detalles-multimedia'],true): FALSE;
             // dimensiones
-            $data['volumen'] = $rows['alto']*$rows['alto']*$rows['alto'];
+            $data['volumen'] = $rows['alto']*$rows['ancho']*$rows['largo'];
             $data['peso'] = $rows['peso'];
             // stock
             $data['stock'] = $rows['stock'];

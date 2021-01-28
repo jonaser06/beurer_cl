@@ -214,7 +214,9 @@ class Productos extends CI_Controller {
 			'peso' => $input['peso'],
 			'stock' => $stock,
 			'relacionados' => $input['relacionados'],
-            'orden' => $input['orden']
+            'orden' => $input['orden'],
+            'delivery_free' => $input['delivery_free'],
+            'tipo_descuento' => $input['tipo_descuento'],
 		);
 
 		$bigdata = array(

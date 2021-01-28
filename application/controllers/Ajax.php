@@ -1038,11 +1038,10 @@ class Ajax extends MY_Controller
                             ]
                         ]
                 );    
-                $response = $charge ? json_encode($charge) :null;
                 $this->output
                         ->set_content_type('application/json')
                         ->set_status_header(200)
-                        ->set_output(json_encode($response));
+                        ->set_output(json_encode($charge));
                     return;
             } catch (Exception $e) {
                 $this->output
@@ -2161,4 +2160,68 @@ class Ajax extends MY_Controller
 
      }
     
+      #products relations
+     public function relations () {
+         $id = $this->input->post('id', TRUE);
+     
+        $productos = $this->get('productos',['id' => (int)$id] );
+        if(  $productos['relacionados'] == '' || $productos['relacionados'] == null ) {
+            $resp = [
+                'status'  => false,
+                'code'    => 404,
+                'message' => 'no se encontraron productos relacionadoss'
+            ];
+            return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(200)
+                    ->set_output(json_encode($resp));
+            
+        }
+        $name_relations = json_decode( $productos['relacionados'], TRUE);
+        $data = [];
+        for ($i = 0; $i <count($name_relations) ; $i++) { 
+            $producto_rel   = $this->oneProduct( $name_relations[$i]['imagenes']);
+            if($producto_rel){
+                $imgs = $this->get('imagenes', ['producto_id' => $producto_rel['id']]);
+                $producto_rel['img'] = $imgs['imagen'];
+                if(! empty($producto_rel)) array_push($data, $producto_rel);
+            }
+        }
+
+        if (count($data) !== 0 ) {
+                $this->resp['status'] = true;
+                $this->resp['code'] = 200;
+                $this->resp['message'] = 'productos relacionadors !';
+                $this->resp['data'] = $data;
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(200)
+                    ->set_output(json_encode($this->resp));
+                return;
+                
+        } else {
+                $resp = [
+                    'status'  => false,
+                    'code'    => 404,
+                    'message' => 'no se encontraron productos relacionados'
+                ];
+                $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(200)
+                    ->set_output(json_encode($resp));
+                return;
+        }
+     }
+     private function oneProduct($name ='')
+    {
+        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
+        $this->db->select('productos.*, categorias.url as subcat_url, sitemap.url as cat_url' );
+        $this->db->where('productos.titulo', $name);
+        $this->db->join('categorias', 'categorias.id = productos.categoria_id');
+        $this->db->join('paginas', 'paginas.idpagina = categorias.idpagina');
+        $this->db->join('sitemap', 'sitemap.idsitemap = paginas.idsitemap');
+        $this->db->group_by('productos.id');
+        $query=$this->db->get('productos');
+        return $query->row_array();
+    }
  } 
