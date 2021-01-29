@@ -33,7 +33,10 @@ ObjMain = {
         if (window.location.href == (`${DOMAIN}facturacion`)) {
             localStorage.removeItem('Destinatario')
             localStorage.removeItem('facturacion')
-            ObjMain.load_ubigeo();
+                // ObjMain.load_ubigeo();
+            ObjMain.selectedDistrict(userData.distrito);
+
+            ObjMain.recibir_ofertas();
             ObjMain.recibir_ofertas();
             // ObjMain.defaultUbigeo();
         }
