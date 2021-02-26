@@ -80,6 +80,10 @@ $route['productos/resultado'] = 'frontend/productos/resultado/';
 
 $route['productos/eliminarimagen'] = 'backend/productos/eliminarimagen/';
 $route['productos/search/(:any)'] = 'frontend/productos/get_search/$1';
+$route['cupones/search/(:any)'] = 'backend/Cupones/get_search/$1';
+$route['prod/load'] = 'backend/load/products';
+$route['prod/import'] = 'backend/load/import';
+
 
 $route['subscribe/send'] = 'frontend/productos/subscribe/';
 

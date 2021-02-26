@@ -444,6 +444,7 @@ function culqi() {
         const email = Culqi.token.email;
         const formSend = dataFormSend(token, email)
         Culqi.close()
+        
         $.ajax({
 			type: 'POST',
 			url: `${DOMAIN}ajax/createCharge`,

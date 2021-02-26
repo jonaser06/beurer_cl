@@ -341,17 +341,17 @@ $(document).ready(function() {
 
 // codigo js que estaba en carrito.html
 
-if (screen && screen.width > 1300) {
-    let fullpageDiv = $('#fullpage');
-    if (fullpageDiv.length) {
-        fullpageDiv.fullpage({
-            scrollBar: true,
-            scrollOverflow: true,
-            verticalCentered: true,
-            afterRender: function() {}
-        });
-    }
-}
+// if (screen && screen.width > 1300) {
+//     let fullpageDiv = $('#fullpage');
+//     if (fullpageDiv.length) {
+//         fullpageDiv.fullpage({
+//             scrollBar: true,
+//             scrollOverflow: true,
+//             verticalCentered: true,
+//             afterRender: function() {}
+//         });
+//     }
+// }
 
 $('#login').fadeOut();
 
@@ -368,23 +368,25 @@ $(".popup-ini .close").click(function() {
 
 
 
-
+let BASE_URL = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
 
 $('.search_get').keyup(function(event) {
     $('show_result').html('<img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" width="30">')
-    $.ajax({
-            url: 'productos/search/' + $(this).val(),
-        })
-        .done(function(data) {
-            $('#show_result').html(data)
-        })
-        .always(function() {
-            console.log("complete");
-        });
-
-
+    let search = $(this).val();
+    search = search.trim();
+    if (search !== '') {
+        $.ajax({
+                url: `${BASE_URL}productos/search/${search}`,
+            })
+            .done(function(data) {
+                console.log('response')
+                $('#show_result').html(data)
+            })
+            .always(function() {
+                console.log("complete");
+            });
+    }
 });
-
 
 $('.box-search').hover(function(event) {
     $('#show_result').html('')
@@ -562,10 +564,15 @@ $('#otra-persona').click(function() {
 });
 
 
-// $('#politicas').click(function () {
-//     var siguiente = document.getElementById("btn_sgt");
-//     siguiente.classList.toggle("disabled");
-// });
+$('#politicas').click(function() {
+    var siguiente = document.getElementById("btn_sgt");
+    if (this.checked == true) {
+        siguiente.classList.remove("disabled");
+
+    } else {
+        siguiente.classList.add("disabled");
+    }
+});
 
 $('#dfactura').click(function() {
     var chequeo2 = document.getElementById("dfactura");
@@ -578,7 +585,7 @@ $('#dfactura').click(function() {
     }
 });
 
-$('#politicas2').click(function() {
+$('#politicas').click(function() {
     var terminos = document.getElementById("terycon");
     var enviarreclamo = document.getElementById("env_reclamo");
     if (this.checked == true) {

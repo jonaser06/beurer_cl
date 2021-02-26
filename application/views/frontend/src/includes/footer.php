@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-4 col-1-5 visible-lg">
-                    <h2 class="titles-footer">Productos</h2>
+                    <h2 class="titles-footer">CATEGORÍAS</h2>
                     <ul>
                         <li><a href="<?= base_url('salud'); ?>" class="link-footer">Salud</a></li>
                         <li><a href="<?= base_url('bienestar'); ?>" class="link-footer">Bienestar</a></li>
@@ -15,7 +15,7 @@
                 <div class="col-xs-4 col-1-5 visible-lg">
                     <h2 class="titles-footer">ayuda al cliente</h2>
                     <ul>
-                        <li><a href="<?= base_url('preguntas-frecuentes'); ?>" class="link-footer">FAQ</a></li>
+                        <li><a href="<?= base_url('preguntas-frecuentes'); ?>" class="link-footer">Preguntas frecuentes</a></li>
                         <!-- <li><a href="<?= base_url('instrucciones-de-uso'); ?>" class="link-footer">Instrucciones de uso</a></li> -->
                         <li><a href="<?= base_url('reclamos'); ?>" class="link-footer">Libro de Reclamaciones</a></li>
                         <li><a href="<?= base_url('centro-de-descargas'); ?>" class="link-footer">Centro de descargas</a></li>
@@ -63,9 +63,9 @@
                     <p class="link-footer hidden-xs">Recibe actualizaciones por correo eléctronico sobre nuestra tienda y ofertas especiales.</p>
                     <p class="link-footer link-f-mob visible-xs">Recibe nuestras ofertas especiales.</p>
                     <form id="subscribe" method="POST" action="<?php echo base_url('subscribe/send') ?>" title="Suscrito con exito" data-placement="top">
-                        <div class="content-btn-susc">
+                        <div class="content-btn-susc" style="margin:12px 0">
                             <input type="email" name="subscribe" class="input-susc">
-                            <button type="submit" class="btn-susc">SUSCRÍBETE</button>
+                            <button type="submit" class="btn-susc" >SUSCRÍBETE</button>
                         </div>
                         <div class="col-xs-12 px-0">
                             <div class="checkbox">
@@ -82,20 +82,9 @@
         <!--CREDITOS -->
         <div class="crd">
             <div class="container">
-                <div class="crd1">
-                    <p class="text-credits"><a href="index.php" target="_blank">BEURER</a></p>
-                    <p class="text-credits">TODOS LOS DERECHOS RESERVADOS 2020</p>
-                </div>
-                <div class="crd2">
-                    <p class="text-credits">POWERED BY 
-                        <a href="http://exe.digital/" target="_blank">EXE</a>
-                    </p>
-                    <p class="oculMob hidden-xs">
-                        <a href="https://validator.w3.org/check?uri=referer"
-                            class="text-f text-credits" target="_blank">HTML </a> • 
-                        <a href="https://jigsaw.w3.org/css-validator/check/referer"
-                            class="text-f text-credits" target="_blank">CSS</a>
-                    </p>
+                <div class="crd1" style="width: 100%; padding-bottom : 1rem;">
+                    <p class="text-credits" style="text-align: center;"><a href="index.php" target="_blank">BEURER</a></p>
+                    <p class="text-credits"  style="text-align: center;">TODOS LOS DERECHOS RESERVADOS 2021</p>
                 </div>
             </div>
         </div>

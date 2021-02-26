@@ -422,6 +422,7 @@ class Contenido extends CI_Model {
             $data [$i]['volumen']= $rows['alto']*$rows['ancho']*$rows['largo'];
             $data[$i]['peso']= $rows['peso'];
             $data[$i]['delivery_free']= $rows['delivery_free'];
+            $data[$i]['nuevo']= $rows['nuevo'];
             $data[$i]['tipo_descuento']= $rows['tipo_descuento'];
             $data[$i]['active'] = $rows['active'];
             
@@ -649,6 +650,22 @@ class Contenido extends CI_Model {
         $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
         $this->db->select('productos.*, categorias.url as subcat_url, sitemap.url as cat_url, imagenes.imagen');
         $this->db->like('productos.titulo', $name);
+        $this->db->join('imagenes', 'imagenes.producto_id = productos.id', 'right');
+        $this->db->join('categorias', 'categorias.id = productos.categoria_id', 'right');
+        $this->db->join('paginas', 'paginas.idpagina = categorias.idpagina', 'right');
+        $this->db->join('sitemap', 'sitemap.idsitemap = paginas.idsitemap', 'right');
+        $this->db->group_by('productos.id');
+        $qry = $this->db->get('productos', $show);
+
+        return $qry->result_array();
+    }
+    public function search_product_cupon( array $name= [], $show=4)
+    {
+        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
+        $this->db->select('productos.*, categorias.url as subcat_url, sitemap.url as cat_url, imagenes.imagen');
+        foreach ($name as $palabra) {
+            $this->db->like('productos.titulo', $palabra);
+        };
         $this->db->join('imagenes', 'imagenes.producto_id = productos.id', 'right');
         $this->db->join('categorias', 'categorias.id = productos.categoria_id', 'right');
         $this->db->join('paginas', 'paginas.idpagina = categorias.idpagina', 'right');

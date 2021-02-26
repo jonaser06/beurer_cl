@@ -1,6 +1,6 @@
 :root {
     --color: brown;
-    --colorResponse: #C51152;
+    --colorResponse: #c51152;
     --colorFilter: #C51152;
     --colorSave: #C51152;
     --stateActive: #C51152;
@@ -1080,12 +1080,16 @@ section2 {
     }
     100% {
         transform: scale(1, 1) translateZ(0);
-        background-color: #ffc7bd;
+        background-color: #292120;
     }
 }
 
 
 /* cupon */
+
+.head-cupon {
+    margin: .5rem 0;
+}
 
 .res-cup {
     width: 100%;
@@ -1093,6 +1097,8 @@ section2 {
     text-align: center;
     display: block;
     color: #C51152;
+    padding: 8px 0;
+    font-size: 13px;
 }
 
 
@@ -1553,5 +1559,14 @@ section2 {
 @media (max-width: 480px) {
     .wrapper-cards-products .content-title-card .btn-vp .a-btn {
         font-size: .7rem !important;
+    }
+}
+
+
+/* color subcategory */
+
+@media (min-width: 1200px) {
+    .fadeInLeftShort.go {
+        background: #fff;
     }
 }

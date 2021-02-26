@@ -125,12 +125,12 @@
                             <?php if( floatval($product['precio_anterior']) != floatval($product['precio'])) {?>  
                                 
                                     <div style="display:block;"> 
-                                        <img
+                                        <!-- <img
                                             style="display:inline-block;width:10vh;height:8vh;margin-right:3%;padding-bottom:4%;"
-                                            src="<?= base_url(); ?>assets/images/precio-online.png">
+                                            src="<?= base_url(); ?>assets/images/precio-online.png"> -->
                                         <div class="font-nexaheav text-left"
                                             style="display:inline-block;color:#c51152;font-weight:bold; font-size: 2.3em;font-family:'nexaregularuploaded_file';">
-                                            S/ <?= $product['precio'] ?>
+                                            S/ <?= $product['precio']?>
                                         </div>
                                     </div>
                             <?php }?>
@@ -139,8 +139,9 @@
                             <?php  if( floatval($product['precio_anterior']) != floatval($product['precio'])) {
                                 echo 'price-throw';
                             }?> "
-                             style="text-align:left;font-size:1.5rem;font-weight:bold;font-family:'nexa-lightuploaded_file';margin-top:-0.5rem;">
-                                S/ <?= $product['precio_anterior'] ?></div>
+                             style="text-align:left;font-size:1.1rem!important;font-weight:bold;font-family:'nexa-lightuploaded_file';margin-top:-0.5rem;">
+                                S/ <?= $product['precio_anterior'] ?>
+                            </div>
                             <br>
                        
 
@@ -210,7 +211,6 @@
                                         data-img="<?= $product['imagen'][0] ?>" data-peso=<?= $product['peso'] ?>
                                         data-volumen=<?= $product['volumen'] ?> data-cantidad="1"
                                         data-stock=<?php echo $product['stock'] ?> >
-                                    
                                         <a style="color:white;border: 2px solid #c51152;" tabindex="-1">AÑADIR AL CARRO
                                         </a>
                                     </button>
@@ -373,31 +373,31 @@
                                             }
                                         </style>
                                     <?php } ?>
-                                    <?php if( $value['tipo_descuento'] != 0 && ($value['precio'] !== $value['precio_anterior']) ) {
+                                    <?php if( ( $value['tipo_descuento'] != 0 && ($value['precio'] !== $value['precio_anterior'])) && (int)$value['stock'] !== 0 ) {
                                         $price_desc = $value['precio_anterior']- $value['precio'];
                                         $porc_desc  = number_format( ( ($price_desc / $value['precio_anterior'])*100) , 2);
                                         ?>
                                         
-                                        <div class="tag-descuento">- <?php echo $value['tipo_descuento'] == 2 ? ($porc_desc).'%' : 'S/ '.($price_desc) ?></div>
+                                        <div class="tag-descuento">- <?php echo $value['tipo_descuento'] == 2 ? ((int)$porc_desc).'%' : 'S/ '.($price_desc) ?></div>
                                         <style>
                                             .content-descuento-tag {
                                                 position: relative;
                                             }
                                             .tag-descuento{
-                                                opacity: .7;
+                                                opacity: 1;
                                                 font-size:.8rem;
                                                 padding: 5px 10px;
-                                                border-radius: 0 0 10px 10px;
-                                                background-color: red;
+                                                border-radius: 10px 0 0px 10px;
+                                                background-color: #c51152;
                                                 color: #fff;
                                                 position: absolute;
                                                 top: 5%;
-                                                right: 5%;
-                                                transform: translate(-50%, -50%);
+                                                right:0%;
+                                                transform: translate(-0%, -50%);
                                             }
                                         </style>
                                     <?php } ?>
-                                    <?php if( (int)$value['delivery_free'] == 1 ) { ?>
+                                    <?php if( (true ) && (int)$value['stock'] !== 0)  { ?>
                                         <div class="tag-delivery">
                                             <img class ="img-delivery" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-delivery">
                                             <span class="text-delivery">ENVÍO <br> GRATIS</span>
@@ -407,36 +407,49 @@
                                                 position: relative;
                                             }
                                             .tag-delivery .text-delivery {
-                                                font-size:11px;
+                                                font-size:10px;
                                                 width: 50%;
                                                 margin-left: 10px;
                                             }
                                             .img-delivery {
-                                                width: 50%!important;
+                                                margin-left: 8px;
+                                                width: 38%!important;
                                                 height: auto;
                                             }
                                             .tag-delivery {
-
-                                                height: 12%;
+                                                
+                                                height: 10%;
                                                 width: 37%;
                                                 display: flex;
                                                 justify-content: flex-start;
                                                 align-items: center;
-                                                opacity: .9;
+                                                opacity: 1;
                                                 font-size:.8rem;
-                                                padding: 4px 12px ;
+                                                padding: 2px 5px ;
                                                 border-radius: 16px 0 0 16px;
-                                                background-color: red;
+                                                background-color: #c51152;
                                                 color: #fff;
                                                 position: absolute;
                                                 top: 10%;
                                                 right: 0%;
                                             }
+                                            .text-delivery {
+                                                 font-size: .60rem !important;
+                                            }
                                             @media (max-width:480px) {
                                                 .tag-delivery {
-                                                    height: 18%!important; 
-                                                    width: 50% !important; 
+                                                    height: 13%!important; 
+                                                    width: 45% !important; 
+
                                                 }
+                                                .text-delivery {
+                                                    font-size:7px;
+                                                    line-height: 10px;
+                                                    display: flex;
+                                                    align-items: center;justify-content: center;
+                                                    padding: 0;
+                                                 font-size: .4rem !important;
+                                            }
                                                 .btnAddCarrito {
                                                     font-size: .7rem !important;
                                                 }
@@ -448,8 +461,63 @@
                                                 }
                                                 
                                             }
+                                            @media (min-width:1200px) {
+                                                .img-delivery {
+                                               
+                                               margin-left: 10px;
+                                            }
+                                            .text-delivery {
+                                                line-height: 13px;
+                                                display: flex;
+                                                align-items: center;justify-content: center;
+                                                padding: 0;
+                                                 font-size: .5rem !important;
+                                            }
+                                            .tag-delivery {
+                                                
+                                                height: 9.5%;
+                                                /* width: 37%; */
+                                                display: flex;
+                                                justify-content: flex-start;
+                                                align-items: center;
+                                                opacity: 1;
+                                                font-size:.8rem;
+                                                padding: 2px 5px ;
+                                                border-radius: 16px 0 0 16px;
+                                                background-color: #c51152;
+                                                color: #fff;
+                                                position: absolute;
+                                                top: 10%;
+                                                right: 0%;
+                                            }
+                                            }
                                         </style>
                                     <?php } ?>
+                                    <?php if(  (int)$value['nuevo'] && (int)$value['stock'] > 0 ) { ?>
+                                        <div class="tag-new">
+                                                    <img  
+                                                    class="start__message"
+                                                    src="<?php echo  base_url('assets/images/targetnew.png') ?>" alt="">
+
+                                                    </div>
+                                                    <style>
+                                                        .content-new-tag {
+                                                            position: relative;
+                                                        }
+                                                        .start__message {
+                                                            width: 90px!important;
+                                                            height: auto!important;
+                                                            z-index: 10;
+                                                            position: absolute;
+                                                            color: #C51152;
+                                                            /* font-size: .8rem; */
+                                                            /* font-weight: 600; */
+                                                            top:70%;
+                                                            left:10%
+                                                            
+                                                        }
+                                                    </style>
+                                                <?php } ?>
                                 </div>
                                 
                                 <div class="content-title-card">
@@ -460,7 +528,7 @@
                                          <span class=" <?php echo $value['tipo_descuento'] != 0 && ($value['precio'] !== $value['precio_anterior'])? 'price-throw' : '' ?>"> <?php echo 'S/ '.$value['precio_anterior']; ?></span>
                                          <?php if( (int)$value['tipo_descuento'] !== 0 && ($value['precio'] !== $value['precio_anterior']) ) {?>
                                             <br>
-                                            <b  style="color: red; font-size:1rem;" class="d-block font-nexheavy ">S/. <?php echo $value['precio'] ?></b>
+                                            <b  style="color: #C51152; font-size:1rem;" class="d-block font-nexheavy ">S/. <?php echo $value['precio'] ?></b>
                                          <?php }?> 
                                     </b>
                                      
@@ -475,8 +543,8 @@
                                             data-precio_online="<?php echo $value['precio']  ?>"
                                             data-img="<?= $value['imagen']?>" 
                                             data-peso="<?= $value['peso'] ?>"
-                                            data-volumen="<?php echo (int)$value['delivery_free']== 0 ? 0 :($value['ancho']*$value['largo']* $value['alto']) ?>"
-                                             data-cantidad="1"
+                                            data-volumen="<?php echo (int)$value['delivery_free']== 1 ? 0 :($value['ancho']*$value['largo']* $value['alto']) ?>"
+                                            data-cantidad="1"
                                             data-stock=<?php echo $value['stock'] ?> 
                                             data-subtotal=<?=  floatval($value['precio']) ?> 
                                             class="a-btn font-nexaheavy addShop">agregar al carrito</a>
@@ -601,16 +669,21 @@ $(function() {
                         </div>
 
 
-                        <div style="display:block;"> <img
-                                style="text-align:left;display:inline-block;width:7vh;height:5vh;margin-right:3%;padding-bottom:4%;"
-                                src="<?= base_url(); ?>assets/images/precio-online.png">
+                        <div style="display:block;">
+                         <!-- <img style="text-align:left;display:inline-block;width:7vh;height:5vh;margin-right:3%;padding-bottom:4%;"
+                                src="<?= base_url(); ?>assets/images/precio-online.png"> -->
                             <div class="font-nexaheav"
                                 style="text-align:left;display:inline-block;color:#c51152;font-weight:bold; font-size: 1.2rem;font-family:'nexaregularuploaded_file';">
-                                $ <?=$product['precio'] ?></div>
+                                S/ <?=$product['precio'] ?></div>
                         </div>
-                        <div class="font-nexaheav"
-                            style="font-weight:100;text-align:left;font-size:1.1em;font-family:'nexaregularuploaded_file';">
-                            Normal: $ <?=$product['precio_anterior'] ?></div>
+                        <?php if( floatval($product['precio_anterior']) != floatval($product['precio'])){ ?>
+                            <div class="font-nexaheav  
+                            <?php  if( floatval($product['precio_anterior']) != floatval($product['precio'])) { echo 'price-throw'; }?> "
+                                style="font-weight:100;text-align:left;font-size:1.1em;font-family:'nexaregularuploaded_file';">
+                                S/. <?=$product['precio_anterior'] ?>
+                            </div>
+                        <?php } ?>
+                        
                     </div>
 
                 </div>
@@ -746,9 +819,9 @@ $(function() {
                             Cantidad: 1
                         </div>
 
-                        <div style="display:block;"> <img
-                                style="text-align:left;display:inline-block;width:7vh;height:5vh;margin-right:3%;padding-bottom:4%;"
-                                src="<?= base_url(); ?>assets/images/precio-online.png">
+                        <div style="display:block;">
+                         <!-- <img style="text-align:left;display:inline-block;width:7vh;height:5vh;margin-right:3%;padding-bottom:4%;"
+                                src="<?= base_url(); ?>assets/images/precio-online.png"> -->
                             <div class="font-nexaheav priceOfertAdd"
                                 style="text-align:left;display:inline-block;color:#c51152;font-weight:bold; font-size: 1.2rem;font-family:'nexaregularuploaded_file';">
                                 </div>

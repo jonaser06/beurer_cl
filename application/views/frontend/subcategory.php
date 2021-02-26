@@ -80,13 +80,12 @@
                                     <div class="wrapper-cards-products dtll card-prd-salud">
                                         <a class="linkabsolute" href="<?= base_url($pagina['url'].'/'.$category[0]['url'].'/').$row['prod_url'] ?>"></a>
                                         <div class="content-img-card
-                                            <?php echo  $row['stock'] == 0 ? 'content-stock-tag' : '' ?>
-                                                content-descuento-tag content-delivery-tag" >
+                                            <?php echo  $row['stock'] <= 0 ? 'content-stock-tag' : '' ?>
+                                                content-descuento-tag content-delivery-tag content-new-tag" >
                                                 <?php if (isset($row['imagen']) == 1) { ?>
                                                 <img src="<?= base_url($row['imagen'][0]); ?>" alt="" class="img-cnt">
-
                                                 <?php } ?>
-                                                <?php if( $row['stock'] == 0 ) { ?>
+                                                <?php if( $row['stock'] <= 0 ) { ?>
                                                     <div class="tag-stock">AGOTADO</div>
                                                     <style>
                                                         .content-stock-tag {
@@ -106,31 +105,32 @@
                                                         }
                                                     </style>
                                                 <?php } ?>
-                                                <?php if( $row['tipo_descuento'] != 0 && ($row['precio'] !== $row['precio_anterior']) ) {
+                                                <?php if( ($row['tipo_descuento'] != 0 && ($row['precio'] !== $row['precio_anterior'])) && (int)$row['stock'] !== 0 ) {
                                                     $price_desc = $row['precio_anterior']- $row['precio'];
                                                     $porc_desc  = number_format( ( ($price_desc / $row['precio_anterior'])*100) , 2);
                                                     ?>
                                                     
-                                                    <div class="tag-descuento">- <?php echo $row['tipo_descuento'] == 2 ? ($porc_desc).'%' : 'S/ '.($price_desc) ?></div>
+                                                    <div class="tag-descuento">- <?php echo $row['tipo_descuento'] == 2 ? ((int)$porc_desc).'%' : 'S/ '.($price_desc) ?></div>
                                                     <style>
                                                         .content-descuento-tag {
                                                             position: relative;
                                                         }
                                                         .tag-descuento{
-                                                            opacity: .7;
+                                                            /* opacity: .7; */
                                                             font-size:.8rem;
                                                             padding: 5px 10px;
-                                                            border-radius: 0 0 10px 10px;
-                                                            background-color: red;
+                                                            border-radius: 10px 0px 0px 10px;
+                                                            background-color: #c51152;
                                                             color: #fff;
                                                             position: absolute;
                                                             top: 5%;
-                                                            right: 5%;
-                                                            transform: translate(-50%, -50%);
+                                                            right: 10%;
+                                                            z-index: 3;
+                                                            /* transform: translate(-50%, -50%); */
                                                         }
                                                     </style>
                                                 <?php } ?>
-                                                <?php if( (int)$row['delivery_free'] == 1 ) { ?>
+                                                <?php if( ((int)$row['delivery_free'] == 1 ) && (int)$row['stock'] !== 0 ) { ?>
                                                     <div class="tag-delivery">
                                                         <img class ="img-delivery" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-delivery">
                                                         <span class="text-delivery">ENVÍO <br> GRATIS</span>
@@ -156,18 +156,19 @@
                                                             display: flex;
                                                             justify-content: flex-start;
                                                             align-items: center;
-                                                            opacity: .9;
+                                                            opacity: 1;
                                                             font-size:.8rem;
                                                             padding: 4px 12px ;
                                                             border-radius: 16px 0 0 16px;
-                                                            background-color: red;
+                                                            background-color: #c51152;
                                                             color: #fff;
                                                             position: absolute;
-                                                            top: 10%;
-                                                            right: 3%;
+                                                            top: 20%;
+                                                            right: 10%;
+                                                            /* transform: translate(-50%, -0%); */
                                                         }
                                                         .text-delivery {
-                                                                font-size: .64rem !important;
+                                                                font-size: .60rem !important;
                                                             }
                                                         @media (max-width:480px) {
                                                             .img-delivery {
@@ -208,7 +209,49 @@
                                                         }
                                                     </style>
                                                 <?php } ?>
+                                                <?php if(  (int)$row['nuevo']  && (int)$row['stock'] > 0 ) { ?>
+                                                    <div class="tag-new">
+                                                    <img  
+                                                    style="width: 100px;"
+                                                    class="start__message"
+                                                    src="<?php echo  base_url('assets/images/targetnew.png') ?>" alt="">
 
+                                                    </div>
+                                                    <style>
+                                                        .content-new-tag {
+                                                            position: relative;
+                                                        }
+                                                        .start__message {
+                                                            position: absolute;
+                                                            color: #C51152;
+                                                            font-size: .8rem;
+                                                            font-weight: 600;
+                                                            top:70%;
+                                                            left:10%
+                                                            
+                                                        }
+                                                        @media (max-width:320px) {
+                                                            .wrapper-cards-products .content-title-card .btn-vp .a-btn {
+                                                                font-size: .5rem!important;
+                                                            }
+                                                        }
+                                                        @media (max-width:480px) {
+                                                            .start__message  {
+                                                                width: 75px!important;
+                                                                left: 10px;
+                                                            }
+                                                        }
+                                                        @media (max-width: 575px) and (min-width: 481px)  {
+                                                            .start__message  {
+                                                                top:60%;
+                                                                width: 70px!important;
+                                                                left: 10px;
+                                                            }
+                                                        }
+
+                                                        
+                                                    </style>
+                                                <?php } ?>
                                         </div>
                                         <div class="content-title-card">
                                             <h2 class="h2-title font-nexaheavy"><?= $row['titulo']; ?></h2>
@@ -217,7 +260,7 @@
                                                 <span class=" <?php echo $row['tipo_descuento'] != 0 && ($row['precio'] !== $row['precio_anterior'])? 'price-throw' : '' ?>"> <?php echo 'S/ '.$row['precio_anterior']; ?></span>
                                                 <?php if( (int)$row['tipo_descuento'] !== 0 && ($row['precio'] !== $row['precio_anterior']) ) {?>
                                                     <br>
-                                                    <b  style="color: red; font-size:1rem;" class="d-block font-nexheavy ">S/. <?php echo $row['precio'] ?></b>
+                                                    <b  style="color: #c51152; font-size:1rem;" class="d-block font-nexheavy ">S/. <?php echo $row['precio'] ?></b>
                                                 <?php }?> 
                                             </b>
                                             <div class="btn-vp">
@@ -231,7 +274,7 @@
                                                     data-precio_online="<?php echo $row['precio']  ?>"
                                                     data-img="<?= $row['imagen'][0]?>" 
                                                     data-peso="<?= $row['peso'] ?>"
-                                                    data-volumen="<?php echo (int)$row['delivery_free']== 0 ? 0 :($row['volumen']) ?>"
+                                                    data-volumen="<?php echo (int)$row['delivery_free'] == 1 ? 0 :($row['volumen']) ?>"
                                                     data-cantidad="1"
                                                     data-stock=<?php echo $row['stock'] ?> 
                                                     data-subtotal=<?=  floatval($row['precio']) ?> 
@@ -261,6 +304,14 @@
         include 'src/includes/footer.php'
     ?>
 
+
+
+   <style>
+   .wrapper-cards-products.dtll {
+    padding-bottom: 58px;
+}
+   </style>
+</body>
 
 <div class="modal fade" id="addCarr" tabindex="1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -302,9 +353,7 @@
                             Cantidad: 1
                         </div>
 
-                        <div style="display:block;"> <img
-                                style="text-align:left;display:inline-block;width:7vh;height:5vh;margin-right:3%;padding-bottom:4%;"
-                                src="<?= base_url(); ?>assets/images/precio-online.png">
+                        <div style="display:block;"> 
                             <div class="font-nexaheav priceOfertAdd"
                                 style="text-align:left;display:inline-block;color:#c51152;font-weight:bold; font-size: 1.2rem;font-family:'nexaregularuploaded_file';">
                                 </div>
@@ -346,12 +395,5 @@
         </div>
     </div>
 </div>
-
-   <style>
-   .wrapper-cards-products.dtll {
-    padding-bottom: 58px;
-}
-   </style>
-</body>
 
 </html>

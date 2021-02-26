@@ -1652,7 +1652,7 @@ class Ajax extends MY_Controller
                              "currency_code" =>"PEN",
                              "description"   => 'Compra desde web BEURER' ,
                              "order_number"     => $order_number,
-                             "metadata" =>$metadata,
+                             "metadata" =>($metadata),
                              "client_details"=>[
                                  "address"    => 'Distrito:'.$this->input->post('distrito'),
                                  "address_city"    => 'LIMA - PERU ',
@@ -1666,6 +1666,7 @@ class Ajax extends MY_Controller
 
                          ]
                  );    
+                //  echo json_encode($charge);
                 
                  $this->output
                          ->set_content_type('application/json')
@@ -2233,7 +2234,7 @@ class Ajax extends MY_Controller
                 fclose($fp);
             }
         
-
+        
 
         $this->output
         ->set_content_type('application/json')

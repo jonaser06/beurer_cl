@@ -4,6 +4,14 @@
 <?php
     include 'src/includes/header.php'
 ?>
+<style>
+    .form__label-content {
+        position: relative !important;
+    }
+    .form__input {
+        padding: 10px 20px!important;
+    }
+</style>
     <main class="main-contact-us">
         <section class="sct-banner-int pos-rel" id="section0">
             <img src="<?php echo base_url($contenido['contacto_img']); ?>" alt="" class="img-cover">
@@ -116,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
-                                        <button type="submit" class="font-nexaheavy btn-send"
+                                        <button style="margin-top:1.2rem;"type="submit" class="font-nexaheavy btn-send"
                                                 id="btn-send-form">ENVIAR</button>
                                     </div>
                                 </div>

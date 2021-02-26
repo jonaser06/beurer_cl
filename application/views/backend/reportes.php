@@ -73,6 +73,7 @@
                                     <thead>
                                         <tr>
                                             <th>Pedido</th>
+                                            <th>Código</th>
                                             <th>Nombres</th>
                                             <th>Apellidos</th>
                                             <th>Fecha</th>

@@ -917,7 +917,7 @@ ObjMain = {
     changueColor: (visor, btnColorChangue, btnCarrito) => {
         document.addEventListener('click', event => {
             if (event.target.matches(btnColorChangue)) {
-                DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
+                DOMAIN = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://cl.blogingenieria.site/';
 
                 const $visor = document.querySelector(visor),
                     $addCarrito = document.querySelector(btnCarrito)
@@ -1477,8 +1477,10 @@ ObjMain = {
                 processData: false,
                 cache: false,
                 success: function(order) {
+                    console.log(order);
                     let streamOrder = JSON.parse(JSON.stringify(order));
-                    // console.log(streamOrder)
+                    console.log(streamOrder)
+                        // console.log(streamOrder)
                     Culqi.settings({
                         title: 'BEURER',
                         currency: 'PEN',
@@ -2406,22 +2408,22 @@ class Shop {
         return promise;
     }
     async addProductsRLT(id) {
-        const form = new FormData();
-        form.append('id', id);
-        let stream = await this.ajax_post('POST', `${DOMAIN}/ajax/relations`, form);
-        stream = JSON.parse(stream);
-        if (stream.status) {
-            console.log(stream.data);
-            let $relacionados = document.querySelector('.relacionados-products');
-            document.querySelector('.title-sugeridos').textContent = 'PRODUCTOS SUGERIDOS';
+            const form = new FormData();
+            form.append('id', id);
+            let stream = await this.ajax_post('POST', `${DOMAIN}/ajax/relations`, form);
+            stream = JSON.parse(stream);
+            if (stream.status) {
+                console.log(stream.data);
+                let $relacionados = document.querySelector('.relacionados-products');
+                document.querySelector('.title-sugeridos').textContent = 'PRODUCTOS SUGERIDOS';
 
-            $relacionados.innerHTML = '';
+                $relacionados.innerHTML = '';
 
-            stream.data.forEach((prod, index) => {
-                if (prod.titulo && index < 3) {
-                    let price_descuento = prod.tipo_descuento == 1 ?
-                        `<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b><b  style="color: red" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
-                        ((prod.tipo_descuento == 2) ? `<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b><b  style="color: red" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
+                stream.data.forEach((prod, index) => {
+                            if (prod.titulo && index < 3) {
+                                let price_descuento = prod.tipo_descuento == 1 ?
+                                    `${prod.precio !== prod.precio_anterior ?`<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b>`:'' }<b  style="color: #c51152" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
+                        ((prod.tipo_descuento == 2) ? `${prod.precio !== prod.precio_anterior ?`<b class="price-throw d-block font-nexheavy">S/. ${prod.precio_anterior}</b>`:''}<b  style="color: #c51152" class="d-block font-nexheavy">S/. ${ prod.precio}</b>` :
                             ` <b style="margin-top:6px" class="d-block font-nexheavy">S/. ${prod.precio}</b>`);
                     $relacionados.innerHTML += `
                     <div class="col-md-4 col-xs-4" style="padding:0;">

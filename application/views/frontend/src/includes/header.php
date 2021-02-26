@@ -100,6 +100,17 @@
     font-weight:bold !important;
     font-size:1.5em!important;
 }
+.menu-link {
+    line-height: 60px;
+    transition: .4s all ease-in-out;
+}
+.menu-link:hover {
+    border-bottom :1px solid #fff
+    
+}
+.link-right {
+    line-height: 40px;
+}
 
 @media only screen and (max-width: 767px) {
     #primary-nav{
@@ -187,8 +198,8 @@
                         <div class="col-xs-8 col-sm-5 pos-inh box-search">
                             <div class="text-right txt-mob derecho" style="margin-right:-3%;">
                                 <form class="div-search d-in-block" method="POST" action="<?= base_url('productos/resultado/') ?>">
-                                    <input type="text" class="input-search search_get" name="search_get" placeholder="¿Qué estas buscando?" autocomplete="off" style="font-size:0.9em; text-align:center; width:0px;">
-                                    <span class="icon-h icon-lupa btn-search"></span>
+                                    <input type="text" id="busqueda"class="input-search search_get" name="search_get" placeholder="¿Qué estas buscando?" autocomplete="off" style="font-size:0.9em; text-align:center; width:0px;">
+                                    <span onmouseover ="ObjMain.focus()"class="icon-h icon-lupa btn-search" style="cursor:pointer"></span>
                                     <button type="submit" class="bsc-btn hidden-md hidden-lg font-nexaregular">BUSCAR</button>
                                 </form>
                                 <i id="button-menu" class="icon-hamb-open"></i>
@@ -203,7 +214,7 @@
                                 <a href="<?= base_url('carrito') ?>"><img src="<?= base_url('assets/images/nuevo/carrito.png'); ?>" alt="" style="max-width:36px;"></a>
                             </div>
                             <div class="utl2">
-                                <a onclick="ObjMain.login()"><img src="<?= base_url('assets/images/nuevo/login.png'); ?>" alt="" style="max-width:26px;"></a>
+                                <a onclick="ObjMain.login()"><img src="<?= base_url('assets/images/nuevo/login.png'); ?>" alt="" style="max-width:26px;cursor:pointer"></a>
                             </div>
                             <div class="utl3">    
                                 <a href="<?= base_url('estado-pedido')?>"><img src="<?= base_url('assets/images/nuevo/delivery.png'); ?>" alt="" style="max-width:48px;"></a>
@@ -258,24 +269,28 @@
                         <div class="menu-hamb" style="display:none;">
                             <div class="container">
                                 <div class="row">
-                                    <ul class="col-xs-12 col-md-5 visible-md visible-lg">
-                                        <li><a href="<?= base_url('salud'); ?>" class="link-menu-hamb font-nexaheavy">salud</a></li>
-                                        <li><a href="<?= base_url('bienestar'); ?>" class="link-menu-hamb font-nexaheavy">bienestar</a></li>
-                                        <li><a href="<?= base_url('belleza'); ?>" class="link-menu-hamb font-nexaheavy">belleza</a></li>
-                                        <li><a href="<?= base_url('actividad'); ?>" class="link-menu-hamb font-nexaheavy">actividad</a></li>
-                                        <li><a href="<?= base_url('linea-bebe'); ?>" class="link-menu-hamb font-nexaheavy">línea bebé</a></li>
+                                    <ul class="col-xs-12 col-md-5 visible-md visible-lg" style="font-size:18px">
+                                        <li><a href="<?= base_url('salud'); ?>" class=" menu-link link-subm-hamb font-nexaheavy">
+                                        <span class="icon-nav icon-salud" style="margin-right:9px"></span>SALUD</a></li>
+                                        <li><a href="<?= base_url('bienestar'); ?>" class=" menu-link link-subm-hamb font-nexaheavy"><span class="icon-nav icon-bienestar" style="margin-right:11px"></span>BIENESTAR</a></li>
+                                        <li><a href="<?= base_url('belleza'); ?>" class=" menu-link link-subm-hamb font-nexaheavy"><span class="icon-nav icon-belleza" style="margin-right:11px"></span>BELLEZA</a></li>
+                                        <li><a href="<?= base_url('actividad'); ?>" class=" menu-link link-subm-hamb font-nexaheavy"><span class="icon-nav icon-actividad" style="margin-right:11px"></span>ACTIVIDAD</a></li>
+                                        <li><a href="<?= base_url('linea-bebe'); ?>" class=" menu-link link-subm-hamb font-nexaheavy"><span class="icon-nav icon-linea-bb" style="margin-right:11px"></span>LINEA BEBÉ</a></li>
                                     </ul>
-                                    <ul class="col-xs-12 col-md-5 visible-md visible-lg">
-                                        <li><a href="<?php echo base_url('nosotro'); ?>s" class="link-menu-hamb font-nexaheavy">quienes somos</a></li>
-                                        <li><a href="<?php echo base_url('contactanos'); ?>" class="link-menu-hamb font-nexaheavy">Contacto</a></li>
-                                        <li><a href="#" class="font-nexaheavy nolink">Ayuda al cliente</a>
-                                            <ul class="sub-m">
-                                                <li><a href="<?php echo base_url('preguntas-frecuentes'); ?>" class="link-subm-hamb font-nexaregular">FAQ</a></li>
+                                    <ul class="col-xs-12 col-md-5 visible-md visible-lg sub-m" style="font-size: 14px;">
+                                        
+                                        <!-- <li><a href="#" class="font-nexaheavy no-link">Ayuda al cliente :</a> -->
+                                        <li><a href="<?php echo base_url('contactanos'); ?>" class="nolink link-subm-hamb font-nexaheavy">AYUDA AL CLIENTE :</a></li>
+
+                                            <ul class="sub-m"style="padding:20px 0px" style="font-size: 12px;">
+                                                <li><a href="<?php echo base_url('preguntas-frecuentes'); ?>" class="link-right link-subm-hamb font-nexaregular">Preguntas frecuentes</a></li>
                                                 <!-- <li><a href="<?php echo base_url('instrucciones-de-uso'); ?>" class="link-subm-hamb font-nexaregular">Instrucciones de uso</a> </li>-->
-                                                <li><a href="<?php echo base_url(''); ?>centro-de-descargas" class="link-subm-hamb font-nexaregular">Centro de descargas</a></li>
-                                                <li><a href="<?php echo base_url('terminos-y-condiciones'); ?>"class="link-subm-hamb font-nexaregular">Términos y condiciones</a></li>
-                                                <li><a href="<?php echo base_url('politicas-de-privacidad'); ?>" class="link-subm-hamb font-nexaregular">Políticas de privacidad</a></li>
+                                                <li><a href="<?php echo base_url(''); ?>centro-de-descargas" class=" link-right link-subm-hamb font-nexaregular">Centro de descargas</a></li>
+                                                <li><a href="<?php echo base_url('terminos-y-condiciones'); ?>"class=" link-right link-subm-hamb font-nexaregular">Términos y condiciones</a></li>
+                                                <li><a href="<?php echo base_url('politicas-de-privacidad'); ?>" class=" link-right link-subm-hamb font-nexaregular">Políticas de privacidad</a></li>
                                             </ul>
+                                            <li><a href="<?php echo base_url('nosotro'); ?>s" class="link-right link-subm-hamb font-nexaheavy">QUIENES SOMOS </a></li>
+                                        <li><a href="<?php echo base_url('contactanos'); ?>" class=" link-right link-subm-hamb font-nexaheavy">CONTACTO</a></li>
                                         </li>
                                     </ul>
                                     <div class="menu-mobile container-fluid visible-xs visible-sm">
@@ -350,7 +365,7 @@
                                                         href="<?php echo base_url('ayuda') ?>">Ayuda al Cliente</a>
                                                     <ul>
                                                         <li class="subm-nav-enl font-nexaregular"><a
-                                                                href="<?php echo base_url('preguntas-frecuentes'); ?>">FAQ</a>
+                                                                href="<?php echo base_url('preguntas-frecuentes'); ?>">PREGUNTAS FRECUENTES</a>
                                                         </li>
                                                         <!-- <li class="subm-nav-enl font-nexaregular"><a href="<?php echo base_url('instrucciones-de-uso'); ?>">Instrucciones de Uso</a></li> -->
                                                         <li class="subm-nav-enl font-nexaregular"><a

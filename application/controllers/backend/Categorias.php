@@ -79,8 +79,8 @@ class Categorias extends MY_Controller {
     }
     
     public function save(){
-        $post=$this->input->post();
-        $jm=array();
+        $post = $this->input->post();
+        $jm = array();
     
         if(empty($post['categoria']['nombre'])){
             $errores[]="nombre";
@@ -89,7 +89,12 @@ class Categorias extends MY_Controller {
         }
         
         if(isset($errores) && !empty($errores)){
-            $mensaje=array("mensaje"=>"Faltan registrar datos importantes","tipo"=>2,"errores"=>json_encode($errores),"jm"=>json_encode($jm));
+            $mensaje = [
+            "mensaje"=>"Faltan registrar datos importantes",
+            "tipo"=>2,
+            "errores"=>json_encode($errores),
+            "jm"=>json_encode($jm)
+        ];
         }else{
             if( (int) $post['categoria']['idsitemap'] > 0) {
 

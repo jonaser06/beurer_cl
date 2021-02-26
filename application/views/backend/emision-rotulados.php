@@ -41,6 +41,8 @@
                                     <thead>
                                         <tr>
                                             <th>Código Compra</th>
+                                            <th>Fecha de compra</th>
+                                            <th>Cliente</th>
                                             <th>DNI</th>
                                             <th>Tipo de Entrega</th>
                                             <th>Rotulados</th>
@@ -82,6 +84,7 @@
         <script>
             
             let table = $('#table_rotulados').DataTable({
+            "order": [[ 1, "desc" ]],    
             responsive: true,
             'paging'      : true,
             'lengthChange': false,
@@ -90,11 +93,19 @@
             'info'        : true,
             'autoWidth'   : false,
             "scrollCollapse": true,
+            "order": [[ 1, "desc" ]],
             "language"    :{"search":"Buscar", "zeroRecords":"Sin Resultados Coincidentes"},
             "ajax": "manager/pedidos/getPedidos",
                 "columns": [
                     { "data": "codigo", 'render' : function (data) {
                         return data.toUpperCase();
+                    } }
+                    ,
+                    { "data": "pedido_fecha", 'render' : function (data) {
+                        return data;
+                    } },
+                    { "data": "nombres", 'render' : function (data,type,row) {
+                        return row.nombres + ' '+row.apellidos;
                     } }
                     ,
                     { "data": "numero_documento" }

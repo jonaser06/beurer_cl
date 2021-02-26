@@ -703,6 +703,27 @@
                                            
                                         </div>
                                     </div>
+                                   <div class="col-xs-12 col-md-6">
+                                         <div class="form-group">
+                                            <label>Nuevo Producto</label>
+                                            <div style="display:flex;justify-content:center;align-items:center">
+                                            <img style="height:40px; margin-right:10px;"
+                                               class ="img-delivery" src="<?= base_url('assets/images/escudo.png')?>" alt="tag-new">
+                                                <select class="form-control col-xs-4" name="productos[nuevo]">
+                                              
+                                                <?php if ($producto['nuevo'] == 0 ): ?>
+                                                    <option value="0" selected>NO</option>
+                                                    <option value="1">SI</option>
+                                                <?php else: ?>
+                                                    <option value="0">NO</option>
+                                                    <option value="1" selected>SI</option>
+                                                <?php endif ?>
+                                                
+                                            </select>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
                                    
                                     
                                   

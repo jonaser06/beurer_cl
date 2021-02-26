@@ -44,15 +44,11 @@
           display: flex;
           flex-wrap: nowrap;
           justify-content: space-between;">
-            <span class="step_on1">
-                <img src="assets/images/steps/paso1.png"></span>
-
+            <span class="step_on1"><img src="assets/images/steps/paso1.png"></span>
 
             <span class="step_off1"><img src="assets/images/steps/paso2.png"></span>
 
-
             <span class="step_off1"><img src="assets/images/steps/paso3.png"></span>
-
 
             <span class="step_off1"><img src="assets/images/steps/paso4.png"></span>
         </div>
@@ -130,7 +126,7 @@
                                                     class="d_ob">*</div>
                                             </div>
                                             <input type="text" size="20" maxlength="20"  onkeypress="return soloNumeros(event)" name="campo1" id="campo1" 
-                                                value="<?= $userData ? $userData['documento'] : '' ?> "
+                                                value="<?php echo $userData ? trim($userData['documento']): '' ?>"
                                                 required
                                             >
 
@@ -289,10 +285,6 @@
             </div>
 
         </div>
-
-
-
-
         <div class="row cont_datos" id="d_formularios2" align="center" style="display:none;width:46em;">
             <div class="tabs col-xs-12" style="display:block !important;" id="tab-registro">
                 <div class="tab-button-outer">

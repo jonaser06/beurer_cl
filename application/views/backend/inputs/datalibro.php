@@ -56,7 +56,7 @@ if ((bool) $datosx['botones']['eliminar']) {
     echo '\'<a href="javascript: void(0);" class="btn btn-danger btn-xs btn-flat btn-eliminar-js" data-id="\' + value.idcolumn + \'"><i class="fa fa-trash-o"></i></a>\',';
 }
 ?>
-                '</center>'
+                '</center>';
             ].join('');
         });
         Exeperu.loadDataTable('dataTable-<?= $variable['idcontenido'] ?>', {

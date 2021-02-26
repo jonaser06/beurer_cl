@@ -75,7 +75,7 @@
                         Exeperu.reloadTableTags();
                     }else{
                         toastr.error(jm.mensaje,{timeOut:2000});
-                        var errores=JSON.parse(jm.errores); 
+                        let  errores=JSON.parse(jm.errores); 
                         $.each( errores, function( key, value ) {
                             $("#"+value+"").parent().addClass("has-error");
                         });

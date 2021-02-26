@@ -132,7 +132,7 @@
                                         <li><a href="#" class="link-menu-hamb font-nexaheavy">Contacto</a></li>
                                         <li><a href="#" class="font-nexaheavy nolink">Ayuda al cliente:</a>
                                             <ul class="sub-m">
-                                                <li><a href="#" class="link-subm-hamb font-nexaregular">FAQ</a></li>
+                                                <li><a href="#" class="link-subm-hamb font-nexaregular">PREGUNTAS FRECUENTES</a></li>
                                                 <li><a href="#" class="link-subm-hamb font-nexaregular">Centro de descargas</a></li>
                                                 <li><a href="#" class="link-subm-hamb font-nexaregular">Términos y condiciones</a></li>
                                                 <li><a href="#" class="link-subm-hamb font-nexaregular">Políticas de privacidad</a></li>

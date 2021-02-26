@@ -162,9 +162,6 @@ class Productos extends CI_Controller {
 	   
 
 	    return $cadena;
-
-	    
-
 	}
 
 
@@ -217,6 +214,7 @@ class Productos extends CI_Controller {
             'orden' => $input['orden'],
             'delivery_free' => $input['delivery_free'],
             'tipo_descuento' => $input['tipo_descuento'],
+            'nuevo' => $input['nuevo'],
 		);
 
 		$bigdata = array(
