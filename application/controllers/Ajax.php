@@ -2232,10 +2232,12 @@ class Ajax extends MY_Controller
                 fwrite($fp, json_encode($input));
                 fclose($fp);
             }
-       
+        
+
+
         $this->output
         ->set_content_type('application/json')
-        ->set_status_header(404)
+        ->set_status_header(200)
         ->set_output(json_encode($input));
 
     } 
