@@ -2222,12 +2222,17 @@ class Ajax extends MY_Controller
 
     public function testChargue() {
         $input = json_decode(file_get_contents('php://input'), true);
+        $path = APPPATH.'logs';
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
 
-        $fp = fopen(base_url('log/log-webhooks.json'), "a");
+            $fp = fopen($path.'\log.json', "w+b");
             if($fp) {
                 fwrite($fp, json_encode($input));
                 fclose($fp);
             }
+        }
+       
         $this->output
         ->set_content_type('application/json')
         ->set_status_header(404)
