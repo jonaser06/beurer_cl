@@ -368,7 +368,7 @@ $(".popup-ini .close").click(function() {
 
 
 
-let BASE_URL = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
+let BASE_URL = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://cl.blogingenieria.site/';
 
 $('.search_get').keyup(function(event) {
     $('show_result').html('<img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" width="30">')
