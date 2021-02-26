@@ -177,7 +177,7 @@
 
 		<script>
 		function CUPON() {
-				let BASE_URL = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://beurer.pe/';
+				let BASE_URL = (window.location.hostname == 'localhost') ? 'http://localhost/beurer_cl/' : 'https://cl.blogingenieria.site/';
 				let $container_products = document.querySelector('.product_select');
 				let $cupon = document.querySelector('#cupon_valor');
 				$('#tipo_cupon').change( function ( e ) {
