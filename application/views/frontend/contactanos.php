@@ -135,8 +135,8 @@
             </div>
             <div class="container-fluid">
                 <div class="map-beurer">
-                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1950.4907676532623!2d-76.99343005794609!3d-12.11341581285309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7ec37a6d22d%3A0x12293e9ad3f61963!2sAv.%20Caminos%20del%20Inca%20257%2C%20Lima%2015038!5e0!3m2!1ses-419!2spe!4v1579623677859!5m2!1ses-419!2spe" height="500" frameborder="0" style="border:0;" allowfullscreen=""></iframe> -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5372631136115!2d-74.04980568573681!3d4.676252343172355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwNDAnMzQuNSJOIDc0wrAwMic1MS40Ilc!5e0!3m2!1ses-419!2spe!4v1588784641683!5m2!1ses-419!2spe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1950.4907676532623!2d-76.99343005794609!3d-12.11341581285309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7ec37a6d22d%3A0x12293e9ad3f61963!2sAv.%20Caminos%20del%20Inca%20257%2C%20Lima%2015038!5e0!3m2!1ses-419!2spe!4v1579623677859!5m2!1ses-419!2spe" height="500" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5372631136115!2d-74.04980568573681!3d4.676252343172355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwNDAnMzQuNSJOIDc0wrAwMic1MS40Ilc!5e0!3m2!1ses-419!2spe!4v1588784641683!5m2!1ses-419!2spe" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
                 </div>
             </div>
         </section>
