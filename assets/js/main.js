@@ -37,7 +37,6 @@ ObjMain = {
             ObjMain.selectedDistrict(userData.distrito);
 
             ObjMain.recibir_ofertas();
-            ObjMain.recibir_ofertas();
             // ObjMain.defaultUbigeo();
         }
         if (window.location.href == (`${DOMAIN}reclamos`)) {
@@ -75,6 +74,9 @@ ObjMain = {
             ObjMain.overload();
         }
         if (window.location.href == (`${DOMAIN}carrito`)) {
+            localStorage.removeItem('descuento')
+            localStorage.removeItem('tipo')
+            localStorage.removeItem('cupon_codigo')
             ObjMain.listar_items();
             ObjMain.nextStepCarrito();
         }
@@ -262,9 +264,10 @@ ObjMain = {
         }
         localStorage.setItem('costo_envio', resp.total_coste);
         document.querySelector('.cost_shipped').textContent = parseFloat(resp.total_coste).toFixed(2)
-        localStorage.removeItem('descuento')
-        localStorage.removeItem('tipo')
-        localStorage.removeItem('cupon_codigo')
+            // localStorage.removeItem('descuento')
+            // localStorage.removeItem('tipo')
+            // localStorage.removeItem('cupon_codigo')
+
         ObjMain.costo_total();
 
     },
@@ -281,6 +284,10 @@ ObjMain = {
 
         }
         if (tipo == 2) {
+            total = sub;
+            total = total - desc;
+        }
+        if (tipo == 3) {
             total = sub;
             total = total - desc;
         }
@@ -398,8 +405,11 @@ ObjMain = {
     },
     delete: (event) => {
         event.preventDefault();
-        let id = event.path[3].getAttribute('data-id');
-        event.path[3].remove();
+        // let id = event.path[3].getAttribute('data-id');
+        // event.path[3].remove();
+        $nodeParent = event.target.parentElement.parentElement.parentElement;
+        let id = $nodeParent.getAttribute('data-id');
+        $nodeParent.remove();
         document.querySelector('.ibr-' + id).remove();
         document.querySelectorAll('.ind-resumen').forEach((indice, index) => indice.textContent = index + 1);
         /* eliminar de localstorage */
@@ -408,8 +418,20 @@ ObjMain = {
             productos = JSON.parse(productos);
             for (let i = 0; i < productos.length; i++) {
                 if (productos[i].id == id) {
+                    /** eliminar descuento si el producto hace match */
+                    if (parseInt(localStorage.getItem('tipo')) === 3) {
+                        if (parseInt(productos[i].id) == parseInt(localStorage.getItem('xi4iloflouji'))) {
+                            localStorage.removeItem('descuento')
+                            localStorage.removeItem('tipo')
+                            localStorage.removeItem('cupon_codigo')
+                            document.querySelector('.descont_cost').textContent = `0.00`
+                            document.querySelector('.res-cup').textContent = ``;
+                        }
+                    }
+                    /**end */
                     console.log('--------Eliminando--------');
                     delete productos[i];
+
                 }
             }
         }
@@ -449,7 +471,7 @@ ObjMain = {
             if (productos) {
                 productos = JSON.parse(productos);
                 for (let i = 0; i < productos.length; i++) {
-                    if (productos[i].cantidad == cantidad) {
+                    if (productos[i].id == id) {
                         productos[i].cantidad = ncantidad;
                         break;
                     }
@@ -478,7 +500,7 @@ ObjMain = {
             if (productos) {
                 productos = JSON.parse(productos);
                 for (let i = 0; i < productos.length; i++) {
-                    if (productos[i].cantidad == cantidad) {
+                    if (productos[i].id == id) {
                         productos[i].cantidad = ncantidad;
                         break;
                     }
@@ -1162,18 +1184,56 @@ ObjMain = {
                         let tipo = parseInt(res.data.tipon_cupon);
                         let desc;
                         let total;
-                        localStorage.setItem('tipo', tipo);
-                        localStorage.setItem('descuento', res.data.descuento);
-                        $descuento.textContent = tipo == 1 ? `${res.data.descuento} %` : `${res.data.descuento}`
-                        $resCupon.style.color = 'green';
-                        $resCupon.textContent = res.message;
-                        localStorage.setItem('cupon_codigo', res.data.codigo)
+                        if (tipo == 1 || tipo == 2) {
+                            localStorage.setItem('tipo', tipo);
+                            localStorage.setItem('descuento', res.data.descuento);
+                            $descuento.textContent = tipo == 1 ? `${res.data.descuento} %` : `${res.data.descuento}`
+                            $resCupon.style.color = 'green';
+                            $resCupon.textContent = res.message;
+                            localStorage.setItem('cupon_codigo', res.data.codigo)
+                        }
+
+                        let $names_resumen = document.querySelectorAll('.name-resumen');
+                        if (tipo == 3) {
+                            $resCupon.style.color = 'red';
+                            $resCupon.textContent = `${res.data.producto.titulo.trim()} no se encuentra en su carrito , debe agregarlo para que se aplique el cupón.`;
+
+                            $names_resumen.forEach(name => {
+                                let $price = name.parentElement.lastElementChild
+                                $price.innerHTML = parseFloat($price.textContent).toFixed(2);
+                                if (name.textContent.trim() == res.data.producto.titulo.trim()) {
+                                    $descuento.textContent = `-${res.data.descuento}`
+                                    $resCupon.style.color = 'green';
+                                    $resCupon.textContent = res.message;
+                                    localStorage.setItem('tipo', tipo);
+                                    localStorage.setItem('descuento', res.data.descuento);
+                                    localStorage.setItem('cupon_codigo', res.data.codigo)
+                                    const cupon_prod_id = parseInt(res.data.producto.id);
+                                    localStorage.setItem('xi4iloflouji', cupon_prod_id);
+                                    let priceNew = (parseFloat($price.textContent) - parseFloat(res.data.descuento)).toFixed(2);
+                                    $price.innerHTML =
+                                        `<span style="font-size:.7rem!important;text-decoration:line-through">
+                                         ${ parseFloat($price.textContent).toFixed(2) }
+                                    </span><br>
+                                    <span style="color:#C51152">S/. ${priceNew}</span>`;
+
+                                }
+                            })
+                        } else {
+                            $names_resumen.forEach(name => {
+                                let $price = name.parentElement.lastElementChild
+                                $price.innerHTML = parseFloat($price.textContent).toFixed(2);
+
+                            })
+                        }
+
 
                     } else {
                         $resCupon.textContent = res.message;
                         $resCupon.style.color = '#C51152';
                         $cupon.value = "";
                     }
+
                     ObjMain.costo_total();
 
                 })
@@ -1348,7 +1408,7 @@ ObjMain = {
                 $cupon.textContent = `${parseFloat(descuento).toFixed(2)} %`
                 total_payment = `${( (parseFloat(subtotal)* descuento/100) + parseFloat(envio)).toFixed(2)} `
             }
-            if (tipo_cupon == 2) {
+            if (tipo_cupon == 2 || tipo_cupon == 3) {
                 $cupon.textContent = `- ${parseFloat(descuento).toFixed(2)}`
                 total_payment = `${(parseFloat(envio) + parseFloat(subtotal) - descuento).toFixed(2)}`
             }
@@ -1369,6 +1429,7 @@ ObjMain = {
 
     },
     culqiInit: () => {
+
         ObjMain.createOrder();
         Culqi.options({
             lang: 'auto',
@@ -1407,25 +1468,42 @@ ObjMain = {
     },
 
     createOrder: () => {
-        const formOrder = dataFormSendOrder()
-        ObjMain.ajax_post('POST', `${DOMAIN}ajax/createOrder`, formOrder)
-            .then(order => {
-
-                let streamOrder = JSON.parse(order);
-                streamOrder = JSON.parse(streamOrder)
-                console.log(streamOrder)
-                Culqi.settings({
-                    title: 'BEURER',
-                    currency: 'PEN',
-                    description: 'Completamos tu pago con toda la seguridad que tú necesitas',
-                    amount: parseFloat(streamOrder.amount).toFixed(2),
-                    order: streamOrder.id
-                });
-
-            }).catch(err => {
-                let error = JSON.parse(JSON.parse(err))
-                console.log(error)
+        const formOrder = dataFormSendOrder();
+        $.ajax({
+                type: 'POST',
+                url: `${DOMAIN}ajax/createOrder`,
+                data: formOrder,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(order) {
+                    let streamOrder = JSON.parse(JSON.stringify(order));
+                    // console.log(streamOrder)
+                    Culqi.settings({
+                        title: 'BEURER',
+                        currency: 'PEN',
+                        description: 'Completamos tu pago con toda la seguridad que tú necesitas',
+                        amount: parseFloat(streamOrder.amount).toFixed(2),
+                        order: streamOrder.id
+                    });
+                }
             })
+            // ObjMain.ajax_post('POST', `${DOMAIN}ajax/createOrder`, formOrder)
+            //     .then(order => {
+            //         let streamOrder = JSON.parse(JSON.stringify(order));
+            //         console.log(streamOrder)
+            //         Culqi.settings({
+            //             title: 'BEURER',
+            //             currency: 'PEN',
+            //             description: 'Completamos tu pago con toda la seguridad que tú necesitas',
+            //             amount: parseFloat(streamOrder.amount).toFixed(2),
+            //             order: streamOrder.id
+            //         });
+
+        //     }).catch(err => {
+        //         let error = JSON.parse(JSON.parse(err))
+        //         console.log(error)
+        //     })
     },
     resumeOrder: () => {
         const orden = JSON.parse(localStorage.getItem('order'));
@@ -2155,6 +2233,9 @@ ObjMain = {
     },
     closeLogin: () => {
         document.querySelector('.login').style.display = 'none'
+    },
+    focus: () => {
+        document.querySelector("#busqueda").focus();
     }
 }
 

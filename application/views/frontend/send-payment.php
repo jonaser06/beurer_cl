@@ -243,7 +243,7 @@ if (cupon) {
         cupon_descuento = parseFloat(subtotal) * (descuento / 100)
         total = `${(((parseFloat(subtotal)* descuento/100) + parseFloat(envio))).toFixed(2)*100}`
     }
-    if (tipo_cupon == 2) {
+    if (tipo_cupon == 2 || tipo_cupon === 3) {
         document.querySelector('#cupon_descuento').textContent = `- ${parseFloat(descuento).toFixed(2)}`
         cupon_descuento = parseFloat(descuento).toFixed(2);
         total = `${(parseFloat(envio) + parseFloat(subtotal) - descuento ).toFixed(2) *100 }`
@@ -252,13 +252,7 @@ if (cupon) {
     total = `${((parseFloat(envio) + parseFloat(subtotal))).toFixed(2) *100}`;
 }
 
-// document.getElementById('buy').addEventListener('click', event => {
 
-//     Culqi.open();
-//     // $('html, body').animate({scrollTop:0}, 'slow');
-//     event.preventDefault();
-
-// })
 function converter() {
     let id_products = [],
         cant_products = [],
@@ -443,7 +437,7 @@ function modalCheckout(title, icon, message, color) {
 
 
 function culqi() {
-
+    console.log(Culqi)
     if (Culqi.token) {
         console.log('token')
         const token = Culqi.token.id;
@@ -501,13 +495,19 @@ function culqi() {
             }
         });
        
-        } else if (Culqi.order) {
-        console.log(Culqi.order)
+    } else if (Culqi.order) {
         const {
             ...order
         } = Culqi.order;
-        localStorage.setItem('order', JSON.stringify(order));
-        const formOrder = dataFormOrder(Culqi.order);
+      
+        let result = '';
+        if(order.constructor == Object){
+            result = order;
+			result = JSON.parse(JSON.stringify(order));
+		}
+        localStorage.setItem('order', JSON.stringify(result));
+
+        const formOrder = dataFormOrder(result);
         const phone = JSON.parse(localStorage.getItem('Comprador')).telefono;
         const correo = JSON.parse(localStorage.getItem('Comprador')).correo;
         formOrder.append('telefono', phone);
@@ -522,7 +522,7 @@ function culqi() {
             success: function(resp) {
                 if (resp.status) {
                     localStorage.setItem('id_order', resp.data.orden_id);
-                    setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
+                    // setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
                 }
             }
         })
