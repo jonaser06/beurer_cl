@@ -2233,11 +2233,7 @@ class Ajax extends MY_Controller
         // }
         
         
-        $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(200)
-        ->set_output(json_encode($inputStream));
-    return;
+        
 
         if($inputStream["type"] == 'charge.creation.succeeded') 
         {
@@ -2245,6 +2241,11 @@ class Ajax extends MY_Controller
             $type = trim($charge['object']);      
             if( $type == 'charge')
             {
+                $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode($inputStream));
+    return;
                 $code = trim($charge['referenceCode']);
                 $metadata = $charge['metadata'];
                 $id_productos = explode('-',$metadata['id_productos']);
