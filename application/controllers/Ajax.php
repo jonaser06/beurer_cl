@@ -2237,7 +2237,7 @@ class Ajax extends MY_Controller
         $this->output
         ->set_content_type('application/json')
         ->set_status_header(200)
-        ->set_output(json_encode($inputStream["type"]));
+        ->set_output(json_encode($inputStream));
 
         if($inputStream["type"] == 'charge.creation.succeeded') 
         {
