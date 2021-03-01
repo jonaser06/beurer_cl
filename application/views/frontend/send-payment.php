@@ -282,9 +282,10 @@ function converter() {
 }
 
 function dataFormPurchase(charge) {
+    const cliente = charge.cliente.split('-');
     const formData = new FormData();
-    formData.append('nombres', charge.nombres);
-    formData.append('apellidos', charge.apellidos);
+    formData.append('nombres', cliente[0]);
+    formData.append('apellidos',cliente[1]);
     formData.append('correo', charge.correo);
     formData.append('tipo_documento', charge.tipo_documento);
     formData.append('numero_documento', charge.numero_documento);
@@ -303,18 +304,28 @@ function dataFormPurchase(charge) {
     formData.append('id_productos', charge.id_productos);
     formData.append('cantidades', charge.cantidades);
     formData.append('subtotales', charge.subtotales);
+    
     if (charge['destinatario']) {
-        charge.destinatario = JSON.parse(charge.destinatario)
-        formData.append('dest_nombres', charge.destinatario.dest_nombres)
-        formData.append('dest_telefono', charge.destinatario.dest_telefono)
-        formData.append('dest_tipo_doc', charge.destinatario.dest_tipo_doc)
-        formData.append('dest_number_doc', charge.destinatario.dest_number_doc)
+        // charge.destinatario = JSON.parse(charge.destinatario)
+        // formData.append('dest_nombres', charge.destinatario.dest_nombres)
+        // formData.append('dest_telefono', charge.destinatario.dest_telefono)
+        // formData.append('dest_tipo_doc', charge.destinatario.dest_tipo_doc)
+        // formData.append('dest_number_doc', charge.destinatario.dest_number_doc)
+        const destinatary = charge.destinatario.split('-');
+        formData.append('dest_nombres', destinatary[0])
+        formData.append('dest_telefono',destinatary[1])
+        formData.append('dest_tipo_doc',destinatary[2])
+        formData.append('dest_number_doc', destinatary[3])
     }
     if (charge['facturacion']) {
-        charge.facturacion = JSON.parse(charge.facturacion)
-        formData.append('ruc', charge.facturacion.ruc)
-        formData.append('r_social', charge.facturacion.r_social)
-        formData.append('r_fiscal', charge.facturacion.r_fiscal)
+        // charge.facturacion = JSON.parse(charge.facturacion)
+        // formData.append('ruc', charge.facturacion.ruc)
+        // formData.append('r_social', charge.facturacion.r_social)
+        // formData.append('r_fiscal', charge.facturacion.r_fiscal)
+        const fact = charge.facturacion.split('|')
+        formData.append('ruc',fact[0])
+        formData.append('r_social', fact[1])
+        formData.append('r_fiscal', fact[2])
     }
     return formData;
 }
@@ -338,6 +349,8 @@ function dataFormSend(token, email) {
     formData.append('id_productos', converter().id_products);
     formData.append('cantidades', converter().cant_products);
     formData.append('subtotales', converter().subtotal_products);
+    formData.append('xratioColors', converter().colores_prods);
+    formData.append('skus', converter().skus_prods);
 
     formData.append('cantidad_total', cantidad);
     formData.append('subtotal_coste', subtotal);
@@ -452,6 +465,32 @@ function culqi() {
             contentType: false,
             processData: false,
             cache: false,
+             beforeSend: function(){
+                let timerInterval
+                Swal.fire({
+                title: 'Estamos procesando tu compra',
+                html: 'Por favor no cierres la ventana.',
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+               
+                })
+            },
 			success: function(data) {
 				let result = "";
 				if(data.constructor == String){
@@ -460,30 +499,33 @@ function culqi() {
 				if(data.constructor == Object){
 					result = JSON.parse(JSON.stringify(data));
 				}
+                console.log(result);
 				if(result.object === 'charge'){
                     if (result.outcome.type === "venta_exitosa") {
-                        const { metadata , antifraud_details } = result;
-                        const formCharge = dataFormPurchase(metadata);
-                        formCharge.append('codigo_venta', result.reference_code);
-                        formCharge.append('telefono', antifraud_details.phone);
-                        formCharge.append('xratioColors',converter().colores_prods); // enviamos colores
-                        formCharge.append('skus',converter().skus_prods); // enviamos skus
-                        $.ajax({
-                            type: 'POST',
-                            url:  `${DOMAIN}ajax/purchase`,
-                            data: formCharge ,
-                            contentType: false,
-                            processData: false,
-                            cache: false,
-                            success: function(resp) {
-                                if (resp.status) {
-                                localStorage.setItem('id_pedido', resp.data.codigo_pedido);
-                                modalCheckout('Gracias por su compra', 'success',
-                                    `${result.outcome.user_message}`, '#C5115')
-                                setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
-                                }
-                            }
-                        })
+                        alert('********* COMPRA OK***********')
+                        // const { metadata , antifraud_details } = result;
+                        // const formCharge = dataFormPurchase(metadata);
+                        // formCharge.append('codigo_venta', result.reference_code);
+                        // formCharge.append('telefono', antifraud_details.phone);
+                        // formCharge.append('xratioColors',converter().colores_prods); // enviamos colores
+                        // formCharge.append('skus',converter().skus_prods); // enviamos skus
+                        // $.ajax({
+                        //     type: 'POST',
+                        //     url:  `${DOMAIN}ajax/purchase`,
+                        //     data: formCharge ,
+                        //     contentType: false,
+                        //     processData: false,
+                        //     cache: false,
+                        //     success: function(resp) {
+                        //         if (resp.status) {
+                        //         localStorage.setItem('id_pedido', resp.data.codigo_pedido);
+                        //         modalCheckout('Gracias por su compra', 'success',
+                        //             `${result.outcome.user_message}`, '#C5115')
+
+                        //         // setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
+                        //         }
+                        //     }
+                        // })
                        
                     }
 				}
@@ -491,6 +533,7 @@ function culqi() {
                     modalCheckout('Error', 'error', `${result.user_message}`, '#C5115')
 				}
 			},
+           
 			error: function(error) {
                 console.log(error)
             }

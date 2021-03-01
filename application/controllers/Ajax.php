@@ -1109,14 +1109,14 @@ class Ajax extends MY_Controller
                 "numero_documento" =>$this->input->post('numero_documento'),
                 "correo" =>$this->input->post('correo'),
                 "distrito"    => $this->input->post('distrito'),
-                "nombres" => $this->input->post('nombres'),
-                "apellidos" => $this->input->post('apellidos'),
+                "cliente" => $this->input->post('nombres').'-'.$this->input->post('apellidos'),
                 "d_envio" => $this->input->post('d_envio'),
                 "referencia" => $this->input->post('referencia'),
                 "id_productos" =>$this->input->post('id_productos'),
                 "cantidades" =>$this->input->post('cantidades'),
                 "subtotales" =>$this->input->post('subtotales'),
-                "cantidad_total" =>$this->input->post('cantidad_total'),
+                "colores" =>$this->input->post('xratioColors'),
+                "skus" =>$this->input->post('skus'),
                 "envio" =>$this->input->post('envio_coste'),
                 "cupon_descuento" =>$this->input->post('cupon_descuento'),
                 "tipo_cupon" =>$this->input->post('tipo_cupon'),
@@ -1126,19 +1126,27 @@ class Ajax extends MY_Controller
               ];
               $dest = [];
               if($this->input->post('flag_dest')) {
-                $dest["dest_nombres"]    = $this->input->post('dest_nombres');
-                // $dest["dest_apellidos"]  = $this->input->post('dest_apellidos');
-                $dest["dest_telefono"]   = $this->input->post('dest_telefono');
-                $dest["dest_tipo_doc"]   = $this->input->post('dest_tipo_doc');
-                $dest["dest_number_doc"] = $this->input->post('dest_number_doc');
-                $metadata["destinatario"] = json_encode($dest);
+                // $dest["dest_nombres"]    = $this->input->post('dest_nombres');
+                // $dest["dest_telefono"]   = $this->input->post('dest_telefono');
+                // $dest["dest_tipo_doc"]   = $this->input->post('dest_tipo_doc');
+                // $dest["dest_number_doc"] = $this->input->post('dest_number_doc');
+                // $metadata["destinatario"] = json_encode($dest);
+                $dest_nombres    = $this->input->post('dest_nombres');
+                $dest_telefono   = $this->input->post('dest_telefono');
+                $dest_tipo_doc   = $this->input->post('dest_tipo_doc');
+                $dest_number_doc = $this->input->post('dest_number_doc');
+                $metadata["destinatario"] = "$dest_nombres-$dest_telefono-$dest_tipo_doc-$dest_number_doc";
               };
               $facturacion = [];
               if($this->input->post('flag_facturacion')) {
-                $facturacion["ruc"]    = $this->input->post('ruc');
-                $facturacion["r_social"]  = $this->input->post('r_social');
-                $facturacion["r_fiscal"]   = $this->input->post('r_fiscal');
-                $metadata["facturacion"] = json_encode($facturacion);
+                // $facturacion["ruc"]    = $this->input->post('ruc');
+                // $facturacion["r_social"]  = $this->input->post('r_social');
+                // $facturacion["r_fiscal"]   = $this->input->post('r_fiscal');
+                // $metadata["facturacion"] = json_encode($facturacion);
+                $ruc      = $this->input->post('ruc');
+                $r_social = $this->input->post('r_social');
+                $r_fiscal = $this->input->post('r_fiscal');
+                $metadata['facturacion'] = "$ruc|$r_social|$r_fiscal";
               };
               $charge = $culqi->Charges->create(
                         [
@@ -1170,9 +1178,6 @@ class Ajax extends MY_Controller
                         ->set_status_header(200)
                         ->set_output(json_encode($e->getMessage()));
                     return;
-                
-                
-               
             }
             
         }
@@ -1181,7 +1186,6 @@ class Ajax extends MY_Controller
             ->set_status_header(404)
             ->set_output(json_encode($resp));
     }
-
     public function purchase () 
     {
         $resp = [
@@ -1307,7 +1311,7 @@ class Ajax extends MY_Controller
                     ->set_status_header(200)
                     ->set_output(json_encode($this->resp));
                     return;
-                }else {
+            }else {
                 $resp = [
                     'status'  => false,
                     'code'    => 500 ,
@@ -1553,7 +1557,6 @@ class Ajax extends MY_Controller
             ->set_output(json_encode($resp));
     
     }
-     // CREAR TOKEN ORDER
      public function createOrder () 
      {
          $resp = [
@@ -1594,25 +1597,23 @@ class Ajax extends MY_Controller
                  "subtotal" =>$this->input->post('subtotal_coste'),
                  
                ];
-               $user_detail = [];
-               $user_detail['correo'] =  $this->input->post('correo');
-               $user_detail['telefono'] =  $this->input->post('telefono');
-               $metadata['user_detail'] = json_encode($user_detail);
-               $dest = [];
+            
+               $email = $this->input->post('correo');
+               $telefono = $this->input->post('telefono');
+               $metadata['user_detail'] = "$email-$telefono";
                if($this->input->post('flag_dest')) {
-                 $dest["dest_nombres"]    = $this->input->post('dest_nombres');
-                 // $dest["dest_apellidos"]  = $this->input->post('dest_apellidos');
-                 $dest["dest_telefono"]   = $this->input->post('dest_telefono');
-                 $dest["dest_tipo_doc"]   = $this->input->post('dest_tipo_doc');
-                 $dest["dest_number_doc"] = $this->input->post('dest_number_doc');
-                 $metadata["destinatario"] = json_encode($dest);
+                 $dest_nombres    = $this->input->post('dest_nombres');
+                 $dest_telefono   = $this->input->post('dest_telefono');
+                 $dest_tipo_doc   = $this->input->post('dest_tipo_doc');
+                 $dest_number_doc = $this->input->post('dest_number_doc');
+                 $metadata["destinatario"] = "$dest_nombres-$dest_telefono-$dest_tipo_doc-$dest_number_doc";
+
                };
-               $facturacion = [];
                if($this->input->post('flag_facturacion')) {
-                 $facturacion["ruc"]    = $this->input->post('ruc');
-                 $facturacion["r_social"]  = $this->input->post('r_social');
-                 $facturacion["r_fiscal"]   = $this->input->post('r_fiscal');
-                 $metadata["facturacion"] = json_encode($facturacion);
+                 $ruc      = $this->input->post('ruc');
+                 $r_social = $this->input->post('r_social');
+                 $r_fiscal = $this->input->post('r_fiscal');
+                 $metadata['facturacion'] = "$ruc|$r_social|$r_fiscal";
                };
 
                $order_number = 'id-'.uniqid() ;
@@ -1662,11 +1663,10 @@ class Ajax extends MY_Controller
                                  "phone_number" => $this->input->post('telefono'),
                              ],
                              "confirm" => false,
-                             "expiration_date" => time() + 24*60*60*3,   // Orden con un dia de validez
+                             "expiration_date" => time() + 24*60*60*3,   
 
                          ]
                  );    
-                //  echo json_encode($charge);
                 
                  $this->output
                          ->set_content_type('application/json')
@@ -2222,24 +2222,145 @@ class Ajax extends MY_Controller
     }
 
     public function testChargue() {
-        $input = json_decode(file_get_contents('php://input'), true);
+
+        $inputStream = json_encode("php://input" , TRUE);
         $path = APPPATH.'logs';
-        
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+        if( !is_dir($path)) {
+            mkdir($path, 0777 , true);
         }
         $fp = fopen($path.'\log.json', "w+b");
-            if($fp) {
-                fwrite($fp, json_encode($input));
-                fclose($fp);
-            }
+        if($fp) {
+            fwrite($fp, json_encode($inputStream));
+            fclose($fp);
+        }
         
         
 
-        $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(200)
-        ->set_output(json_encode($input));
+
+        if($inputStream['type'] == 'charge.creation.succeeded') 
+        {
+            $charge = json_decode($inputStream['data'], true);    
+            $type = trim($charge['object']);      
+               
+            if( $type == 'chargue')
+            {
+                $code = trim($charge['referenceCode']);
+                $metadata = json_encode($charge['metadata'], true);
+                $id_productos = explode('-',$metadata['id_productos']);
+                $cantidades   = explode('-',$metadata['cantidades']);
+                $subtotales   = explode('-',$metadata['subtotales']);
+                $colores      = explode('-', $metadata['colores']);
+                $skus         = explode('-', $metadata['skus']);
+                $cliente      = explode('-', $metadata['cliente']);
+                  
+                date_default_timezone_set("America/Lima");          
+                  $data =[ 
+                             'id_cliente' => $metadata['id_session'],
+                             'codigo'    => $code,
+                             'nombres'   => $cliente[0],
+                             'apellidos' => $cliente[1],
+                             'correo'    => $metadata['correo'],
+                             'telefono'  => '99999',
+                             'tipo_documento'=> $metadata['tipo_documento'],
+                             'numero_documento'=> $metadata['numero_documento'],
+                             'provincia'=> 'Lima',
+                             'distrito'=> $metadata['distrito'],
+                             'dir_envio' => $metadata['d_envio'],
+                             'referencia'=> $metadata['referencia'],
+                             'cupon_codigo'=> $metadata['cupon_codigo'],
+                             'cupon_descuento'=> floatval($metadata['cupon_descuento']),
+                             'entrega_precio'=> floatval($metadata['envio']),
+                             'productos_precio'=> floatval($metadata['subtotal']),
+                             'pedido_fecha'=> date('y-m-d'),
+                             'pedido_estado'=> 1 ,
+                             'recojo'=> $metadata['d_envio'] == 'recoger en tienda' ? 1 : 0
+                        
+                ];
+                if($metadata['destinatario']) {
+                    $dest = explode('-', $metadata['destinatario']);
+                    $data["dest_nombres"]    = $dest[0];
+                    $data["dest_telefono"]   = $dest[1];
+                    $data["dest_tipo_doc"]   = $dest[2];
+                    $data["dest_number_doc"] = $dest[3];
+                  };
+                if($metadata['facturacion']) {
+                    $fact = explode('|',$metadata['facturacion']);
+                    $data["ruc"]        = $fact[0];
+                    $data["r_social"]   = $fact[1];
+                    $data["r_fiscal"]   = $fact[2];
+                };
+                $id_pedido = $this->savePedido($data);
+                $pedido_estado = [
+                    'id_pedido'        => $id_pedido,
+                    'id_estado_pedido' => 1,
+                    'observacion'      => 'pedido solicitado',
+                    'fecha_estado'     => date('y-m-d')
+                ];
+                $this->dbInsert('pedido_estado',$pedido_estado);
+    
+                if($id_pedido) {
+                    for ( $i = 0 ; $i < count($id_productos) ; $i++ ){
+                       
+                        $datos = [
+                            'id_pedido'   => (int)$id_pedido,
+                            'id_producto' => (int)$id_productos[$i],
+                            'producto_sku' => $skus[$i],
+                            'cantidad'    => (int)$cantidades[$i],
+                            'subtotal_precio' => $subtotales[$i],
+                        ];
+                        $response = $this->dbInsert('pedido_detalle',$datos);
+                        
+                        if($response){
+                            // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
+                            
+                            $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
+                            $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
+                            #start colrs update
+                            $color = $colores[$i];
+                            if($color != 'none'){
+                            $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
+                            $detallesUpdate = [];
+    
+                            foreach($detalles as $detalle):
+                                $stock_prod = (int)$detalle['stock'];
+                                $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
+                                array_push($detallesUpdate , $detalle );
+                            endforeach;
+                            $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
+                            }
+    
+                            #end colors update
+                            $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
+                            
+                        }else{
+                            $this->resp = [
+                                'message' => 'error al guardar dato de pedido detalle'
+                            ];
+                            $this->output
+                             ->set_content_type('application/json')
+                             ->set_status_header(404)
+                             ->set_output(json_encode($this->resp));
+                             return;
+                        }
+                    };
+                    if(floatval($metadata['cupon_descuento'])) {
+                        $this->db->set('usado', 'usado+1', FALSE);
+                        $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
+                        $this->db->update('cupon');
+                    }
+                }
+            }
+        
+        
+        
+        }
+
+
+
+
+
+
+
 
     } 
      #TESTING ORDENES
@@ -2254,6 +2375,7 @@ class Ajax extends MY_Controller
         $subtotales   = explode('-',$details['subtotales']);
         $colores      = explode('-', $details['colores']);
         $skus        = explode('-', $details['skus']);
+       
 
         date_default_timezone_set("America/Lima");          
           $data =[ 
@@ -2279,19 +2401,17 @@ class Ajax extends MY_Controller
                 
         ];
         if(isset($details['destinatario'])) {
-            $destinatario = json_decode( $details['destinatario'],TRUE);
-
-            $data["dest_nombres"]    = $destinatario['dest_nombres'];
-            $data["dest_telefono"]   = $destinatario['dest_telefono'];
-            $data["dest_tipo_doc"]   = $destinatario['dest_tipo_doc'];
-            $data["dest_number_doc"] = $destinatario['dest_number_doc'];
+            $destinatario = explode('-',$details['destinatario']);
+            $data["dest_nombres"]    = $destinatario[0];
+            $data["dest_telefono"]   = $destinatario[1];
+            $data["dest_tipo_doc"]   = $destinatario[2];
+            $data["dest_number_doc"] = $destinatario[3];
           };
         if(isset($details['facturacion'])) {
-            $facturacion = json_decode( $details['facturacion'],TRUE);
-
-            $data["ruc"]        = $facturacion['ruc'];
-            $data["r_social"]   = $facturacion['r_social'];
-            $data["r_fiscal"]   = $facturacion['r_fiscal'];
+            $facturacion = explode('|', $details['facturacion']);
+            $data["ruc"]        = $facturacion[0];
+            $data["r_social"]   = $facturacion[1];
+            $data["r_fiscal"]   = $facturacion[2];
         };
         $id_pedido = $this->savePedido($data);
 
@@ -2343,8 +2463,6 @@ class Ajax extends MY_Controller
             }else {
            
         }
-
-
      }
     
       #products relations
