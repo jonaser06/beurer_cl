@@ -2243,112 +2243,111 @@ class Ajax extends MY_Controller
 
             if($charge['object'] =="charge")
             {
-
-                // $code = trim($charge['referenceCode']);
-                // $metadata = $charge['metadata'];
-                // $id_productos = explode('-',$metadata['id_productos']);
-                // $cantidades   = explode('-',$metadata['cantidades']);
-                // $subtotales   = explode('-',$metadata['subtotales']);
-                // $colores      = explode('-', $metadata['colores']);
-                // $skus         = explode('-', $metadata['skus']);
-                // $cliente      = explode('-', $metadata['cliente']);
-                  
-                // date_default_timezone_set("America/Lima");          
-                //   $data =[ 
-                //              'id_cliente' => $metadata['id_session'],
-                //              'codigo'    => $code,
-                //              'nombres'   => $cliente[0],
-                //              'apellidos' => $cliente[1],
-                //              'correo'    => $metadata['correo'],
-                //              'telefono'  =>  $charge['client']['phone'],
-                //              'tipo_documento'=> $metadata['tipo_documento'],
-                //              'numero_documento'=> $metadata['numero_documento'],
-                //              'provincia'=> 'Lima',
-                //              'distrito'=> $metadata['distrito'],
-                //              'dir_envio' => $metadata['d_envio'],
-                //              'referencia'=> $metadata['referencia'],
-                //              'cupon_codigo'=> $metadata['cupon_codigo'],
-                //              'cupon_descuento'=> floatval($metadata['cupon_descuento']),
-                //              'entrega_precio'=> floatval($metadata['envio']),
-                //              'productos_precio'=> floatval($metadata['subtotal']),
-                //              'pedido_fecha'=> date('y-m-d'),
-                //              'pedido_estado'=> 1 ,
-                //              'recojo'=> $metadata['d_envio'] == 'recoger en tienda' ? 1 : 0
+                $code = trim($charge['referenceCode']);
+                $metadata = $charge['metadata'];
+                $id_productos = explode('-',$metadata['id_productos']);
+                $cantidades   = explode('-',$metadata['cantidades']);
+                $subtotales   = explode('-',$metadata['subtotales']);
+                $colores      = explode('-', $metadata['colores']);
+                $skus         = explode('-', $metadata['skus']);
+                $cliente      = explode('-', $metadata['cliente']);
+                $client    =   json_decode($charge['client'],TRUE);
+                date_default_timezone_set("America/Lima");          
+                  $data =[ 
+                             'id_cliente' => $metadata['id_session'],
+                             'codigo'    => $code,
+                             'nombres'   => $cliente[0],
+                             'apellidos' => $cliente[1],
+                             'correo'    => $metadata['correo'],
+                             'telefono'  =>  $client['phone'],
+                             'tipo_documento'=> $metadata['tipo_documento'],
+                             'numero_documento'=> $metadata['numero_documento'],
+                             'provincia'=> 'Lima',
+                             'distrito'=> $metadata['distrito'],
+                             'dir_envio' => $metadata['d_envio'],
+                             'referencia'=> $metadata['referencia'],
+                             'cupon_codigo'=> $metadata['cupon_codigo'],
+                             'cupon_descuento'=> floatval($metadata['cupon_descuento']),
+                             'entrega_precio'=> floatval($metadata['envio']),
+                             'productos_precio'=> floatval($metadata['subtotal']),
+                             'pedido_fecha'=> date('y-m-d'),
+                             'pedido_estado'=> 1 ,
+                             'recojo'=> $metadata['d_envio'] == 'recoger en tienda' ? 1 : 0
                         
-                // ];
-                // if(isset($metadata['destinatario'])) {
-                //     $dest = explode('-', $metadata['destinatario']);
-                //     $data["dest_nombres"]    = $dest[0];
-                //     $data["dest_telefono"]   = $dest[1];
-                //     $data["dest_tipo_doc"]   = $dest[2];
-                //     $data["dest_number_doc"] = $dest[3];
-                //   };
-                // if(isset($metadata['facturacion'])) {
-                //     $fact = explode('|',$metadata['facturacion']);
-                //     $data["ruc"]        = $fact[0];
-                //     $data["r_social"]   = $fact[1];
-                //     $data["r_fiscal"]   = $fact[2];
-                // };
-                // $id_pedido = $this->savePedido($data);
-                // $pedido_estado = [
-                //     'id_pedido'        => $id_pedido,
-                //     'id_estado_pedido' => 1,
-                //     'observacion'      => 'pedido solicitado',
-                //     'fecha_estado'     => date('y-m-d')
-                // ];
-                // $this->dbInsert('pedido_estado',$pedido_estado);
+                ];
+                if(isset($metadata['destinatario'])) {
+                    $dest = explode('-', $metadata['destinatario']);
+                    $data["dest_nombres"]    = $dest[0];
+                    $data["dest_telefono"]   = $dest[1];
+                    $data["dest_tipo_doc"]   = $dest[2];
+                    $data["dest_number_doc"] = $dest[3];
+                  };
+                if(isset($metadata['facturacion'])) {
+                    $fact = explode('|',$metadata['facturacion']);
+                    $data["ruc"]        = $fact[0];
+                    $data["r_social"]   = $fact[1];
+                    $data["r_fiscal"]   = $fact[2];
+                };
+                $id_pedido = $this->savePedido($data);
+                $pedido_estado = [
+                    'id_pedido'        => $id_pedido,
+                    'id_estado_pedido' => 1,
+                    'observacion'      => 'pedido solicitado',
+                    'fecha_estado'     => date('y-m-d')
+                ];
+                $this->dbInsert('pedido_estado',$pedido_estado);
     
-                // if($id_pedido) {
-                //     for ( $i = 0 ; $i < count($id_productos) ; $i++ ){
+                if($id_pedido) {
+                    for ( $i = 0 ; $i < count($id_productos) ; $i++ ){
                        
-                //         $datos = [
-                //             'id_pedido'   => (int)$id_pedido,
-                //             'id_producto' => (int)$id_productos[$i],
-                //             'producto_sku' => $skus[$i],
-                //             'cantidad'    => (int)$cantidades[$i],
-                //             'subtotal_precio' => $subtotales[$i],
-                //         ];
-                //         $response = $this->dbInsert('pedido_detalle',$datos);
+                        $datos = [
+                            'id_pedido'   => (int)$id_pedido,
+                            'id_producto' => (int)$id_productos[$i],
+                            'producto_sku' => $skus[$i],
+                            'cantidad'    => (int)$cantidades[$i],
+                            'subtotal_precio' => $subtotales[$i],
+                        ];
+                        $response = $this->dbInsert('pedido_detalle',$datos);
                         
-                //         if($response){
-                //             // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
+                        if($response){
+                            // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
                             
-                //             $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
-                //             $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
-                //             #start colrs update
-                //             $color = $colores[$i];
-                //             if($color != 'none'){
-                //             $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
-                //             $detallesUpdate = [];
+                            $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
+                            $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
+                            #start colrs update
+                            $color = $colores[$i];
+                            if($color != 'none'){
+                            $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
+                            $detallesUpdate = [];
     
-                //             foreach($detalles as $detalle):
-                //                 $stock_prod = (int)$detalle['stock'];
-                //                 $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
-                //                 array_push($detallesUpdate , $detalle );
-                //             endforeach;
-                //             $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
-                //             }
+                            foreach($detalles as $detalle):
+                                $stock_prod = (int)$detalle['stock'];
+                                $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
+                                array_push($detallesUpdate , $detalle );
+                            endforeach;
+                            $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
+                            }
     
-                //             #end colors update
-                //             $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
+                            #end colors update
+                            $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
                             
-                //         }else{
-                //             $this->resp = [
-                //                 'message' => 'error al guardar dato de pedido detalle'
-                //             ];
-                //             $this->output
-                //              ->set_content_type('application/json')
-                //              ->set_status_header(404)
-                //              ->set_output(json_encode($this->resp));
-                //              return;
-                //         }
-                //     };
-                //     if(floatval($metadata['cupon_descuento'])) {
-                //         $this->db->set('usado', 'usado+1', FALSE);
-                //         $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
-                //         $this->db->update('cupon');
-                //     }
-                // }
+                        }else{
+                            $this->resp = [
+                                'message' => 'error al guardar dato de pedido detalle'
+                            ];
+                            $this->output
+                             ->set_content_type('application/json')
+                             ->set_status_header(404)
+                             ->set_output(json_encode($this->resp));
+                             return;
+                        }
+                    };
+                    if(floatval($metadata['cupon_descuento'])) {
+                        $this->db->set('usado', 'usado+1', FALSE);
+                        $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
+                        $this->db->update('cupon');
+                    }
+                }
                 $this->output
                         ->set_content_type('application/json')
                         ->set_status_header(200)
