@@ -2237,15 +2237,18 @@ class Ajax extends MY_Controller
         $this->output
         ->set_content_type('application/json')
         ->set_status_header(200)
-        ->set_output(json_encode($inputStream));
+        ->set_output([
+            'data'=>$inputStream,
+            'detail' => $inputStream["id"]
+        
+        ]);
         return;
 
-        if($inputStream["type"] == 'charge.creation.succeeded') 
+        if($inputStream["type"] == "charge.creation.succeeded") 
         {
             $charge =$inputStream['data'];  
 
             $type = trim($charge['object']);      
-        return;
             if( $type == 'charge')
             {
                 $code = trim($charge['referenceCode']);
