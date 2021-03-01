@@ -2238,19 +2238,12 @@ class Ajax extends MY_Controller
 
         if($inputStream["type"] == "charge.creation.succeeded") 
         {
-            $this->output
-            ->set_content_type('application/json')
-            ->set_status_header(200)
-            ->set_output(json_encode([
-                'data'=>$inputStream,
-                'detail' => $inputStream["id"]
-            ]));
-            return;
-            $charge =$inputStream['data'];  
-
-            $type = trim($charge['object']);      
-            if( $type == 'charge')
+           
+            $charge = json_decode(json_encode($inputStream['data']),TRUE);  
+            ;      
+            if( trim($charge['object']) =="charge")
             {
+
                 $code = trim($charge['referenceCode']);
                 $metadata = $charge['metadata'];
                 $id_productos = explode('-',$metadata['id_productos']);
@@ -2356,6 +2349,11 @@ class Ajax extends MY_Controller
                         $this->db->update('cupon');
                     }
                 }
+                $this->output
+                        ->set_content_type('application/json')
+                        ->set_status_header(200)
+                        ->set_output(json_encode(['status' => 'ok', 'data'=>'fin']));
+                    return;
             }
            
         
