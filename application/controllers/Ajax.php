@@ -2220,18 +2220,17 @@ class Ajax extends MY_Controller
         # GUARDAR ID_ORDEN IN LOCAL STORAGE
 
     }
-
     public function testChargue() {
         $inputStream = json_decode(file_get_contents('php://input'), true);
-        $path = APPPATH.'logs';
-        if( !is_dir($path)) {
-            mkdir($path, 0777 , true);
-        }
-        $fp = fopen($path.'\log.json', "w+b");
-        if($fp) {
-            fwrite($fp, json_encode($inputStream));
-            fclose($fp);
-        }
+        // $path = APPPATH.'logs';
+        // if( !is_dir($path)) {
+        //     mkdir($path, 0777 , true);
+        // }
+        // $fp = fopen($path.'\log.json', "w+b");
+        // if($fp) {
+        //     fwrite($fp, json_encode($inputStream));
+        //     fclose($fp);
+        // }
         
         
 
@@ -2348,7 +2347,6 @@ class Ajax extends MY_Controller
                     }
                 }
             }
-        
         
         
         }
