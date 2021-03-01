@@ -2273,14 +2273,14 @@ class Ajax extends MY_Controller
                              'recojo'=> $metadata['d_envio'] == 'recoger en tienda' ? 1 : 0
                         
                 ];
-                if($metadata['destinatario']) {
+                if(isset($metadata['destinatario'])) {
                     $dest = explode('-', $metadata['destinatario']);
                     $data["dest_nombres"]    = $dest[0];
                     $data["dest_telefono"]   = $dest[1];
                     $data["dest_tipo_doc"]   = $dest[2];
                     $data["dest_number_doc"] = $dest[3];
                   };
-                if($metadata['facturacion']) {
+                if(isset($metadata['facturacion'])) {
                     $fact = explode('|',$metadata['facturacion']);
                     $data["ruc"]        = $fact[0];
                     $data["r_social"]   = $fact[1];
