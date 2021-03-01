@@ -1345,8 +1345,8 @@ class Ajax extends MY_Controller
         ];
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
   
-            $id_pedido = $this->input->post('id_pedido');
-            $pedido =  $this->get('pedido', ['id_pedido'=> $id_pedido]);
+            $codigo = $this->input->post('id_pedido');
+            $pedido =  $this->get('pedido', ['codigo'=> $codigo]);
 
             if ($pedido) {
                 $data = [];
@@ -2240,8 +2240,7 @@ class Ajax extends MY_Controller
         {
             $charge =$inputStream['data'];  
             $type = trim($charge['object']);      
-               
-            if( $type == 'chargue')
+            if( $type == 'charge')
             {
                 $code = trim($charge['referenceCode']);
                 $metadata = $charge['metadata'];
@@ -2259,7 +2258,7 @@ class Ajax extends MY_Controller
                              'nombres'   => $cliente[0],
                              'apellidos' => $cliente[1],
                              'correo'    => $metadata['correo'],
-                             'telefono'  => '99999',
+                             'telefono'  =>  $charge['client']['phone'],
                              'tipo_documento'=> $metadata['tipo_documento'],
                              'numero_documento'=> $metadata['numero_documento'],
                              'provincia'=> 'Lima',
