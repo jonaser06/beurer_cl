@@ -2239,13 +2239,9 @@ class Ajax extends MY_Controller
         {
             $charge =$inputStream['data'];  
             $type = trim($charge['object']);      
+            var_dump($charge);exit();
             if( $type == 'charge')
             {
-                $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(200)
-        ->set_output(json_encode($inputStream));
-    return;
                 $code = trim($charge['referenceCode']);
                 $metadata = $charge['metadata'];
                 $id_productos = explode('-',$metadata['id_productos']);
