@@ -2239,7 +2239,7 @@ class Ajax extends MY_Controller
         if($inputStream["type"] == "charge.creation.succeeded") 
         {
            
-            $charge = $inputStream['data'];  
+            $charge = json_decode($inputStream['data'],TRUE);  
 
             if($charge['object'] =="charge")
             {
