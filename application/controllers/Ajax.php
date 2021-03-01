@@ -2222,8 +2222,7 @@ class Ajax extends MY_Controller
     }
 
     public function testChargue() {
-
-        $inputStream = json_encode("php://input" , TRUE);
+        $inputStream = json_decode(file_get_contents('php://input'), true);
         $path = APPPATH.'logs';
         if( !is_dir($path)) {
             mkdir($path, 0777 , true);
@@ -2237,15 +2236,15 @@ class Ajax extends MY_Controller
         
 
 
-        if($inputStream['type'] == 'charge.creation.succeeded') 
+        if($inputStream["type"] == 'charge.creation.succeeded') 
         {
-            $charge = json_decode($inputStream['data'], true);    
+            $charge =$inputStream['data'];  
             $type = trim($charge['object']);      
                
             if( $type == 'chargue')
             {
                 $code = trim($charge['referenceCode']);
-                $metadata = json_encode($charge['metadata'], true);
+                $metadata = $charge['metadata'];
                 $id_productos = explode('-',$metadata['id_productos']);
                 $cantidades   = explode('-',$metadata['cantidades']);
                 $subtotales   = explode('-',$metadata['subtotales']);
