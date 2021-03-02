@@ -502,9 +502,10 @@ function culqi() {
 				if(result.object === 'charge'){
                     if (result.outcome.type === "venta_exitosa") {
                         // alert('********* COMPRA OK***********')
+                        console.log(result);
                         localStorage.setItem('id_pedido', result.reference_code);
                         modalCheckout('Gracias por su compra', 'success', `${result.outcome.user_message}`, '#C5115')
-                        setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
+                        // setTimeout(() => window.location = `${DOMAIN}order-summary`, 1000);
 
                         // const { metadata , antifraud_details } = result;
                         // const formCharge = dataFormPurchase(metadata);
