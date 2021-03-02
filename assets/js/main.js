@@ -88,7 +88,7 @@ ObjMain = {
                 return
             } else {
                 ObjMain.resumePedido(localStorage.getItem('id_pedido'));
-                setTimeout(localStorage.clear(), 2000)
+                // setTimeout(localStorage.clear(), 2000)
                 console.log('****resumen pedido *******')
             }
         }
@@ -1598,6 +1598,7 @@ ObjMain = {
         formData.append('id_pedido', id);
         ObjMain.ajax_post('POST', `${DOMAIN}ajax/getPedido`, formData)
             .then(pedido => {
+
                 pedido = JSON.parse(pedido)
                 const productosResume = pedido.data.detalle
                 const {...infoResume } = pedido.data.pedido
