@@ -2245,13 +2245,14 @@ class Ajax extends MY_Controller
             {
                 $code = trim($charge['referenceCode']);
                 $metadata = $charge['metadata'];
+                $user = $charge['client'];
                 $id_productos = explode('-',$metadata['id_productos']);
                 $cantidades   = explode('-',$metadata['cantidades']);
                 $subtotales   = explode('-',$metadata['subtotales']);
                 $colores      = explode('-', $metadata['colores']);
                 $skus         = explode('-', $metadata['skus']);
                 $cliente      = explode('-', $metadata['cliente']);
-                $client    =   json_decode($charge['client'],TRUE);
+                  
                 date_default_timezone_set("America/Lima");          
                   $data =[ 
                              'id_cliente' => $metadata['id_session'],
@@ -2259,7 +2260,7 @@ class Ajax extends MY_Controller
                              'nombres'   => $cliente[0],
                              'apellidos' => $cliente[1],
                              'correo'    => $metadata['correo'],
-                             'telefono'  =>  $client['phone'],
+                             'telefono'  =>  $user['phone'],
                              'tipo_documento'=> $metadata['tipo_documento'],
                              'numero_documento'=> $metadata['numero_documento'],
                              'provincia'=> 'Lima',
