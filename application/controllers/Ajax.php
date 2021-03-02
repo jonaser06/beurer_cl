@@ -1124,25 +1124,14 @@ class Ajax extends MY_Controller
                 "subtotal" =>$this->input->post('subtotal_coste'),
                 
               ];
-              $dest = [];
               if($this->input->post('flag_dest')) {
-                // $dest["dest_nombres"]    = $this->input->post('dest_nombres');
-                // $dest["dest_telefono"]   = $this->input->post('dest_telefono');
-                // $dest["dest_tipo_doc"]   = $this->input->post('dest_tipo_doc');
-                // $dest["dest_number_doc"] = $this->input->post('dest_number_doc');
-                // $metadata["destinatario"] = json_encode($dest);
                 $dest_nombres    = $this->input->post('dest_nombres');
                 $dest_telefono   = $this->input->post('dest_telefono');
                 $dest_tipo_doc   = $this->input->post('dest_tipo_doc');
                 $dest_number_doc = $this->input->post('dest_number_doc');
                 $metadata["destinatario"] = "$dest_nombres-$dest_telefono-$dest_tipo_doc-$dest_number_doc";
               };
-              $facturacion = [];
               if($this->input->post('flag_facturacion')) {
-                // $facturacion["ruc"]    = $this->input->post('ruc');
-                // $facturacion["r_social"]  = $this->input->post('r_social');
-                // $facturacion["r_fiscal"]   = $this->input->post('r_fiscal');
-                // $metadata["facturacion"] = json_encode($facturacion);
                 $ruc      = $this->input->post('ruc');
                 $r_social = $this->input->post('r_social');
                 $r_fiscal = $this->input->post('r_fiscal');
@@ -1157,7 +1146,7 @@ class Ajax extends MY_Controller
                             "installments"  => 0,
                             "source_id"     => $this->input->post('token'),
                             "email"         =>$this->input->post('correo'),
-                            "metadata" =>$metadata,
+                            "metadata" => $metadata,
                             "antifraud_details"=>[
                                 "address"    => 'Distrito:'.$this->input->post('distrito'),
                                 "address_city"    => 'LIMA - PERU ',
@@ -1179,7 +1168,6 @@ class Ajax extends MY_Controller
                         ->set_output(json_encode($e->getMessage()));
                     return;
             }
-            
         }
         $this->output
             ->set_content_type('application/json')
@@ -1575,32 +1563,28 @@ class Ajax extends MY_Controller
                $culqi = new Culqi\Culqi(['api_key' => PRIVATE_KEY]);
                
                $metadata = [
-                 "id_session" =>$this->input->post('id_session'),
-                 "tipo_documento" =>$this->input->post('tipo_documento'),
-                 "numero_documento" =>$this->input->post('numero_documento'),
-                //  "correo" =>$this->input->post('correo'),
-                 "skus" =>$this->input->post('skus'),
-                 "distrito"    => $this->input->post('distrito'),
-                 "nombres" => $this->input->post('nombres'),
-                 "apellidos" => $this->input->post('apellidos'),
-                 "d_envio" => $this->input->post('d_envio'),
-                 "referencia" => $this->input->post('referencia'),
-                 "id_productos" =>$this->input->post('id_productos'),
-                 "cantidades" =>$this->input->post('cantidades'),
-                 "subtotales" =>$this->input->post('subtotales'),
-                //  "cantidad_total" =>$this->input->post('cantidad_total'),
-                 "envio" =>$this->input->post('envio_coste'),
-                 "cupon_descuento" =>$this->input->post('cupon_descuento'),
-                //  "tipo_cupon" =>$this->input->post('tipo_cupon'),
-                 "colores" =>$this->input->post('colores'),
-                 "cupon_codigo" =>$this->input->post('cupon_codigo'),
-                 "subtotal" =>$this->input->post('subtotal_coste'),
+                 "id_session"       => $this->input->post('id_session'),
+                 "tipo_documento"   => $this->input->post('tipo_documento'),
+                 "numero_documento" => $this->input->post('numero_documento'),
+                 "skus"             => $this->input->post('skus'),
+                 "distrito"         => $this->input->post('distrito'),
+                 "nombres"          => $this->input->post('nombres'),
+                 "apellidos"        => $this->input->post('apellidos'),
+                 "d_envio"          => $this->input->post('d_envio'),
+                 "referencia"       => $this->input->post('referencia'),
+                 "id_productos"     => $this->input->post('id_productos'),
+                 "cantidades"       => $this->input->post('cantidades'),
+                 "subtotales"       => $this->input->post('subtotales'),
+                 "envio"            => $this->input->post('envio_coste'),
+                 "cupon_descuento"  => $this->input->post('cupon_descuento'),
+                 "colores"          => $this->input->post('colores'),
+                 "cupon_codigo"     => $this->input->post('cupon_codigo'),
+                 "subtotal"         => $this->input->post('subtotal_coste'),
                  
                ];
-            
-               $email = $this->input->post('correo');
+               $email    = $this->input->post('correo');
                $telefono = $this->input->post('telefono');
-               $metadata['user_detail'] = "$email-$telefono";
+               $metadata['user_detail'] = "$email&&$telefono";
                if($this->input->post('flag_dest')) {
                  $dest_nombres    = $this->input->post('dest_nombres');
                  $dest_telefono   = $this->input->post('dest_telefono');
@@ -1613,7 +1597,7 @@ class Ajax extends MY_Controller
                  $ruc      = $this->input->post('ruc');
                  $r_social = $this->input->post('r_social');
                  $r_fiscal = $this->input->post('r_fiscal');
-                 $metadata['facturacion'] = "$ruc|$r_social|$r_fiscal";
+                 $metadata['facturacion'] = "$ruc&&$r_social&&$r_fiscal";
                };
 
                $order_number = 'id-'.uniqid() ;
@@ -1648,31 +1632,31 @@ class Ajax extends MY_Controller
 
                $charge = $culqi->Orders->create(
                          [
-                             "amount"        =>$amount *100,
-                             "capture"       =>true,
-                             "currency_code" =>"PEN",
-                             "description"   => 'Compra desde web BEURER' ,
-                             "order_number"     => $order_number,
-                             "metadata" =>($metadata),
-                             "client_details"=>[
+                             "amount"         => $amount *100,
+                             "capture"        => true,
+                             "currency_code"  => "PEN",
+                             "description"    => 'Compra desde web BEURER' ,
+                             "order_number"   => $order_number,
+                             "metadata"       => $metadata,
+                             "client_details" => [
                                  "address"    => 'Distrito:'.$this->input->post('distrito'),
-                                 "address_city"    => 'LIMA - PERU ',
-                                 "first_name" => $this->input->post('nombres'),
-                                 "last_name" => $this->input->post('apellidos'),
-                                 "email" => $this->input->post('correo'),
-                                 "phone_number" => $this->input->post('telefono'),
+                                 "address_city"  => 'LIMA - PERU ',
+                                 "first_name"    => $this->input->post('nombres'),
+                                 "last_name"     => $this->input->post('apellidos'),
+                                 "email"         => $this->input->post('correo'),
+                                 "phone_number"  => $this->input->post('telefono'),
                              ],
                              "confirm" => false,
                              "expiration_date" => time() + 24*60*60*3,   
 
                          ]
-                 );    
+                );    
                 
-                 $this->output
+                $this->output
                          ->set_content_type('application/json')
                          ->set_status_header(200)
                          ->set_output(json_encode($charge));
-                     return;
+                return;
              } catch (Exception $e) {
                  $this->output
                          ->set_content_type('application/json')
@@ -1702,18 +1686,17 @@ class Ajax extends MY_Controller
                $data =[ 
                           'order_id' => $this->input->post('id_orden'),
                           'estado'   => $this->input->post('estado'),
-                          'cip'   => $this->input->post('cip'),
-                          'monto' => floatval($this->input->post('monto')),
-                          'usuario'    => $this->input->post('usuario'),
-                          'telefono'    => $this->input->post('telefono'),
-                          'correo'=> $this->input->post('correo'),
+                          'cip'      => $this->input->post('cip'),
+                          'monto'    => floatval($this->input->post('monto')),
+                          'usuario'  => $this->input->post('usuario'),
+                          'telefono' => $this->input->post('telefono'),
+                          'correo'   => $this->input->post('correo'),
                           'tipo_user'=> $this->input->post('tipo_user'),
-                          'detalles'=> $this->input->post('detalles'),
-                          'fecha'=> date('y-m-d')
+                          'detalles' => $this->input->post('detalles'),
+                          'fecha'    => date('y-m-d')
              ];
             
              $id_orden = $this->dbInsert('ordenes',$data);
-            //  $this->testOrder($data['order_id']); 
 
              if($id_orden) {
                  $this->resp = [
@@ -1742,9 +1725,7 @@ class Ajax extends MY_Controller
                  return;
              }
             // $this->testOrder($data['order_id']); 
-            //  test orden 
-
-            // 
+            
            }else {
              $this->output
              ->set_content_type('application/json')
@@ -1765,8 +1746,8 @@ class Ajax extends MY_Controller
         return true;
      }
      
-     public function changueState () 
-     {
+    public function changueState () 
+    {
         $input = json_decode(file_get_contents('php://input'), true);
           
         if($input['type'] == 'order.status.changed') {
@@ -1775,28 +1756,125 @@ class Ajax extends MY_Controller
             $state = trim($objectOrder['state']);         
             if($state == 'paid') { 
                 $orden = $this->get('ordenes',['order_id' => $objectOrder['id']]);
-                if( empty($orden['nombres']) ){
-                    $cip = $objectOrder['payment_code'];
+                $metadata = $objectOrder['metadata'];
+                if( !$orden ){
 
-                    
+                    $cip = $objectOrder['payment_code'];
+                    $id_productos = explode('-',$metadata['id_productos']);
+                    $cantidades   = explode('-',$metadata['cantidades']);
+                    $subtotales   = explode('-',$metadata['subtotales']);
+                    $colores      = explode('-',$metadata['colores']);
+                    $skus        = explode('-', $metadata['skus']);
+                    #user detalles : correo && telefono 
+                    $user = explode('&&',$metadata['user_detail']);
+                    date_default_timezone_set("America/Lima");          
+                      $data =[ 
+                                 'id_cliente' => (int)$metadata['id_session'],
+                                 'codigo'   => 'P'.$cip,
+                                 'nombres'   => $metadata['nombres'],
+                                 'apellidos' => $metadata['apellidos'],
+                                 'correo'    => $user[0],
+                                 'telefono'    => $user[1],
+                                 'tipo_documento'=> $metadata['tipo_documento'],
+                                 'numero_documento'=> $metadata['numero_documento'],
+                                 'provincia'=> 'LIMA',
+                                 'distrito'=> $metadata['distrito'],
+                                 'dir_envio'=> $metadata['d_envio'],
+                                 'referencia'=> $metadata['referencia'],
+                                 'cupon_codigo'=> $metadata['cupon_codigo'],
+                                 'cupon_descuento'=> $metadata['cupon_descuento'],
+                                 'entrega_precio'=> floatval($metadata['envio']),
+                                 'productos_precio'=> floatval($metadata['subtotal']),
+                                 'pedido_fecha'=> date('y-m-d'),
+                                 'pedido_estado'=> 1 ,
+                                 'recojo'=> $metadata['d_envio'] == 'recoger en tienda' ? 1 : 0
+                            
+                    ];
+                    if(isset($metadata['destinatario'])) {
+                        $dest = explode('-', $metadata['destinatario']);
+                        $data["dest_nombres"]    = $dest[0];
+                        $data["dest_telefono"]   = $dest[1];
+                        $data["dest_tipo_doc"]   = $dest[2];
+                        $data["dest_number_doc"] = $dest[3];
+                      };
+                    if(isset($metadata['facturacion'])) {
+                        $fact = explode('&&',$metadata['facturacion']);
+                        $data["ruc"]        = $fact[0];
+                        $data["r_social"]   = $fact[1];
+                        $data["r_fiscal"]   = $fact[2];
+                    };
+                    $id_pedido = $this->savePedido($data);
+    
+                    $pedido_estado = [
+                        'id_pedido'        => $id_pedido,
+                        'id_estado_pedido' => 1,
+                        'observacion'      => 'pedido solicitado',
+                        'fecha_estado'     => date('y-m-d')
+                    ];
+                    $this->dbInsert('pedido_estado',$pedido_estado);
+                    if($id_pedido) {
+                        for ( $i = 0 ; $i < count($id_productos) ; $i++ ){
+                            $datos = [
+                                'id_pedido'   => (int)$id_pedido,
+                                'id_producto' => (int)$id_productos[$i],
+                                'producto_sku' => $skus[$i],
+                                'cantidad'    => (int)$cantidades[$i],
+                                'subtotal_precio' => $subtotales[$i],
+                            ];
+                            $response = $this->dbInsert('pedido_detalle',$datos);
+                            
+                            if($response){
+                                // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
+                                
+                                $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
+                                $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
+                                #start colrs update
+                                $color = $colores[$i];
+                                if($color != 'none'){
+                                    $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
+                                    $detallesUpdate = [];
+            
+                                    foreach($detalles as $detalle):
+                                        $stock_prod = (int)$detalle['stock'];
+                                        $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
+                                        array_push($detallesUpdate , $detalle );
+                                    endforeach;
+                                    $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
+                                }
+                                #end colors update
+                                $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
+                                
+                            }
+                        };
+                        if(floatval($metadata['cupon_descuento'])) {
+                            $this->db->set('usado', 'usado+1', FALSE);
+                            $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
+                            $this->db->update('cupon');
+                        }
+                        // var_dump($id_pedido);
+                        $this->sendEmail($id_pedido);
+
+ 
+                    }
+
                 }else {
-                    $details = json_decode($orden['detalles'],TRUE);
-               
-                    // insert a bd ****
+
+                    $details      = json_decode($orden['detalles'],TRUE);
                     $id_productos = explode('-',$details['id_productos']);
                     $cantidades   = explode('-',$details['cantidades']);
                     $subtotales   = explode('-',$details['subtotales']);
                     $colores      = explode('-', $details['colores']);
                     $skus        = explode('-', $details['skus']);
-    
+                    #user detalles : correo && telefono 
+                    $user = explode('&&',$details['user_detail']);
                     date_default_timezone_set("America/Lima");          
                       $data =[ 
                                  'id_cliente' => (int)$details['id_session'],
                                  'codigo'   => 'P'.$orden['cip'],
                                  'nombres'   => $details['nombres'],
                                  'apellidos' => $details['apellidos'],
-                                 'correo'    => $orden['correo'],
-                                 'telefono'    => $orden['telefono'],
+                                 'correo'    => $user[0],
+                                 'telefono'    => $user[1],
                                  'tipo_documento'=> $details['tipo_documento'],
                                  'numero_documento'=> $details['numero_documento'],
                                  'provincia'=> 'LIMA',
@@ -1813,19 +1891,17 @@ class Ajax extends MY_Controller
                             
                     ];
                     if(isset($details['destinatario'])) {
-                        $destinatario = json_decode( $details['destinatario'],TRUE);
-    
-                        $data["dest_nombres"]    = $destinatario['dest_nombres'];
-                        $data["dest_telefono"]   = $destinatario['dest_telefono'];
-                        $data["dest_tipo_doc"]   = $destinatario['dest_tipo_doc'];
-                        $data["dest_number_doc"] = $destinatario['dest_number_doc'];
+                        $dest = explode('-', $details['destinatario']);
+                        $data["dest_nombres"]    = $dest[0];
+                        $data["dest_telefono"]   = $dest[1];
+                        $data["dest_tipo_doc"]   = $dest[2];
+                        $data["dest_number_doc"] = $dest[3];
                       };
                     if(isset($details['facturacion'])) {
-                        $facturacion = json_decode( $details['facturacion'],TRUE);
-    
-                        $data["ruc"]        = $facturacion['ruc'];
-                        $data["r_social"]   = $facturacion['r_social'];
-                        $data["r_fiscal"]   = $facturacion['r_fiscal'];
+                        $fact = explode('&&',$details['facturacion']);
+                        $data["ruc"]        = $fact[0];
+                        $data["r_social"]   = $fact[1];
+                        $data["r_fiscal"]   = $fact[2];
                     };
                     $id_pedido = $this->savePedido($data);
     
@@ -1856,24 +1932,34 @@ class Ajax extends MY_Controller
                                 #start colrs update
                                 $color = $colores[$i];
                                 if($color != 'none'){
-                                $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
-                                $detallesUpdate = [];
-        
-                                foreach($detalles as $detalle):
-                                    $stock_prod = (int)$detalle['stock'];
-                                    $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
-                                    array_push($detallesUpdate , $detalle );
-                                endforeach;
-                                $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
+                                    $detalles = json_decode($productoDB['detalles-multimedia'],TRUE);
+                                    $detallesUpdate = [];
+            
+                                    foreach($detalles as $detalle):
+                                        $stock_prod = (int)$detalle['stock'];
+                                        $detalle['stock'] = $detalle['color'] == $color ? ($stock_prod - (int) $cantidades[$i]): $stock_prod;
+                                        array_push($detallesUpdate , $detalle );
+                                    endforeach;
+                                    $this->dbUpdate(['detalles-multimedia' => json_encode($detallesUpdate) ],'productos',['id' => (int) $id_productos[$i]]);
                                 }
-        
                                 #end colors update
                                 $this->dbUpdate(['stock' => $stock ],'productos',['id' => (int) $id_productos[$i]]);
                                 
                             }
                         };
-                        
+                        if(floatval($details['cupon_descuento'])) {
+                            $this->db->set('usado', 'usado+1', FALSE);
+                            $this->db->where('cupon_codigo', $details['cupon_codigo']);
+                            $this->db->update('cupon');
+                        }
+                        $this->sendEmail($id_pedido);
+
+
+                    // $this->sendEmail();
                             
+                     
+                    #copia a beurer
+                    // $enviar = $this->sendmail('ventas1@beurer.pe', $newdata, 'TIENES UN NUEVO PEDIDO', 'new_order.php');
                     }else {
                        
                     }
@@ -1882,8 +1968,7 @@ class Ajax extends MY_Controller
                
 
 
-            }
-               
+            }   
         }  
      }
 
@@ -2220,27 +2305,23 @@ class Ajax extends MY_Controller
         # GUARDAR ID_ORDEN IN LOCAL STORAGE
 
     }
+
+
     public function testChargue() {
         $inputStream = json_decode(file_get_contents('php://input'), true);
-        // $path = APPPATH.'logs';
-        // if( !is_dir($path)) {
-        //     mkdir($path, 0777 , true);
-        // }
-        // $fp = fopen($path.'\log.json', "w+b");
-        // if($fp) {
-        //     fwrite($fp, json_encode($inputStream));
-        //     fclose($fp);
-        // }
+        $path = APPPATH.'logs';
+        if( !is_dir($path)) {
+            mkdir($path, 0777 , true);
+        }
+        $fp = fopen($path.'\log.json', "w+b");
+        if($fp) {
+            fwrite($fp, json_encode($inputStream));
+            fclose($fp);
+        }
         
-        
-        
-       
-
         if($inputStream["type"] == "charge.creation.succeeded") 
         {
-           
             $charge = json_decode($inputStream['data'],TRUE);  
-
             if($charge['object'] =="charge")
             {
                 $code = trim($charge['referenceCode']);
@@ -2300,7 +2381,6 @@ class Ajax extends MY_Controller
     
                 if($id_pedido) {
                     for ( $i = 0 ; $i < count($id_productos) ; $i++ ){
-                       
                         $datos = [
                             'id_pedido'   => (int)$id_pedido,
                             'id_producto' => (int)$id_productos[$i],
@@ -2310,9 +2390,7 @@ class Ajax extends MY_Controller
                         ];
                         $response = $this->dbInsert('pedido_detalle',$datos);
                         
-                        if($response){
-                            // actualizo los detalles por producto : stock y si tiene un color actualizamos color y stock
-                            
+                        if($response){                            
                             $productoDB = $this->get('productos',['id'=> (int) $id_productos[$i]]);
                             $stock = (int)$productoDB['stock'] - (int) $cantidades[$i];
                             #start colrs update
@@ -2348,6 +2426,8 @@ class Ajax extends MY_Controller
                         $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
                         $this->db->update('cupon');
                     }
+                    $this->sendEmail($id_pedido);
+
                 }
                 $this->output
                         ->set_content_type('application/json')
@@ -2357,15 +2437,7 @@ class Ajax extends MY_Controller
             }
            
         
-        
         }
-
-
-
-
-
-
-
 
     } 
      #TESTING ORDENES
@@ -2533,5 +2605,59 @@ class Ajax extends MY_Controller
         $this->db->group_by('productos.id');
         $query=$this->db->get('productos');
         return $query->row_array();
+    }
+    private function sendEmail (int $id ) 
+    {
+            // envio pago efectivo
+            $pedido =  $this->get('pedido', ['id_pedido'=> $id]);
+            $data = [];
+            $pedido_detalle  = $this->dbSelect('*','pedido_detalle', [ 'id_pedido' => $pedido['id_pedido']]);
+
+            for ($i = 0 ; $i < count($pedido_detalle); $i++) { 
+                $prod = $this->get('productos', ['id' =>$pedido_detalle[$i]['id_producto'] ]);
+                $imagenes  = $this->dbSelect('imagen','imagenes', [ 'producto_id' => $pedido_detalle[$i]['id_producto']]);
+                
+                $productoDB = [
+                    'nombre' => $prod['titulo'],
+                    'precio' => $prod['precio_anterior'],
+                    'imagen' => $imagenes[0]['imagen'],
+                    'precio_online' => $prod['precio'],
+                    'producto_sku' => $pedido_detalle[$i]['producto_sku'],
+                    'cantidad' => $pedido_detalle[$i]['cantidad'],
+                    'subtotal' => $pedido_detalle[$i]['subtotal_precio']
+                ];
+                array_push($data ,$productoDB);
+                
+            };
+            #sumando el total
+            $subtotal = 0.0;
+            foreach ($data as $key => $value) {
+                $subtotal = $subtotal + ( ( float ) $value['precio_online'] * ( int ) $value['cantidad'] );
+            }
+            $total = $subtotal + ( double ) $pedido['entrega_precio'] - ( double ) $pedido['cupon_descuento'] ;
+        
+            $dir =($pedido['recojo'] == 1) ?   'Av.Caminos del Inca N.257 Tienda N° 149 , Santiago de Surco.' : $pedido['dir_envio'].', '.$pedido['distrito']. ', LIMA' ;
+            $newdata['orders'] = [
+                'cod_pedido' => $pedido['codigo'],
+                'comprador' => $pedido['nombres'].' '.$pedido['apellidos'],
+                'correo' => $pedido['correo'],
+                'telefono' => $pedido['telefono'],
+                'tipo_doc' => $pedido['tipo_documento'],
+                'number_doc' => $pedido['numero_documento'],
+                'pedido_fecha' => $pedido['pedido_fecha'],
+                'recojo' => ($pedido['recojo']==1)?'Recojo en tienda':'Despacho a domicilio',
+                'direccion' => $dir ,
+                'subtotal' => number_format($subtotal, 2, '.', ''),
+                'descuento' => $pedido['cupon_descuento'],
+                'envio' => $pedido['entrega_precio'],
+                'total' => number_format($total, 2, '.', ''),
+                'ruc' => $pedido['ruc'],
+                'r_fiscal' => $pedido['r_fiscal'],
+                'r_social' => $pedido['r_social'],
+                'productos' => $data
+            ];
+            // mandar email ;   
+
+            $enviar = $this->sendmail( 'renzoedward23@gmail.com', $newdata, 'PEDIDO CONFIRMADO', 'order_confirm.php');
     }
  } 

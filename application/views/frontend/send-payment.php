@@ -337,7 +337,6 @@ function dataFormSend(token, email) {
     formData.append('correo', email);
     formData.append('id_session', session);
     formData.append('nombres', `${user.nombres}`);
-    // formData.append('apellidos', `${user.apellido_paterno} ${user.apellido_materno}`);
     formData.append('apellidos', `${user.apellidos}`);
     formData.append('telefono', user.telefono);
     formData.append('distrito', `${user.distrito}`);
@@ -377,8 +376,6 @@ function dataFormSend(token, email) {
 }
 
 function dataFormSendOrder() {
-
-
     const formData = new FormData();
     formData.append('correo', user.correo);
     formData.append('id_session', session);
@@ -400,7 +397,6 @@ function dataFormSendOrder() {
     formData.append('cantidad_total', cantidad);
     formData.append('subtotal_coste', subtotal);
     formData.append('envio_coste', envio);
-    // formData.append('tipo_cupon', `${tipo_cupon == null ? 0 : tipo_cupon }`);
     formData.append('cupon_descuento', cupon_descuento);
     formData.append('cupon_codigo', cupon_codigo);
     formData.append('total_coste', total);
@@ -501,7 +497,6 @@ function culqi() {
 				}
 				if(result.object === 'charge'){
                     if (result.outcome.type === "venta_exitosa") {
-                        // alert('********* COMPRA OK***********')
                         console.log(result);
                         localStorage.setItem('id_pedido', result.reference_code);
                         modalCheckout('Gracias por su compra', 'success', `${result.outcome.user_message}`, '#C5115')
@@ -544,17 +539,13 @@ function culqi() {
         });
        
     } else if (Culqi.order) {
-        const {
-            ...order
-        } = Culqi.order;
-      
+        const { ...order } = Culqi.order;
         let result = '';
         if(order.constructor == Object){
             result = order;
 			result = JSON.parse(JSON.stringify(order));
 		}
         localStorage.setItem('order', JSON.stringify(result));
-
         const formOrder = dataFormOrder(result);
         const phone = JSON.parse(localStorage.getItem('Comprador')).telefono;
         const correo = JSON.parse(localStorage.getItem('Comprador')).correo;
