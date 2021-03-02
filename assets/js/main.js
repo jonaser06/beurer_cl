@@ -87,7 +87,7 @@ ObjMain = {
                 setTimeout(localStorage.clear(), 2000)
                 return
             } else {
-                ObjMain.resumePedido(parseInt(localStorage.getItem('id_pedido')));
+                ObjMain.resumePedido(localStorage.getItem('id_pedido'));
                 setTimeout(localStorage.clear(), 2000)
                 console.log('****resumen pedido *******')
             }
