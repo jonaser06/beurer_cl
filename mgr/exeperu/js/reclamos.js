@@ -23,7 +23,6 @@ let ObjReclamos = {
                 console.log(resp);
                 resp = JSON.parse(resp);
                 if (resp.status) {
-                    console.log(resp);
                     document.querySelector('.btn-sbmt-exp').disabled = false;
                     resp.data.forEach((d) => {
                         let estado;
@@ -73,7 +72,7 @@ let ObjReclamos = {
                 if (resp.status) {
                     resp.data.forEach((d, index) => {
                         let estado;
-                        let num = Number(index + 1) + Number((parseInt(page) - 1) * 10)
+                        let num = resp.total - Number(index + 1) - Number((page - 1) * 10) + 1;
                         if (d.pedido_estado == '1') {
                             estado = 'Orden Generada';
                         } else if (d.pedido_estado == '2') {

@@ -439,8 +439,9 @@
                                         <a href="<?= base_url($row['cat_url'].'/'.$row['subcat_url'].'/'.$row['prod_url']); ?>" class="trans-info btn-slider bg-pink">VER PRODUCTO</a>
                                     </div>
                                     <div class="img-slider-h">
+                                    <a href="<?= base_url($row['cat_url'].'/'.$row['subcat_url'].'/'.$row['prod_url']); ?>">
                                             <img src="<?= base_url($row['imagen']); ?>" alt="">
-                                        
+                                    </a>
                                     </div>
                                 </div>
                             </div>    

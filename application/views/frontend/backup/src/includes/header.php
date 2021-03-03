@@ -12,7 +12,7 @@
     <meta name="author" content="EXE MARKETING DIGITAL INTEGRADO" />
     <meta name="copyright" content="INNOVATIVE FOOD SOLUTIONS" />
     <meta name="language" content="ES" />
-    <meta name="robots" content="index,follow" />
+    <!-- <meta name="robots" content="index,follow" /> -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/app.css">
 </head>
 

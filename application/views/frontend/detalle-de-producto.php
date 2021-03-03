@@ -68,6 +68,7 @@
                                             <!--  <a data-fancybox href="assets/video/video_1.mp4"> -->
                                             <img class="img-cover"
                                                 src="<?= base_url('assets/images/icons/play.svg'); ?>" />
+
                                         </a>
                                     </div>
                                     <?php endif ?>
@@ -79,6 +80,126 @@
                                     <?php if($i ==0){ ?>
                                     <section class="tabs_section -open animated growIn" id="principal-img">
                                         <img src="<?= base_url($product['imagen'][$i]); ?>" alt="">
+                                        <?php if( ( $product['tipo_descuento'] != 0 && ($product['precio'] !== $product['precio_anterior'])) && (int)$product['stock'] !== 0 ) {
+                                        $price_desc = $product['precio_anterior']- $product['precio'];
+                                        $porc_desc  = number_format( ( ($price_desc / $product['precio_anterior'])*100) , 2);
+                                        ?>
+                                        
+                                        <div class="tag-desc">- <?php echo $product['tipo_descuento'] == 2 ? ((int)$porc_desc).'%' : 'S/ '.($price_desc) ?></div>
+                                        <style>
+                                            .content-descuento-tag {
+                                                position: relative;
+                                            }
+                                            .tag-desc{
+                                                opacity: 1;
+                                                font-size:.8rem;
+                                                padding: 5px 10px;
+                                                border-radius: 10px 0 0px 10px;
+                                                background-color: #c51152;
+                                                color: #fff;
+                                                position: absolute;
+                                                top: 81px;
+                                                right:0%;
+                                                transform: translate(-0%, -50%);
+                                            }
+                                            @media (max-width:480px) {
+                                                .tag-desc{
+                                                    right: 16%;
+                                                }
+                                             }
+                                        </style>
+                                    <?php } ?>
+                                    <?php if( ((int)$product['delivery_free'] == 1 ) && (int)$product['stock'] > 0 ) { ?>
+                                        <div class="tag-dely">
+                                            <img class ="img-dely" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-dely">
+                                            <span class="text-dely">ENVÍO <br> GRATIS</span>
+                                        </div>
+                                        <style>
+                                            .content-delivery-tag {
+                                                position: relative;
+                                            }
+                                            .tag-dely .text-dely {
+                                                font-size:9.5px;
+                                                width: 50%;
+                                            }
+                                            .img-dely {
+                                                padding: 2px 5px;
+                                                margin-left: 8px;
+                                                width: auto!important;
+                                                height: 30px!important;
+                                            }
+                                            .tag-dely {
+
+                                                height: fit-content;
+                                                display: flex;
+                                                justify-content: flex-start;
+                                                align-items: center;
+                                                opacity: 1;
+                                                font-size:.8rem;
+                                                padding: 2px 5px ;
+                                                border-radius: 16px 0 0 16px;
+                                                background-color: #c51152;
+                                                color: #fff;
+                                                position: absolute;
+                                                top: 110px;
+                                                right: 0%;
+                                            }
+                                            .text-dely {
+                                                 font-size: .60rem !important;
+                                            }
+                                          
+                                           
+                                               
+                                            .text-dely {
+
+                                                line-height: 12.5px;
+                                                padding-top: 2px;
+                                                display: flex;
+                                                align-items: center;justify-content: center;
+                                                padding: 0 5px;
+                                                 font-size: .5rem !important;
+                                            }
+                                            .tag-dely {
+                                                
+                                                height: auto;
+                                                display: flex;
+                                                justify-content: flex-start;
+                                                align-items: center;
+                                                opacity: 1;
+                                                font-size:.7rem;
+                                                padding: 2px 5px ;
+                                                border-radius: 16px 0 0 16px;
+                                                background-color: #c51152;
+                                                color: #fff;
+                                                position: absolute;
+                                                right: 0%;
+                                            }
+                                            
+                                        </style>
+                                    <?php } ?>
+                                    <?php if(  (int)$product['nuevo'] && (int)$product['stock'] > 0 ) { ?>
+                                        <div class="tag-new">
+                                                    <img  
+                                                    class="start__mess"
+                                                    src="<?php echo  base_url('assets/images/targetnew.png') ?>" alt="">
+
+                                                    </div>
+                                                    <style>
+                                                        .content-new-tag {
+                                                            position: relative;
+                                                        }
+                                                        .start__mess {
+                                                            width: 120px!important;
+                                                            height: auto!important;
+                                                            z-index: 10;
+                                                            position: absolute;
+                                                            color: #C51152;
+                                                            bottom:0;
+                                                            left:0%
+                                                            
+                                                        }
+                                                    </style>
+                                    <?php } ?>
                                     </section>
                                     <?php }else{ ?>
                                     <section class="tabs_section animated growIn"><img
@@ -209,7 +330,8 @@
                                         data-producto_sku="<?php echo $product['producto_sku']?>"
                                         data-precio_online="<?php echo $product['precio']?>"
                                         data-img="<?= $product['imagen'][0] ?>" data-peso=<?= $product['peso'] ?>
-                                        data-volumen=<?= $product['volumen'] ?> data-cantidad="1"
+                                        data-volumen=<?php echo (int)$product['delivery_free'] == 1 ? 0 :($product['volumen']) ?> 
+                                        data-cantidad="1"
                                         data-stock=<?php echo $product['stock'] ?> >
                                         <a style="color:white;border: 2px solid #c51152;" tabindex="-1">AÑADIR AL CARRO
                                         </a>
@@ -397,7 +519,7 @@
                                             }
                                         </style>
                                     <?php } ?>
-                                    <?php if( (true ) && (int)$value['stock'] !== 0)  { ?>
+                                    <?php if( ((int)$value['delivery_free'] == 1 ) && (int)$value['stock'] > 0 ) { ?>
                                         <div class="tag-delivery">
                                             <img class ="img-delivery" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-delivery">
                                             <span class="text-delivery">ENVÍO <br> GRATIS</span>
@@ -517,7 +639,7 @@
                                                             
                                                         }
                                                     </style>
-                                                <?php } ?>
+                                    <?php } ?>
                                 </div>
                                 
                                 <div class="content-title-card">
@@ -543,7 +665,7 @@
                                             data-precio_online="<?php echo $value['precio']  ?>"
                                             data-img="<?= $value['imagen']?>" 
                                             data-peso="<?= $value['peso'] ?>"
-                                            data-volumen="<?php echo (int)$value['delivery_free']== 1 ? 0 :($value['ancho']*$value['largo']* $value['alto']) ?>"
+                                            data-volumen="<?php echo (int)$value['delivery_free'] == 1 ? 0 :($value['ancho']*$value['largo']* $value['alto']) ?>"
                                             data-cantidad="1"
                                             data-stock=<?php echo $value['stock'] ?> 
                                             data-subtotal=<?=  floatval($value['precio']) ?> 
@@ -870,6 +992,7 @@ $(function() {
 body {
     background-color: #fff !important;
 }
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>

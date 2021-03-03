@@ -58,10 +58,10 @@ class Productos extends CI_Controller {
 			// 	}	
 			}	
 		}
-		if(isset($_GET['test'])){
-			print_r($data); 
-			exit();
-		}
+		// if(isset($_GET['test'])){
+		// 	print_r($data); 
+		// 	exit();
+		// }
 		//print_r($data); exit();
 
 		$this->load->view('frontend/detalle-de-producto', $data );

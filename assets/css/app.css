@@ -13301,10 +13301,11 @@ button:focus {
     transition: 0.8s;
 }
 
-.carrosuel-two-home .slick-slide:nth-child(even) .wrapper-cards-products:before {
+
+/* .carrosuel-two-home .slick-slide:nth-child(even) .wrapper-cards-products:before {
     background-color: #a3b5c1 !important;
     opacity: 0.15;
-}
+} */
 
 .carrosuel-two-home .slick-slide .wrapper-cards-products .content-title-card .btn-vp {
     padding: 0;

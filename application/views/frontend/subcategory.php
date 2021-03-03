@@ -130,7 +130,7 @@
                                                         }
                                                     </style>
                                                 <?php } ?>
-                                                <?php if( ((int)$row['delivery_free'] == 1 ) && (int)$row['stock'] !== 0 ) { ?>
+                                                <?php if( ((int)$row['delivery_free'] == 1 ) && (int)$row['stock'] > 0 ) { ?>
                                                     <div class="tag-delivery">
                                                         <img class ="img-delivery" src="<?= base_url('assets/svg/carr.svg')?>" alt="tag-delivery">
                                                         <span class="text-delivery">ENVÍO <br> GRATIS</span>
