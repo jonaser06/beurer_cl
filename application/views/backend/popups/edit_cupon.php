@@ -53,15 +53,24 @@
                                     </div>
 								</div>
                                 <div class="col-xs-12 col-md-6">
-                                    <div class="form-group required">
+									<div class="form-group required">
                                         <label for="cupon[tipo]" class="control-label">Tipo de descuento</label>
                                         <select 
-										<?php echo isset($prod_cupon)? 'readonly':'' ?>
+										<?php echo isset($cupon['tipo_cupon'])? 'readonly':'' ?>
 										 name="cupon[tipo_cupon]" id="tipo_cupon" class="form-control">
+										 <?php if( isset($cupon['tipo_cupon']) ) {?>
+											<?php if( $cupon['tipo_cupon'] == 1 || $cupon['tipo_cupon'] == 2 ) {?>
+												<option value="1" <?= ($cupon['tipo_cupon'] == 1 ? 'selected' : '') ?>>% de descuento sobre el subtotal del Carrito</option>
+                                            	<option value="2" <?= ($cupon['tipo_cupon'] == 2 ? 'selected' : '') ?>>Descuento fijo en el carrito</option>
+											<?php } else {?>
+												<option value="3" <?= ($cupon['tipo_cupon'] == 3 ? 'selected' : '') ?>>Descuento fijo en el producto</option>
+											<?php } ?>
+										 <?php } else {?>
                                             <option value="1" <?= ($cupon['tipo_cupon'] == 1 ? 'selected' : '') ?>>% de descuento sobre el subtotal del Carrito</option>
                                             <option value="2" <?= ($cupon['tipo_cupon'] == 2 ? 'selected' : '') ?>>Descuento fijo en el carrito</option>
                                             <option value="3" <?= ($cupon['tipo_cupon'] == 3 ? 'selected' : '') ?>>Descuento fijo en el producto</option>
                                             <!-- <option value="4" <?= ($cupon['tipo_cupon'] == 4 ? 'selected' : '') ?>> % de descuento sobre el Producto </option> -->
+										 <?php }?>
                                         </select>
                                     </div>
                                 </div>
