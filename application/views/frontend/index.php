@@ -535,7 +535,7 @@
                                             }
                                             .tag-delivery {
 
-                                                height: 10%;
+                                                height: fit-content;
                                                 width: 37%;
                                                 display: flex;
                                                 justify-content: center;
@@ -554,22 +554,30 @@
                                             .text-delivery {
                                                 display: flex;
                                                 align-items: center;
-                                                 font-size: .60rem !important;
+                                                 /* font-size: .60rem !important; */
                                             }
+                                            
                                             @media (max-width:480px) {
-                                                .tag-delivery {
-                                                    height: 18%!important; 
-                                                    width: 50% !important; 
-                                                }
+                                                .tag-delivery .text-delivery {
+                                                font-size:7px;
+                                                width: 40%;
+                                                margin-left: 4px!important;
+                                            }
+                                                
                                                 .btnAddCarrito {
                                                     font-size: .7rem !important;
                                                 }
                                             }
                                             @media (max-width: 575px) and (min-width: 481px)  {
                                                 .tag-delivery {
-                                                    height: 22%!important; 
-                                                    width: 45% !important; 
+                                                    height: 15%!important; 
+                                                    width: 35% !important; 
                                                 }
+                                                .tag-delivery .text-delivery {
+                                                display: flex;
+                                                justify-content: center;
+                                                font-size: 8px !important;
+                                            }
                                                 
                                             }
                                             @media (min-width:1200px) {

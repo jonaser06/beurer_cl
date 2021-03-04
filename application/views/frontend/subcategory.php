@@ -117,7 +117,7 @@
                                                         }
                                                         .tag-descuento{
                                                             /* opacity: .7; */
-                                                            font-size:.8rem;
+                                                            font-size:.5rem;
                                                             padding: 5px 10px;
                                                             border-radius: 10px 0px 0px 10px;
                                                             background-color: #c51152;
@@ -127,6 +127,11 @@
                                                             right: 10%;
                                                             z-index: 3;
                                                             /* transform: translate(-50%, -50%); */
+                                                        }
+                                                        @media (min-width:480px) {
+                                                            .tag-descuento {
+                                                                font-size: .8rem;
+                                                            }
                                                         }
                                                     </style>
                                                 <?php } ?>
@@ -143,22 +148,24 @@
                                                             font-size:11px;
                                                             width: 50%;
                                                             margin-left: 10px;
+                                                            font-size: .5rem !important;
+
                                                         }
                                                         .img-delivery {
                                                             
-                                                            width: 50%!important;
+                                                            width: 35px!important;
                                                             height: auto;
                                                         }
                                                         .tag-delivery {
 
-                                                            height: 14%;
-                                                            width: 33%;
+                                                            height: fit-content;
+                                                            width: fit-content;
                                                             display: flex;
                                                             justify-content: flex-start;
                                                             align-items: center;
                                                             opacity: 1;
-                                                            font-size:.8rem;
-                                                            padding: 4px 12px ;
+                                                            font-size:.7rem!important;
+                                                            padding: 3px 8px ;
                                                             border-radius: 16px 0 0 16px;
                                                             background-color: #c51152;
                                                             color: #fff;
@@ -167,36 +174,41 @@
                                                             right: 10%;
                                                             /* transform: translate(-50%, -0%); */
                                                         }
-                                                        .text-delivery {
-                                                                font-size: .60rem !important;
-                                                            }
-                                                        @media (max-width:480px) {
+                                                       
+                                                        @media (max-width:575px) {
                                                             .img-delivery {
                                                             padding: 2px;
                                                              }
                                                             .tag-delivery {
-                                                                height: 18%!important; 
-                                                                width: 45% !important; 
+                                                                width: 30% !important; 
                                                                 font-size: .4rem !important;
+                                                                padding:2px;
+                                                                height: auto;
                                                             }
                                                             .text-delivery {
-                                                                font-size: .55rem !important;
+                                                                font-size: .4rem !important;
                                                             }
                                                             .btnAddCarrito {
                                                                 font-size: .7rem !important;
                                                             }
+                                                            .tag-delivery .text-delivery {
+                                                            margin-left: 2px;
+                                                            font-size: .4rem!important;
+
                                                         }
-                                                        @media (max-width: 575px) and (min-width: 481px)  {
+                                                        }
+                                                        /* @media (max-width: 575px) and (min-width: 481px)  {
                                                             .tag-delivery {
+                                                                margin-top: 5px;
                                                                 padding: 5px!important;
-                                                                height: 17%!important; 
-                                                                width: 36% !important; 
+                                                                height: auto!important; 
+                                                                width: 33% !important; 
                                                             }
                                                             .text-delivery {
-                                                                font-size: .6rem !important;
+                                                                font-size: .5rem !important;
                                                             }
                                                             
-                                                        }
+                                                        } */
                                                         @media (max-width: 991px) and (min-width: 768px)  {
                                                             .tag-delivery {
                                                                 height: 15%;
