@@ -104,7 +104,7 @@
                                             }
                                             @media (max-width:480px) {
                                                 .tag-desc{
-                                                    right: 16%;
+                                                    right: 5%;
                                                 }
                                              }
                                         </style>
@@ -238,7 +238,7 @@
 
                         <button
                             class="trans-info name-product bg-primary <?= $color; ?> font-nexaregular"><?= $pagina['pagina']; ?></button>
-                        <h2 class="px-0 col-xs-12 title-detail-product font-nexaheavy" style="font-size: 1.6rem;"><?= $product['titulo']; ?></h2>
+                        <h2 class="px-0 col-xs-12 title-detail-product font-nexaheavy" style="font-size: 1.3rem;"><?= $product['titulo']; ?></h2>
                         <span class="px-0 col-xs-12 subtitle-detail-product font-nexaregular"
                             style="border-bottom:2px solid lightgray;margin-bottom:15px;padding-bottom:15px;"><?= $product['subtitulo']; ?></span>
 
@@ -260,7 +260,7 @@
                             <?php  if( floatval($product['precio_anterior']) != floatval($product['precio'])) {
                                 echo 'price-throw';
                             }?> "
-                             style="text-align:left;font-size:1.1rem!important;font-weight:bold;font-family:'nexa-lightuploaded_file';margin-top:-0.5rem;">
+                             style="text-align:left;font-size:1.1rem!important;font-weight:bold;font-family:'nexa-lightuploaded_file';">
                                 S/ <?= $product['precio_anterior'] ?>
                             </div>
                             <br>
