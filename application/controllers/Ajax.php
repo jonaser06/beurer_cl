@@ -2449,7 +2449,7 @@ class Ajax extends MY_Controller
                         $this->db->where('cupon_codigo', $metadata['cupon_codigo']);
                         $this->db->update('cupon');
                     }
-                    $this->sendEmail($id_pedido);
+                    // $this->sendEmail($id_pedido);
 
                 }
                 $this->output
